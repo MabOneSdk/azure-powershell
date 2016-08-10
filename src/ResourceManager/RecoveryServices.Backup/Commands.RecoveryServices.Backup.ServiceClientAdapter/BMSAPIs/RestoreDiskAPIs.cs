@@ -68,18 +68,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
                 SourceResourceId = rp.SourceResourceId,
             };
 
-            //if (rp.EncryptionEnabled)
-            //{
-            //    restoreRequest.EncryptionDetails = new EncryptionDetails()
-            //    {
-            //        EncryptionEnabled = rp.EncryptionEnabled,
-            //        KekUrl = rp.KeyAndSecretDetails.KeyUrl,
-            //        KekVaultId = rp.KeyAndSecretDetails.KeyVaultId,
-            //        SecretKeyUrl = rp.KeyAndSecretDetails.SecretUrl,
-            //        SecretKeyVaultId = rp.KeyAndSecretDetails.SecretVaultId,
-            //    };              
-            //}
-
             TriggerRestoreRequest triggerRestoreRequest = new TriggerRestoreRequest();
             triggerRestoreRequest.Item = new RestoreRequestResource();
             triggerRestoreRequest.Item.Properties = new RestoreRequest();
