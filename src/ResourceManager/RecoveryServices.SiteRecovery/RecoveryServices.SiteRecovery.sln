@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.Common", "..\..\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.Common.Authentication", "..\..\Common\Commands.Common.Authentication\Commands.Common.Authentication.csproj", "{D3804B64-C0D3-48F8-82EC-1F632F833C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.RecoveryServices", "..\RecoveryServices\Commands.RecoveryServices\Commands.RecoveryServices.csproj", "{604260DC-B392-4CF4-81EC-34B14591E2D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.RecoveryServices", "..\RecoveryServices\RS\Commands.RecoveryServices\Commands.RecoveryServices.csproj", "{604260DC-B392-4CF4-81EC-34B14591E2D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.Common.Authentication.Abstractions", "..\..\Common\Commands.Common.Authentication.Abstractions\Commands.Common.Authentication.Abstractions.csproj", "{70527617-7598-4AEF-B5BD-DB9186B8184B}"
 EndProject
