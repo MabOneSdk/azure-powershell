@@ -278,7 +278,7 @@
       <Project>{3436a126-edc9-4060-8952-9a1be34cdd95}</Project>
       <Name>Commands.ScenarioTests.ResourceManager.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RecoveryServices\Commands.RecoveryServices\Commands.RecoveryServices.csproj">
+    <ProjectReference Include="..\..\RecoveryServices\RS\Commands.RecoveryServices\Commands.RecoveryServices.csproj">
       <Project>{604260DC-B392-4CF4-81EC-34B14591E2D2}</Project>
       <Name>Commands.RecoveryServices</Name>
     </ProjectReference>
