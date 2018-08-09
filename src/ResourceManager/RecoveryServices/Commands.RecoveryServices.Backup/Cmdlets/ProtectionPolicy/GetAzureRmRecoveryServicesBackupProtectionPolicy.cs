@@ -118,6 +118,10 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                             {
                                 serviceClientProviderType = ServiceClientHelpers.GetServiceClientProviderType(Models.WorkloadType.AzureSQLDatabase);
                             }
+                            else if (WorkloadType == Models.WorkloadType.AzureFiles)
+                            {
+                                serviceClientProviderType = ServiceClientHelpers.GetServiceClientProviderType(Models.WorkloadType.AzureFiles);
+                            }
                             break;
 
                         case WorkloadBackupMangementTypeParamSet:
@@ -141,6 +145,17 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                                 serviceClientProviderType =
                                     ServiceClientHelpers.GetServiceClientProviderType(
                                         Models.WorkloadType.AzureSQLDatabase);
+                            }
+                            else if (WorkloadType == Models.WorkloadType.AzureFiles)
+                            {
+                                if (BackupManagementType != Models.BackupManagementType.AzureStorage)
+                                {
+                                    throw new ArgumentException(
+                                        Resources.AzureFileUnsupportedBackupManagementTypeException);
+                                }
+                                serviceClientProviderType =
+                                    ServiceClientHelpers.GetServiceClientProviderType(
+                                        Models.WorkloadType.AzureFiles);
                             }
                             else
                             {
