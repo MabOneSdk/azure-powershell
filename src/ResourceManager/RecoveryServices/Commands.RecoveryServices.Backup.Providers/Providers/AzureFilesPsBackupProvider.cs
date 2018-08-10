@@ -30,7 +30,7 @@ using SystemNet = System.Net;
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
     /// <summary>
-    /// This class implements implements methods for File share backup provider
+    /// This class implements methods for azure files backup provider
     /// </summary>
     public class AzureFilesPsBackupProvider : IPsBackupProvider
     {
@@ -52,9 +52,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             Dictionary<Enum, object> providerData, ServiceClientAdapter serviceClientAdapter)
         {
             ProviderData = providerData;
-
             ServiceClientAdapter = serviceClientAdapter;
-
             AzureWorkloadProviderHelper = new AzureWorkloadProviderHelper(ServiceClientAdapter);
         }
 
@@ -367,7 +365,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             return containerModels;
         }
 
-
         public RestAzureNS.AzureOperationResponse DisableProtection()
         {
             throw new NotImplementedException();
@@ -375,8 +372,20 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ContainerBase> ListProtectionContainers()
         {
-            throw new NotImplementedException();
+            CmdletModel.BackupManagementType? backupManagementTypeNullable =
+                (CmdletModel.BackupManagementType?)
+                    ProviderData[ContainerParams.BackupManagementType];
+
+            if (backupManagementTypeNullable.HasValue)
+            {
+                ValidateAzureStorageBackupManagementType(backupManagementTypeNullable.Value);
+            }
+
+            return AzureWorkloadProviderHelper.ListProtectionContainers(
+                ProviderData,
+                ServiceClientModel.BackupManagementType.AzureStorage);
         }
+
         public RestAzureNS.AzureOperationResponse TriggerBackup()
         {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
@@ -388,6 +397,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             AzureFileShareBackupRequest azureFileShareBackupRequest = new AzureFileShareBackupRequest();
             azureFileShareBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
             triggerBackupRequest.Properties = azureFileShareBackupRequest;
+
             return ServiceClientAdapter.TriggerBackup(
                IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectionContainerName),
                IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectedItemName),
@@ -498,7 +508,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 resourceGroupName,
                 (itemModel, protectedItemGetResponse) =>
                 {
-                    AzureFileShareExtendedInfo extendedInfo = new AzureFileShareExtendedInfo();
+                    AzureFileShareItemExtendedInfo extendedInfo = new AzureFileShareItemExtendedInfo();
                     var serviceClientExtendedInfo = ((AzureFileshareProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
                     if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
                     {
@@ -544,6 +554,17 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public ResourceBackupStatus CheckBackupStatus()
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateAzureStorageBackupManagementType(
+            CmdletModel.BackupManagementType backupManagementType)
+        {
+            if (backupManagementType != CmdletModel.BackupManagementType.AzureStorage)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
+                                            CmdletModel.BackupManagementType.AzureStorage.ToString(),
+                                            backupManagementType.ToString()));
+            }
         }
     }
 }
