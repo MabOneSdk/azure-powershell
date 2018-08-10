@@ -51,6 +51,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     /// <summary>
     /// Azure File Share Item ExtendedInfo Class
     /// </summary>
-    public class AzureFileShareExtendedInfo : AzureItemExtendedInfo
+    public class AzureFileShareItemExtendedInfo : AzureItemExtendedInfo
     { }
 }
