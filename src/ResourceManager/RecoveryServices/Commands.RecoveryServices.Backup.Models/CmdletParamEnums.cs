@@ -86,7 +86,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         ExpiryDateTimeUTC,
         AzureFileShareName,
         StorageAccountName,
-        StorageAccountResourceGroupName,
     }
 
     public enum ProtectionCheckParams
