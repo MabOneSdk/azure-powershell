@@ -71,9 +71,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
 
     public enum ItemParams
     {
-        AzureFileShareName,
-        StorageAccountName,
-        StorageAccountResourceGroupName,
         AzureVMName,
         AzureVMCloudServiceName,
         AzureVMResourceGroupName,
@@ -87,6 +84,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         DeleteBackupData,
         BackupManagementType,
         ExpiryDateTimeUTC,
+        AzureFileShareName,
+        StorageAccountName,
+        StorageAccountResourceGroupName,
     }
 
     public enum ProtectionCheckParams

@@ -14,29 +14,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Management.Automation;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using Microsoft.Rest.Azure.OData;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
-using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using SystemNet = System.Net;
-using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
-using Microsoft.Azure.Commands.Common.Authentication;
-using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
     /// <summary>
-    /// This class implements implements methods for IaasVm backup provider
+    /// This class implements methods for azure files backup provider
     /// </summary>
     public class AzureFilesPsBackupProvider : IPsBackupProvider
     {
@@ -45,6 +32,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         Dictionary<Enum, object> ProviderData { get; set; }
         ServiceClientAdapter ServiceClientAdapter { get; set; }
+        AzureWorkloadProviderHelper AzureWorkloadProviderHelper { get; set; }
 
         /// <summary>
         /// Initializes the provider with the data recieved from the cmdlet layer
@@ -56,6 +44,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         {
             ProviderData = providerData;
             ServiceClientAdapter = serviceClientAdapter;
+            AzureWorkloadProviderHelper = new AzureWorkloadProviderHelper(ServiceClientAdapter);
         }
 
         /// <summary>
