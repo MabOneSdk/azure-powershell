@@ -268,7 +268,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
             {
                 return WorkloadType.AzureSQLDatabase;
             }
-            if (workloadType == ServiceClientModel.WorkloadType.AzureFileShare.ToString())
+            if (workloadType == ServiceClientModel.WorkloadType.AzureFileShare)
             {
                 return WorkloadType.AzureFiles;
             }
