@@ -71,6 +71,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
 
     public enum ItemParams
     {
+        AzureFileShareName,
+        StorageAccountName,
+        StorageAccountResourceGroupName,
         AzureVMName,
         AzureVMCloudServiceName,
         AzureVMResourceGroupName,

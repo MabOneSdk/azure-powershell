@@ -1188,7 +1188,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             if (isDiscoveryNeeded)
             {
                 Logger.Instance.WriteDebug(string.Format(Resources.VMNotDiscovered, azureVMName));
-                RefreshContainer(vaultName: vaultName, resourceGroupName: resourceGroupName);
+                AzureWorkloadProviderHelper.RefreshContainer(ServiceClientAdapter, vaultName, resourceGroupName);
                 isDiscoveryNeeded = IsDiscoveryNeeded(
                     azureVMName,
                     azureVMRGName,
@@ -1284,31 +1284,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             }
 
             return isDiscoveryNeed;
-        }
-
-        private void RefreshContainer(string vaultName = null, string resourceGroupName = null)
-        {
-            string errorMessage = string.Empty;
-            var refreshContainerJobResponse = ServiceClientAdapter.RefreshContainers(
-                vaultName: vaultName,
-                resourceGroupName: resourceGroupName);
-
-            var operationStatus = TrackingHelpers.GetOperationResult(
-                refreshContainerJobResponse,
-                operationId =>
-                    ServiceClientAdapter.GetRefreshContainerOperationResult(
-                        operationId,
-                        vaultName: vaultName,
-                        resourceGroupName: resourceGroupName));
-
-            //Now wait for the operation to Complete
-            if (refreshContainerJobResponse.Response.StatusCode
-                    != SystemNet.HttpStatusCode.NoContent)
-            {
-                errorMessage = string.Format(Resources.DiscoveryFailureErrorCode,
-                    refreshContainerJobResponse.Response.StatusCode);
-                Logger.Instance.WriteDebug(errorMessage);
-            }
         }
 
         private static string GetAzureIaasVirtualMachineId(
