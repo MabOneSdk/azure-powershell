@@ -32,7 +32,12 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         /// <summary>
         /// Represents any Azure Sql containers.
         /// </summary>
-        AzureSQL
+        AzureSQL,
+
+        /// <summary>
+        /// Represents any Azure Storage containers.
+        /// </summary>
+        AzureStorage
     }
 
     /// <summary>

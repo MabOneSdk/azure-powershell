@@ -66,6 +66,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
 
         internal static class Item
         {
+            public const string AzureFileShareName = "Azure FileShare Name.";
+            public const string AzureFileStorageAccountName = "Azure file share storage account name";
+            public const string AzureFileStorageAccountResourceGroupName = "Azure file share storage account resource group name";
             public const string AzureVMName = "Azure VM Name.";
             public const string AzureVMServiceName = "Cloud Service Name for Azure Classic Compute VM.";
             public const string AzureVMResourceGroupName = "Resource Group Name for Azure Compute VM .";
