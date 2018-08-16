@@ -125,7 +125,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         /// <summary>
         /// Represents the Azure File provider for powershell cmdlets.
         /// </summary>
-        AzureFile,
+        AzureFiles,
     }
 
     /// <summary>
