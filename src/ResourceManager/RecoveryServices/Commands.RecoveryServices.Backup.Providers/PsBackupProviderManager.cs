@@ -139,7 +139,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                     providerType = PsBackupProviderTypes.IaasVm;
                     break;
                 case WorkloadType.AzureFiles:
-                    providerType = PsBackupProviderTypes.AzureFile;
+                    providerType = PsBackupProviderTypes.AzureFiles;
                     break;
                 default:
                     throw new ArgumentException(
@@ -221,7 +221,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 case PsBackupProviderTypes.Dpm:
                     psBackupProvider = new DpmPsBackupProvider();
                     break;
-                case PsBackupProviderTypes.AzureFile:
+                case PsBackupProviderTypes.AzureFiles:
                     psBackupProvider = new AzureFilesPsBackupProvider();
                     break;
                 default:
