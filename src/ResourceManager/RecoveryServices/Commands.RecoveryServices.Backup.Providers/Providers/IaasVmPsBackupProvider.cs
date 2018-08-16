@@ -47,6 +47,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         Dictionary<Enum, object> ProviderData { get; set; }
         ServiceClientAdapter ServiceClientAdapter { get; set; }
+        AzureWorkloadProviderHelper AzureWorkloadProviderHelper { get; set; }
 
         /// <summary>
         /// Initializes the provider with the data recieved from the cmdlet layer
@@ -58,6 +59,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         {
             ProviderData = providerData;
             ServiceClientAdapter = serviceClientAdapter;
+            AzureWorkloadProviderHelper = new AzureWorkloadProviderHelper(ServiceClientAdapter);
         }
 
         /// <summary>
@@ -1188,7 +1190,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             if (isDiscoveryNeeded)
             {
                 Logger.Instance.WriteDebug(string.Format(Resources.VMNotDiscovered, azureVMName));
-                AzureWorkloadProviderHelper.RefreshContainer(ServiceClientAdapter, vaultName, resourceGroupName);
+                AzureWorkloadProviderHelper.RefreshContainer(vaultName, resourceGroupName);
                 isDiscoveryNeeded = IsDiscoveryNeeded(
                     azureVMName,
                     azureVMRGName,

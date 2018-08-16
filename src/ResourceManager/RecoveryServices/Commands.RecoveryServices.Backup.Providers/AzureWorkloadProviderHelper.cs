@@ -12,26 +12,10 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Management.Automation;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
-using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using Microsoft.Rest.Azure.OData;
-using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
-using RestAzureNS = Microsoft.Rest.Azure;
-using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 using SystemNet = System.Net;
-using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
-using Microsoft.Azure.Commands.Common.Authentication;
-using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -40,7 +24,14 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
     /// </summary>
     public class AzureWorkloadProviderHelper
     {
-        public static void RefreshContainer(ServiceClientAdapter ServiceClientAdapter, string vaultName = null, string resourceGroupName = null)
+        ServiceClientAdapter ServiceClientAdapter { get; set; }
+
+        public AzureWorkloadProviderHelper(ServiceClientAdapter serviceClientAdapter)
+        {
+            ServiceClientAdapter = serviceClientAdapter;
+        }
+
+        public void RefreshContainer(string vaultName = null, string resourceGroupName = null)
         {
             string errorMessage = string.Empty;
             var refreshContainerJobResponse = ServiceClientAdapter.RefreshContainers(
