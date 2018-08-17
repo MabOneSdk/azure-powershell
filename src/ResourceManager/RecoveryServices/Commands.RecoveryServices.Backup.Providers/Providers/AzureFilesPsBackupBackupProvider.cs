@@ -14,11 +14,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
+using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -31,7 +33,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         private const string separator = ";";
 
         Dictionary<Enum, object> ProviderData { get; set; }
+
         ServiceClientAdapter ServiceClientAdapter { get; set; }
+
         AzureWorkloadProviderHelper AzureWorkloadProviderHelper { get; set; }
 
         /// <summary>
@@ -139,7 +143,80 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ItemBase> ListProtectedItems()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            ContainerBase container =
+                (ContainerBase)ProviderData[ItemParams.Container];
+            string itemName = (string)ProviderData[ItemParams.ItemName];
+            ItemProtectionStatus protectionStatus =
+                (ItemProtectionStatus)ProviderData[ItemParams.ProtectionStatus];
+            ItemProtectionState status =
+                (ItemProtectionState)ProviderData[ItemParams.ProtectionState];
+            CmdletModel.WorkloadType workloadType =
+                (CmdletModel.WorkloadType)ProviderData[ItemParams.WorkloadType];
+            PolicyBase policy = (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy];
+
+            // 1. Filter by container
+            List<ProtectedItemResource> protectedItems = AzureWorkloadProviderHelper.ListProtectedItemsByContainer(
+                vaultName,
+                resourceGroupName,
+                container,
+                policy,
+                ServiceClientModel.BackupManagementType.AzureStorage,
+                DataSourceType.AzureFileShare);
+
+            List<ProtectedItemResource> protectedItemGetResponses =
+                new List<ProtectedItemResource>();
+
+            // 2. Filter by item name
+            List<ItemBase> itemModels = AzureWorkloadProviderHelper.ListProtectedItemsByItemName(
+                protectedItems,
+                itemName,
+                vaultName,
+                resourceGroupName,
+                (itemModel, protectedItemGetResponse) =>
+                {
+                    AzureFileShareItemExtendedInfo extendedInfo = new AzureFileShareItemExtendedInfo();
+                    var serviceClientExtendedInfo = ((AzureFileshareProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
+                    if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
+                    {
+                        extendedInfo.OldestRecoveryPoint = serviceClientExtendedInfo.OldestRecoveryPoint;
+                    }
+                    extendedInfo.PolicyState = serviceClientExtendedInfo.PolicyState.ToString();
+                    extendedInfo.RecoveryPointCount =
+                        (int)(serviceClientExtendedInfo.RecoveryPointCount.HasValue ?
+                            serviceClientExtendedInfo.RecoveryPointCount : 0);
+                    ((AzureFileShareItem)itemModel).ExtendedInfo = extendedInfo;
+                });
+
+            // 3. Filter by item's Protection Status
+            if (protectionStatus != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureFileShareItem)itemModel).ProtectionStatus == protectionStatus;
+                }).ToList();
+            }
+
+            // 4. Filter by item's Protection State
+            if (status != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureFileShareItem)itemModel).ProtectionState == status;
+                }).ToList();
+            }
+
+            // 5. Filter by workload type
+            if (workloadType != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return itemModel.WorkloadType == workloadType;
+                }).ToList();
+            }
+
+            return itemModels;
         }
 
         public ResourceBackupStatus CheckBackupStatus()
