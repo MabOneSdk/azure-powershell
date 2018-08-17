@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureFileShareModels\AzureFileSharePolicy.cs" />
+    <Compile Include="AzureFileShareModels\AzureFileShareItem.cs" />
     <Compile Include="AzureSqlModels\AzureSqlContainer.cs" />
     <Compile Include="AzureSqlModels\AzureSqlItem.cs" />
     <Compile Include="AzureSqlModels\AzureSqlPolicy.cs" />

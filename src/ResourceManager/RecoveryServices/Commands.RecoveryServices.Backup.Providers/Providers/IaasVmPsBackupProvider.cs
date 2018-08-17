@@ -70,7 +70,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
             string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            string azureVMName = (string)ProviderData[ItemParams.AzureVMName];
+            string azureVMName = (string)ProviderData[ItemParams.ItemName];
             string azureVMCloudServiceName = (string)ProviderData[ItemParams.AzureVMCloudServiceName];
             string azureVMResourceGroupName = (string)ProviderData[ItemParams.AzureVMResourceGroupName];
             string parameterSetName = (string)ProviderData[ItemParams.ParameterSetName];
@@ -733,7 +733,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
             ContainerBase container =
                 (ContainerBase)ProviderData[ItemParams.Container];
-            string name = (string)ProviderData[ItemParams.AzureVMName];
+            string itemName = (string)ProviderData[ItemParams.ItemName];
             ItemProtectionStatus protectionStatus =
                 (ItemProtectionStatus)ProviderData[ItemParams.ProtectionStatus];
             ItemProtectionState status =
@@ -742,80 +742,25 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 (CmdletModel.WorkloadType)ProviderData[ItemParams.WorkloadType];
             PolicyBase policy = (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy];
 
-            ODataQuery<ProtectedItemQueryObject> queryParams = policy != null ?
-                new ODataQuery<ProtectedItemQueryObject>(
-                    q => q.BackupManagementType
-                            == ServiceClientModel.BackupManagementType.AzureIaasVM &&
-                         q.ItemType == DataSourceType.VM &&
-                         q.PolicyName == policy.Name) :
-                new ODataQuery<ProtectedItemQueryObject>(
-                    q => q.BackupManagementType
-                            == ServiceClientModel.BackupManagementType.AzureIaasVM &&
-                         q.ItemType == DataSourceType.VM);
-
-            List<ProtectedItemResource> protectedItems = new List<ProtectedItemResource>();
-            string skipToken = null;
-            var listResponse = ServiceClientAdapter.ListProtectedItem(
-                queryParams,
-                skipToken,
-                vaultName: vaultName,
-                resourceGroupName: resourceGroupName);
-            protectedItems.AddRange(listResponse);
-
             // 1. Filter by container
-            if (container != null)
-            {
-                protectedItems = protectedItems.Where(protectedItem =>
-                {
-                    Dictionary<UriEnums, string> dictionary = HelperUtils.ParseUri(protectedItem.Id);
-                    string containerUri = HelperUtils.GetContainerUri(dictionary, protectedItem.Id);
+            List<ProtectedItemResource> protectedItems = AzureWorkloadProviderHelper.ListProtectedItemsByContainer(
+                vaultName,
+                resourceGroupName,
+                container,
+                policy,
+                ServiceClientModel.BackupManagementType.AzureIaasVM,
+                DataSourceType.VM);
 
-                    var delimIndex = containerUri.IndexOf(';');
-                    string containerName = containerUri.Substring(delimIndex + 1);
-                    return containerName.ToLower().Equals(container.Name.ToLower());
-                }).ToList();
-            }
-
-            List<ProtectedItemResource> protectedItemGetResponses =
-                new List<ProtectedItemResource>();
-
-            // 2. Filter by item's friendly name
-            if (!string.IsNullOrEmpty(name))
-            {
-                protectedItems = protectedItems.Where(protectedItem =>
-                {
-                    Dictionary<UriEnums, string> dictionary = HelperUtils.ParseUri(protectedItem.Id);
-                    string protectedItemUri = HelperUtils.GetProtectedItemUri(dictionary, protectedItem.Id);
-                    return protectedItemUri.ToLower().Contains(name.ToLower());
-                }).ToList();
-
-                ODataQuery<GetProtectedItemQueryObject> getItemQueryParams =
-                    new ODataQuery<GetProtectedItemQueryObject>(q => q.Expand == "extendedinfo");
-
-                for (int i = 0; i < protectedItems.Count; i++)
-                {
-                    Dictionary<UriEnums, string> dictionary = HelperUtils.ParseUri(protectedItems[i].Id);
-                    string containerUri = HelperUtils.GetContainerUri(dictionary, protectedItems[i].Id);
-                    string protectedItemUri = HelperUtils.GetProtectedItemUri(dictionary, protectedItems[i].Id);
-
-                    var getResponse = ServiceClientAdapter.GetProtectedItem(
-                        containerUri,
-                        protectedItemUri,
-                        getItemQueryParams,
-                        vaultName: vaultName,
-                        resourceGroupName: resourceGroupName);
-                    protectedItemGetResponses.Add(getResponse.Body);
-                }
-            }
-
-            List<ItemBase> itemModels = ConversionHelpers.GetItemModelList(protectedItems);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                for (int i = 0; i < itemModels.Count; i++)
+            // 2. Filter by item name
+            List<ItemBase> itemModels = AzureWorkloadProviderHelper.ListProtectedItemsByItemName(
+                protectedItems,
+                itemName,
+                vaultName,
+                resourceGroupName,
+                (itemModel, protectedItemGetResponse) =>
                 {
                     AzureVmItemExtendedInfo extendedInfo = new AzureVmItemExtendedInfo();
-                    var serviceClientExtendedInfo = ((AzureIaaSVMProtectedItem)protectedItemGetResponses[i].Properties).ExtendedInfo;
+                    var serviceClientExtendedInfo = ((AzureIaaSVMProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
                     if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
                     {
                         extendedInfo.OldestRecoveryPoint = serviceClientExtendedInfo.OldestRecoveryPoint;
@@ -824,10 +769,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                     extendedInfo.RecoveryPointCount =
                         (int)(serviceClientExtendedInfo.RecoveryPointCount.HasValue ?
                             serviceClientExtendedInfo.RecoveryPointCount : 0);
-                    ((AzureVmItem)itemModels[i]).ExtendedInfo = extendedInfo;
-                }
-            }
-
+                    ((AzureVmItem)itemModel).ExtendedInfo = extendedInfo;
+                });
+            
             // 3. Filter by item's Protection Status
             if (protectionStatus != 0)
             {
