@@ -27,7 +27,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
         public void TestAzureFilePolicy()
         {
             TestController.NewInstance.RunPsTest(
-                _logger, PsBackupProviderTypes.AzureFile, "Test-AzureFilePolicy");
+                _logger, PsBackupProviderTypes.AzureFiles, "Test-AzureFilePolicy");
         }
     }
 }

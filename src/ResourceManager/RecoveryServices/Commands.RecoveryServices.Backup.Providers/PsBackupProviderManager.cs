@@ -191,6 +191,16 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                     }
                     psProviderType = PsBackupProviderTypes.AzureSql;
                     break;
+                case WorkloadType.AzureFiles:
+                    if (backupManagementType.HasValue &&
+                        backupManagementType != BackupManagementType.AzureStorage)
+                    {
+                        throw new ArgumentException(
+                            string.Format(Resources.BackupManagementTypeNotExpectedForWorkloadType,
+                            workloadType.ToString()));
+                    }
+                    psProviderType = PsBackupProviderTypes.AzureFiles;
+                    break;
                 default:
                     throw new ArgumentException(
                         string.Format(Resources.UnsupportedWorkloadTypeException,

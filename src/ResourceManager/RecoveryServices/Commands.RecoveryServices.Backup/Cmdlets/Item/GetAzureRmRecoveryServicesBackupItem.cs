@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         /// <summary>
         /// Friendly name of the item to be returned.
         /// </summary>
-        [Parameter(Mandatory = false, Position = 2, HelpMessage = ParamHelpMsgs.Item.AzureVMName)]
+        [Parameter(Mandatory = false, Position = 2, HelpMessage = ParamHelpMsgs.Item.ItemName)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
@@ -109,7 +109,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                         { VaultParams.ResourceGroupName, resourceGroupName },
                         { ItemParams.Container, Container },
                         { ItemParams.BackupManagementType, BackupManagementType },
-                        { ItemParams.AzureVMName, Name },
+                        { ItemParams.ItemName, Name },
                         { PolicyParams.ProtectionPolicy, Policy },
                         { ItemParams.ProtectionStatus, ProtectionStatus },
                         { ItemParams.ProtectionState, ProtectionState },
