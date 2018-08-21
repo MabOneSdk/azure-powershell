@@ -22,8 +22,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     /// </summary>
     public class AzureFileShareItem : ItemBase
     {
-        public string VirtualMachineId { get; set; }
-
         /// <summary>
         /// Protection Status of the item
         /// </summary>
