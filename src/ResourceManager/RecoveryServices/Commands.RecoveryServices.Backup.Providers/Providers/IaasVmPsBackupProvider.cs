@@ -649,60 +649,21 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         /// <returns>List of protection containers</returns>
         public List<ContainerBase> ListProtectionContainers()
         {
-            string vaultName = (string)ProviderData[VaultParams.VaultName];
-            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            CmdletModel.ContainerType containerType =
-                (CmdletModel.ContainerType)ProviderData[ContainerParams.ContainerType];
+            string resourceGroupName = (string)ProviderData[ContainerParams.ResourceGroupName];
             CmdletModel.BackupManagementType? backupManagementTypeNullable =
                 (CmdletModel.BackupManagementType?)
                     ProviderData[ContainerParams.BackupManagementType];
-            string name = (string)ProviderData[ContainerParams.Name];
-            string friendlyName = (string)ProviderData[ContainerParams.FriendlyName];
-            string resourceGroupName = (string)ProviderData[ContainerParams.ResourceGroupName];
-            ContainerRegistrationStatus status =
-                (ContainerRegistrationStatus)ProviderData[ContainerParams.Status];
 
             if (backupManagementTypeNullable.HasValue)
             {
                 ValidateAzureVMBackupManagementType(backupManagementTypeNullable.Value);
             }
 
-            string nameQueryFilter = friendlyName;
+            var containerModels = AzureWorkloadProviderHelper.ListProtectionContainers(
+                ProviderData,
+                ServiceClientModel.BackupManagementType.AzureIaasVM);
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                Logger.Instance.WriteWarning(Resources.GetContainerNameParamDeprecated);
-
-                if (string.IsNullOrEmpty(friendlyName))
-                {
-                    nameQueryFilter = name;
-                }
-            }
-
-            ODataQuery<BMSContainerQueryObject> queryParams = null;
-            if (status == 0)
-            {
-                queryParams = new ODataQuery<BMSContainerQueryObject>(
-                q => q.FriendlyName == nameQueryFilter &&
-                q.BackupManagementType == ServiceClientModel.BackupManagementType.AzureIaasVM);
-            }
-            else
-            {
-                var statusString = status.ToString();
-                queryParams = new ODataQuery<BMSContainerQueryObject>(
-                q => q.FriendlyName == nameQueryFilter &&
-                q.BackupManagementType == ServiceClientModel.BackupManagementType.AzureIaasVM &&
-                q.Status == statusString);
-            }
-
-            var listResponse = ServiceClientAdapter.ListContainers(
-                queryParams,
-                vaultName: vaultName,
-                resourceGroupName: vaultResourceGroupName);
-
-            List<ContainerBase> containerModels = ConversionHelpers.GetContainerModelList(listResponse);
-
-            // 4. Filter by RG Name
+            // Filter by RG Name
             if (!string.IsNullOrEmpty(resourceGroupName))
             {
                 containerModels = containerModels.Where(
