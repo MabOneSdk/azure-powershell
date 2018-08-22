@@ -108,6 +108,20 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                             containerType));
                     }
                     break;
+                case ContainerType.AzureStorage:
+                    if (backupManagementType == BackupManagementType.AzureStorage ||
+                        backupManagementType == null)
+                    {
+                        providerType = PsBackupProviderTypes.AzureFiles;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(
+                            string.Format(
+                            Resources.BackupManagementTypeRequiredForContainerType,
+                            containerType));
+                    }
+                    break;
                 default:
                     throw new ArgumentException(
                         string.Format(Resources.UnsupportedContainerType,

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
@@ -67,8 +68,20 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ContainerBase> ListProtectionContainers()
         {
-            throw new NotImplementedException();
+            CmdletModel.BackupManagementType? backupManagementTypeNullable =
+                (CmdletModel.BackupManagementType?)
+                    ProviderData[ContainerParams.BackupManagementType];
+
+            if (backupManagementTypeNullable.HasValue)
+            {
+                ValidateAzureStorageBackupManagementType(backupManagementTypeNullable.Value);
+            }
+
+            return AzureWorkloadProviderHelper.ListProtectionContainers(
+                ProviderData,
+                ServiceClientModel.BackupManagementType.AzureStorage);
         }
+
         public RestAzureNS.AzureOperationResponse TriggerBackup()
         {
             throw new NotImplementedException();
@@ -222,6 +235,17 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public ResourceBackupStatus CheckBackupStatus()
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateAzureStorageBackupManagementType(
+            CmdletModel.BackupManagementType backupManagementType)
+        {
+            if (backupManagementType != CmdletModel.BackupManagementType.AzureStorage)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
+                                            CmdletModel.BackupManagementType.AzureStorage.ToString(),
+                                            backupManagementType.ToString()));
+            }
         }
     }
 }
