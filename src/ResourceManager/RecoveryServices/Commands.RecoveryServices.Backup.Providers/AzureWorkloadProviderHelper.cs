@@ -156,5 +156,52 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
             return itemModels;
         }
+
+        public List<CmdletModel.ContainerBase> ListProtectionContainers(
+            Dictionary<Enum, object> providerData,
+            string backupManagementType)
+        {
+            string vaultName = (string)providerData[CmdletModel.VaultParams.VaultName];
+            string vaultResourceGroupName = (string)providerData[CmdletModel.VaultParams.ResourceGroupName];
+            string name = (string)providerData[CmdletModel.ContainerParams.Name];
+            string friendlyName = (string)providerData[CmdletModel.ContainerParams.FriendlyName];
+            CmdletModel.ContainerRegistrationStatus status =
+                (CmdletModel.ContainerRegistrationStatus)providerData[CmdletModel.ContainerParams.Status];
+
+            string nameQueryFilter = friendlyName;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                Logger.Instance.WriteWarning(Resources.GetContainerNameParamDeprecated);
+
+                if (string.IsNullOrEmpty(friendlyName))
+                {
+                    nameQueryFilter = name;
+                }
+            }
+
+            ODataQuery<ServiceClientModel.BMSContainerQueryObject> queryParams = null;
+            if (status == 0)
+            {
+                queryParams = new ODataQuery<ServiceClientModel.BMSContainerQueryObject>(
+                q => q.FriendlyName == nameQueryFilter &&
+                q.BackupManagementType == backupManagementType);
+            }
+            else
+            {
+                var statusString = status.ToString();
+                queryParams = new ODataQuery<ServiceClientModel.BMSContainerQueryObject>(
+                q => q.FriendlyName == nameQueryFilter &&
+                q.BackupManagementType == backupManagementType &&
+                q.Status == statusString);
+            }
+
+            var listResponse = ServiceClientAdapter.ListContainers(
+                queryParams,
+                vaultName: vaultName,
+                resourceGroupName: vaultResourceGroupName);
+
+            return ConversionHelpers.GetContainerModelList(listResponse);
+        }
     }
 }

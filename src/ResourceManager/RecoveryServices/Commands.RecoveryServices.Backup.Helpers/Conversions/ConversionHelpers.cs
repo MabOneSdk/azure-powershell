@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                 {
                     containerModel = new AzureVmContainer(protectionContainer);
                 }
-                if (protectionContainer.Properties.GetType() == typeof(ServiceClientModel.MabContainer))
+                else if (protectionContainer.Properties.GetType() == typeof(ServiceClientModel.MabContainer))
                 {
                     containerModel = new MabContainer(protectionContainer);
                 }
@@ -49,6 +49,11 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                     typeof(ServiceClientModel.AzureSqlContainer))
                 {
                     containerModel = new AzureSqlContainer(protectionContainer);
+                }
+                else if (protectionContainer.Properties.GetType() ==
+                    typeof(ServiceClientModel.AzureStorageContainer))
+                {
+                    containerModel = new AzureFileShareContainer(protectionContainer);
                 }
             }
 
