@@ -28,3 +28,28 @@ function Test-AzureFileItem
 		# Cleanup
 	}
 }
+
+function Test-AzureFileShareBackup
+{
+	$location = "westus"
+	$resourceGroupName = "sisi-RSV"
+
+	try
+	{
+		# Setup
+		$vm = Create-VM $resourceGroupName $location
+		$vault = Create-RecoveryServicesVault $resourceGroupName $location
+		$item = Enable-Protection $vault $vm
+		
+		# Trigger backup and wait for completion
+		$backupJob = Backup-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Item $item | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+
+		Assert-True { $backupJob.Status -eq "Completed" }
+	}
+	finally
+	{
+		# Cleanup
+	}
+}

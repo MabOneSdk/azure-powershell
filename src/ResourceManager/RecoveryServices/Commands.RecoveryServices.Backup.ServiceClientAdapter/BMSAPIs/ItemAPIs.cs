@@ -136,9 +136,18 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
             string resourceGroupName = null)
         {
             BackupRequestResource triggerBackupRequest = new BackupRequestResource();
-            IaasVMBackupRequest iaasVmBackupRequest = new IaasVMBackupRequest();
-            iaasVmBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTimeUtc;
-            triggerBackupRequest.Properties = iaasVmBackupRequest;
+            if (string.Compare(containerName.Split(';')[0], "IaasVMContainer") == 0)
+            {
+                IaasVMBackupRequest iaasVmBackupRequest = new IaasVMBackupRequest();
+                iaasVmBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTimeUtc;
+                triggerBackupRequest.Properties = iaasVmBackupRequest;
+            }
+            else if (string.Compare(containerName.Split(';')[0], "StorageContainer") == 0)
+            {
+                AzureFileShareBackupRequest azureFileShareBackupRequest = new AzureFileShareBackupRequest();
+                azureFileShareBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTimeUtc;
+                triggerBackupRequest.Properties = azureFileShareBackupRequest;
+            }
 
             return BmsAdapter.Client.Backups.TriggerWithHttpMessagesAsync(
                 vaultName ?? BmsAdapter.GetResourceName(),
