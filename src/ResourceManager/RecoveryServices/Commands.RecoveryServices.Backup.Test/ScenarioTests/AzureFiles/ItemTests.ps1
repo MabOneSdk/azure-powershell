@@ -37,14 +37,15 @@ function Test-AzureFileShareBackup
 	try
 	{
 		# Setup
-		$vm = Create-VM $resourceGroupName $location
-		$vault = Create-RecoveryServicesVault $resourceGroupName $location
-		$item = Enable-Protection $vault $vm
+		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName 'sisi-RSV' -Name 'sisi-RSV-29-6'
+		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'sisi-RSV' -Name 'sisi-RSV-29-6' | Set-AzureRmRecoveryServicesVaultContext
+		$FSContainer = Get-AzureRmRecoveryServicesBackupContainer -ContainerType “AzureStorage” -FriendlyName "sisisa"
+		$FSItem = Get-AzureRmRecoveryServicesBackupItem -Container $FSContainer[14] -WorkloadType “AzureFiles” -Name "test2"
 		
 		# Trigger backup and wait for completion
 		$backupJob = Backup-AzureRmRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
-			-Item $item | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+			-Item $FSItem[0] | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
 
 		Assert-True { $backupJob.Status -eq "Completed" }
 	}

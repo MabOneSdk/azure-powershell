@@ -84,11 +84,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse TriggerBackup()
         {
-            throw new NotImplementedException();
-        }
-
-        public RestAzureNS.AzureOperationResponse TriggerRestore()
-        {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
             string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
             ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
@@ -101,6 +96,11 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 expiryDateTime,
                 vaultName: vaultName,
                 resourceGroupName: resourceGroupName);
+        }
+
+        public RestAzureNS.AzureOperationResponse TriggerRestore()
+        {
+            throw new NotImplementedException();
         }
 
         public ProtectedItemResource GetProtectedItem()

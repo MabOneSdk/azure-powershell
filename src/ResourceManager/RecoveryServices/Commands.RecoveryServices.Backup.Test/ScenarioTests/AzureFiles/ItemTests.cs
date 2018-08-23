@@ -32,11 +32,11 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureVM)]
+        [Trait(TestConstants.Workload, TestConstants.AzureFile)]
         public void TestAzureFileShareBackup()
         {
             TestController.NewInstance.RunPsTest(
-                _logger, PsBackupProviderTypes.IaasVm, "Test-AzureFileShareBackup");
+                _logger, PsBackupProviderTypes.AzureFiles, "Test-AzureFileShareBackup");
         }
     }
 }
