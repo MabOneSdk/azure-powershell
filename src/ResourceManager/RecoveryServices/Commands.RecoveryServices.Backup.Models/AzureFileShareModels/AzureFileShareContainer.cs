@@ -17,7 +17,7 @@ using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
 {
     /// <summary>
-    /// Azure VM specific container class.
+    /// Azure File Share specific container class.
     /// </summary>
     public class AzureFileShareContainer : AzureContainer
     {
