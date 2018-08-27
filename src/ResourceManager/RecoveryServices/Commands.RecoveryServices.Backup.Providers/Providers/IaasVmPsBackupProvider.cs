@@ -239,11 +239,15 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
             DateTime? expiryDateTime = (DateTime?)ProviderData[ItemParams.ExpiryDateTimeUTC];
             AzureVmItem iaasVmItem = item as AzureVmItem;
+            BackupRequestResource triggerBackupRequest = new BackupRequestResource();
+            IaasVMBackupRequest iaasVmBackupRequest = new IaasVMBackupRequest();
+            iaasVmBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
+            triggerBackupRequest.Properties = iaasVmBackupRequest;
 
             return ServiceClientAdapter.TriggerBackup(
                 IdUtils.GetValueByName(iaasVmItem.Id, IdUtils.IdNames.ProtectionContainerName),
                 IdUtils.GetValueByName(iaasVmItem.Id, IdUtils.IdNames.ProtectedItemName),
-                expiryDateTime,
+                triggerBackupRequest,
                 vaultName: vaultName,
                 resourceGroupName: resourceGroupName);
         }
@@ -732,7 +736,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                             serviceClientExtendedInfo.RecoveryPointCount : 0);
                     ((AzureVmItem)itemModel).ExtendedInfo = extendedInfo;
                 });
-            
+
             // 3. Filter by item's Protection Status
             if (protectionStatus != 0)
             {
