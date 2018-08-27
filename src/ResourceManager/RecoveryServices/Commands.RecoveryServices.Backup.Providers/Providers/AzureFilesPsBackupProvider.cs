@@ -85,17 +85,21 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public RestAzureNS.AzureOperationResponse TriggerBackup()
         {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
-            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
             ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
             DateTime? expiryDateTime = (DateTime?)ProviderData[ItemParams.ExpiryDateTimeUTC];
             AzureFileShareItem azureFileShareItem = item as AzureFileShareItem;
+            BackupRequestResource triggerBackupRequest = new BackupRequestResource();
+            AzureFileShareBackupRequest azureFileShareBackupRequest = new AzureFileShareBackupRequest();
+            azureFileShareBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
+            triggerBackupRequest.Properties = azureFileShareBackupRequest;
 
             return ServiceClientAdapter.TriggerBackup(
                 IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectionContainerName),
                 IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectedItemName),
-                expiryDateTime,
+                triggerBackupRequest,
                 vaultName: vaultName,
-                resourceGroupName: resourceGroupName);
+                resourceGroupName: vaultResourceGroupName);
         }
 
         public RestAzureNS.AzureOperationResponse TriggerRestore()
