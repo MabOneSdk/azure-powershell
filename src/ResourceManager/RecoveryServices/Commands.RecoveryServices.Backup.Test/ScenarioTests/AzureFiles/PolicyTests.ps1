@@ -53,7 +53,7 @@ function Test-AzureFileProtection
 			-VaultId $vault.ID `
 			-Policy $Policy `
 			-Name "test" `
-			-StorageAccountName "sisitestaccount"
+			-StorageAccountName "sisisa46"
 	}
 	finally
 	{
