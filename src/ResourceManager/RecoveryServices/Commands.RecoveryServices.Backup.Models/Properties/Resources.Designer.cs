@@ -97,11 +97,10 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified Azure File Share Not Found. Possible causes are
-        ///1. File Share does not exist
-        ///2. The file share name needs to be case sensitive
-        ///3. File share is already Protected with same or other Vault. Please Unprotect file share first and then try to protect it again.
-        ///
+        ///   Looks up a localized string similar to Looks like File Shares similar to specified Azure File Share are not found. Possible causes are
+        ///1. The Azure File Share does not exist
+        ///2. The Azure File Share is already protected with same Vault. Please unprotect the Azure File Shares first and then try to protect it again.
+        ///3. The Azure File Share is already protected with another Vault. Please unprotect the Azure File Share first, unregister the Storage Account from that Vault and protect it again. 
         ///Please contact Microsoft for further assistance..
         /// </summary>
         public static string AzureFileShareNotFound {
