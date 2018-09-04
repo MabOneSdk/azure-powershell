@@ -223,6 +223,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
                         .Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last();
                 string psFile =
                     "ScenarioTests\\" + testFolderName + "\\" + callingClassName + ".ps1";
+                string workloadCommonPsFile = "ScenarioTests\\" + testFolderName + "\\Common.ps1";
                 string commonPsFile = "ScenarioTests\\" + testFolderName + "\\Common.ps1";
                 string rmProfileModule = helper.RMProfileModule;
                 string rmModulePath = helper.GetRMModulePath("AzureRM.RecoveryServices.Backup.psd1");
