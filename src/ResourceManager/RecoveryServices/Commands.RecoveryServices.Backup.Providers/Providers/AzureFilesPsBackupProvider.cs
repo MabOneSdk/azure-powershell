@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
             string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            string azureFileShareName = (string)ProviderData[ItemParams.AzureFileShareName];
+            string azureFileShareName = (string)ProviderData[ItemParams.ItemName];
             string storageAccountName = (string)ProviderData[ItemParams.StorageAccountName];
             string parameterSetName = (string)ProviderData[ItemParams.ParameterSetName];
 
