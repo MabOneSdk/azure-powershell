@@ -91,6 +91,37 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                     result.Add(rpBase);
                 }
 
+                if (rp.Properties.GetType() == typeof(ServiceClientModel.AzureFileShareRecoveryPoint))
+                {
+                    ServiceClientModel.AzureFileShareRecoveryPoint recPoint =
+                        rp.Properties as ServiceClientModel.AzureFileShareRecoveryPoint;
+
+                    DateTime recPointTime = DateTime.MinValue;
+                    if (recPoint.RecoveryPointTime.HasValue)
+                    {
+                        recPointTime = (DateTime)recPoint.RecoveryPointTime;
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("RecoveryPointTime is null");
+                    }
+
+                    AzureFileShareRecoveryPoint rpBase = new AzureFileShareRecoveryPoint()
+                    {
+                        RecoveryPointId = rp.Name,
+                        BackupManagementType = item.BackupManagementType,
+                        ItemName = protectedItemName,
+                        ContainerName = containerName,
+                        ContainerType = item.ContainerType,
+                        RecoveryPointTime = recPointTime,
+                        RecoveryPointType = recPoint.RecoveryPointType,
+                        Id = rp.Id,
+                        WorkloadType = item.WorkloadType,
+                        FileShareSnapshotUri = recPoint.FileShareSnapshotUri,
+                    };
+                    result.Add(rpBase);
+                }
+
                 if (rp.Properties.GetType() == typeof(ServiceClientModel.GenericRecoveryPoint))
                 {
                     ServiceClientModel.GenericRecoveryPoint recPoint =
@@ -202,6 +233,39 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                 }
 
                 result = vmResult;
+            }
+
+            if (rpResponse.Properties.GetType() ==
+                typeof(ServiceClientModel.AzureFileShareRecoveryPoint))
+            {
+                ServiceClientModel.AzureFileShareRecoveryPoint recPoint =
+                    rpResponse.Properties as ServiceClientModel.AzureFileShareRecoveryPoint;
+
+                DateTime recPointTime = DateTime.MinValue;
+                if (recPoint.RecoveryPointTime.HasValue)
+                {
+                    recPointTime = (DateTime)recPoint.RecoveryPointTime;
+                }
+                else
+                {
+                    throw new ArgumentNullException("RecoveryPointTime is null");
+                }
+
+                AzureFileShareRecoveryPoint fileResult = new AzureFileShareRecoveryPoint()
+                {
+                    RecoveryPointId = rpResponse.Name,
+                    BackupManagementType = item.BackupManagementType,
+                    ItemName = protectedItemName,
+                    ContainerName = containerName,
+                    ContainerType = item.ContainerType,
+                    RecoveryPointTime = recPointTime,
+                    RecoveryPointType = recPoint.RecoveryPointType,
+                    Id = rpResponse.Id,
+                    WorkloadType = item.WorkloadType,
+                    FileShareSnapshotUri = recPoint.FileShareSnapshotUri
+                };
+
+                result = fileResult;
             }
 
             if (rpResponse.Properties.GetType() ==

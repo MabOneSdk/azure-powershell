@@ -59,3 +59,44 @@ function Test-AzureFileShareBackup
 		# Cleanup
 	}
 }
+
+function Test-AzureFileShareGetRPs
+{
+	$location = "westus"
+	$resourceGroupName = "sisi-RSV"
+
+	try
+	{
+		# Test 1: Get latest recovery point; should be only one
+
+		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name "sisi-RSV-29-6"
+		$container = Get-AzureRmRecoveryServicesBackupContainer `
+			-VaultId $vault.ID `
+			-ContainerType AzureStorage `
+			-Status Registered `
+			-FriendlyName "sisisa";
+ 		$item = Get-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Container $container[16] `
+			-WorkloadType AzureFiles `
+			-Name "sharetest"
+		$recoveryPoint = Get-AzureRmRecoveryServicesBackupRecoveryPoint `
+			-VaultId $vault.ID `
+			-Item $item;
+	
+		Assert-NotNull $recoveryPoint[0];
+		Assert-True { $recoveryPoint[0].Id -match $item.Id };
+
+		# Test 2: Get Recovery point detail
+		$recoveryPointDetail = Get-AzureRmRecoveryServicesBackupRecoveryPoint `
+			-VaultId $vault.ID `
+			-RecoveryPointId $recoveryPoint[0].RecoveryPointId `
+			-Item $item;
+	
+		Assert-NotNull $recoveryPointDetail;
+	}
+	finally
+	{
+		# Cleanup
+	}
+}
