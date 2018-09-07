@@ -63,68 +63,293 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         /// <returns>The job response returned from the service</returns>
         public RestAzureNS.AzureOperationResponse EnableProtection()
         {
+            return EnableOrDisableProtection();
+        }
+
+        /// <summary>
+        /// Triggers the disable protection operation for the given item
+        /// </summary>
+        /// <returns>The job response returned from the service</returns>
+        public RestAzureNS.AzureOperationResponse DisableProtection()
+        {
+            return EnableOrDisableProtection();
+        }
+
+        public List<ContainerBase> ListProtectionContainers()
+        {
+            CmdletModel.BackupManagementType? backupManagementTypeNullable =
+                (CmdletModel.BackupManagementType?)
+                    ProviderData[ContainerParams.BackupManagementType];
+
+            if (backupManagementTypeNullable.HasValue)
+            {
+                ValidateAzureStorageBackupManagementType(backupManagementTypeNullable.Value);
+            }
+
+            return AzureWorkloadProviderHelper.ListProtectionContainers(
+                ProviderData,
+                ServiceClientModel.BackupManagementType.AzureStorage);
+        }
+
+        public RestAzureNS.AzureOperationResponse TriggerBackup()
+        {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
             string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            string azureFileShareName = (string)ProviderData[ItemParams.ItemName];
-            string storageAccountName = (string)ProviderData[ItemParams.StorageAccountName];
-            string parameterSetName = (string)ProviderData[ItemParams.ParameterSetName];
+            ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
+            DateTime? expiryDateTime = (DateTime?)ProviderData[ItemParams.ExpiryDateTimeUTC];
+            AzureFileShareItem azureFileShareItem = item as AzureFileShareItem;
+            BackupRequestResource triggerBackupRequest = new BackupRequestResource();
+            AzureFileShareBackupRequest azureFileShareBackupRequest = new AzureFileShareBackupRequest();
+            azureFileShareBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
+            triggerBackupRequest.Properties = azureFileShareBackupRequest;
 
-            PolicyBase policy = (PolicyBase)ProviderData[ItemParams.Policy];
+            return ServiceClientAdapter.TriggerBackup(
+               IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectionContainerName),
+               IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectedItemName),
+               triggerBackupRequest,
+               vaultName: vaultName,
+               resourceGroupName: vaultResourceGroupName);
+        }
+
+        public RestAzureNS.AzureOperationResponse TriggerRestore()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProtectedItemResource GetProtectedItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public RecoveryPointBase GetRecoveryPointDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RecoveryPointBase> ListRecoveryPoints()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProtectionPolicyResource CreatePolicy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> ModifyPolicy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public RPMountScriptDetails ProvisionItemLevelRecoveryAccess()
+
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RevokeItemLevelRecoveryAccess()
+
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CmdletModel.BackupEngineBase> ListBackupManagementServers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProtectionPolicyResource GetPolicy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePolicy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public SchedulePolicyBase GetDefaultSchedulePolicyObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        public RetentionPolicyBase GetDefaultRetentionPolicyObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ItemBase> ListProtectedItems()
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            ContainerBase container =
+                (ContainerBase)ProviderData[ItemParams.Container];
+            string itemName = (string)ProviderData[ItemParams.ItemName];
+            ItemProtectionStatus protectionStatus =
+                (ItemProtectionStatus)ProviderData[ItemParams.ProtectionStatus];
+            ItemProtectionState status =
+                (ItemProtectionState)ProviderData[ItemParams.ProtectionState];
+            CmdletModel.WorkloadType workloadType =
+                (CmdletModel.WorkloadType)ProviderData[ItemParams.WorkloadType];
+            PolicyBase policy = (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy];
+
+            // 1. Filter by container
+            List<ProtectedItemResource> protectedItems = AzureWorkloadProviderHelper.ListProtectedItemsByContainer(
+                vaultName,
+                resourceGroupName,
+                container,
+                policy,
+                ServiceClientModel.BackupManagementType.AzureStorage,
+                DataSourceType.AzureFileShare);
+
+            List<ProtectedItemResource> protectedItemGetResponses =
+                new List<ProtectedItemResource>();
+
+            // 2. Filter by item name
+            List<ItemBase> itemModels = AzureWorkloadProviderHelper.ListProtectedItemsByItemName(
+                protectedItems,
+                itemName,
+                vaultName,
+                resourceGroupName,
+                (itemModel, protectedItemGetResponse) =>
+                {
+                    AzureFileShareItemExtendedInfo extendedInfo = new AzureFileShareItemExtendedInfo();
+                    var serviceClientExtendedInfo = ((AzureFileshareProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
+                    if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
+                    {
+                        extendedInfo.OldestRecoveryPoint = serviceClientExtendedInfo.OldestRecoveryPoint;
+                    }
+                    extendedInfo.PolicyState = serviceClientExtendedInfo.PolicyState.ToString();
+                    extendedInfo.RecoveryPointCount =
+                        (int)(serviceClientExtendedInfo.RecoveryPointCount.HasValue ?
+                            serviceClientExtendedInfo.RecoveryPointCount : 0);
+                    ((AzureFileShareItem)itemModel).ExtendedInfo = extendedInfo;
+                });
+
+            // 3. Filter by item's Protection Status
+            if (protectionStatus != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureFileShareItem)itemModel).ProtectionStatus == protectionStatus;
+                }).ToList();
+            }
+
+            // 4. Filter by item's Protection State
+            if (status != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureFileShareItem)itemModel).ProtectionState == status;
+                }).ToList();
+            }
+
+            // 5. Filter by workload type
+            if (workloadType != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return itemModel.WorkloadType == workloadType;
+                }).ToList();
+            }
+
+            return itemModels;
+        }
+
+        private RestAzureNS.AzureOperationResponse EnableOrDisableProtection()
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string azureFileShareName = ProviderData.ContainsKey(ItemParams.ItemName) ?
+                (string)ProviderData[ItemParams.ItemName] : null;
+            string storageAccountName = ProviderData.ContainsKey(ItemParams.StorageAccountName) ?
+                (string)ProviderData[ItemParams.StorageAccountName] : null;
+            string parameterSetName = ProviderData.ContainsKey(ItemParams.ParameterSetName) ?
+                (string)ProviderData[ItemParams.ParameterSetName] : null;
+
+            PolicyBase policy = ProviderData.ContainsKey(ItemParams.Policy) ?
+                (PolicyBase)ProviderData[ItemParams.Policy] : null;
+            bool deleteBackupData = ProviderData.ContainsKey(ItemParams.DeleteBackupData) ?
+                (bool)ProviderData[ItemParams.DeleteBackupData] : false;
 
             ItemBase itemBase = (ItemBase)ProviderData[ItemParams.Item];
 
             AzureFileShareItem item = (AzureFileShareItem)ProviderData[ItemParams.Item];
-            // do validations
+
             string containerUri = "";
             string protectedItemUri = "";
             string sourceResourceId = null;
+            AzureFileshareProtectedItem properties = new AzureFileshareProtectedItem();
 
-            if (itemBase == null)
+            if (policy != null)
             {
-                ValidateAzureFilesWorkloadType(policy.WorkloadType);
-
-                ValidateFileShareEnableProtectionRequest(
-                    azureFileShareName,
-                    storageAccountName);
-
-                WorkloadProtectableItemResource protectableObjectResource =
-                    GetAzureFileShareProtectableObject(
-                        azureFileShareName,
-                        storageAccountName,
-                        vaultName: vaultName,
-                        vaultResourceGroupName: vaultResourceGroupName);
-
-                Dictionary<UriEnums, string> keyValueDict =
-                    HelperUtils.ParseUri(protectableObjectResource.Id);
-                containerUri = HelperUtils.GetContainerUri(
-                    keyValueDict, protectableObjectResource.Id);
-                protectedItemUri = HelperUtils.GetProtectableItemUri(
-                    keyValueDict, protectableObjectResource.Id);
-
-                AzureFileShareProtectableItem azureFileShareProtectableItem =
-                    (AzureFileShareProtectableItem)protectableObjectResource.Properties;
-                if (azureFileShareProtectableItem != null)
+                if (itemBase == null)
                 {
-                    sourceResourceId = azureFileShareProtectableItem.ParentContainerFabricId;
+                    ValidateAzureFilesWorkloadType(policy.WorkloadType);
+
+                    ValidateFileShareEnableProtectionRequest(
+                        azureFileShareName,
+                        storageAccountName);
+
+                    WorkloadProtectableItemResource protectableObjectResource =
+                        GetAzureFileShareProtectableObject(
+                            azureFileShareName,
+                            storageAccountName,
+                            vaultName: vaultName,
+                            vaultResourceGroupName: vaultResourceGroupName);
+
+                    Dictionary<UriEnums, string> keyValueDict =
+                        HelperUtils.ParseUri(protectableObjectResource.Id);
+                    containerUri = HelperUtils.GetContainerUri(
+                        keyValueDict, protectableObjectResource.Id);
+                    protectedItemUri = HelperUtils.GetProtectableItemUri(
+                        keyValueDict, protectableObjectResource.Id);
+
+                    AzureFileShareProtectableItem azureFileShareProtectableItem =
+                        (AzureFileShareProtectableItem)protectableObjectResource.Properties;
+                    if (azureFileShareProtectableItem != null)
+                    {
+                        sourceResourceId = azureFileShareProtectableItem.ParentContainerFabricId;
+                    }
                 }
+                else
+                {
+                    ValidateAzureFilesWorkloadType(item.WorkloadType, policy.WorkloadType);
+                    ValidateAzureFilesModifyProtectionRequest(itemBase, policy);
+
+                    Dictionary<UriEnums, string> keyValueDict = HelperUtils.ParseUri(item.Id);
+                    containerUri = HelperUtils.GetContainerUri(keyValueDict, item.Id);
+                    protectedItemUri = HelperUtils.GetProtectedItemUri(keyValueDict, item.Id);
+                    sourceResourceId = item.SourceResourceId;
+                }
+
+                // construct Service Client protectedItem request
+                properties.PolicyId = policy.Id;
+                properties.SourceResourceId = sourceResourceId;
             }
             else
             {
-                ValidateAzureFilesWorkloadType(item.WorkloadType, policy.WorkloadType);
-                ValidateAzureFilesModifyProtectionRequest(itemBase, policy);
+                ValidateAzureFileShareDisableProtectionRequest(itemBase);
 
                 Dictionary<UriEnums, string> keyValueDict = HelperUtils.ParseUri(item.Id);
                 containerUri = HelperUtils.GetContainerUri(keyValueDict, item.Id);
                 protectedItemUri = HelperUtils.GetProtectedItemUri(keyValueDict, item.Id);
-                sourceResourceId = item.SourceResourceId;
+
+                if (deleteBackupData)
+                {
+                    return ServiceClientAdapter.DeleteProtectedItem(
+                                    containerUri,
+                                    protectedItemUri,
+                                    vaultName: vaultName,
+                                    resourceGroupName: vaultResourceGroupName);
+                }
+                else
+                {
+                    properties.PolicyId = string.Empty;
+                    properties.ProtectionState = ProtectionState.ProtectionStopped;
+                    properties.SourceResourceId = item.SourceResourceId;
+                }
             }
-
-            // construct Service Client protectedItem request
-
-            AzureFileshareProtectedItem properties = new AzureFileshareProtectedItem();
-
-            properties.PolicyId = policy.Id;
-            properties.SourceResourceId = sourceResourceId;
 
             ProtectedItemResource serviceClientRequest = new ProtectedItemResource()
             {
@@ -137,29 +362,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 serviceClientRequest,
                 vaultName: vaultName,
                 resourceGroupName: vaultResourceGroupName);
-        }
-
-        private void ValidateAzureFilesWorkloadType(CmdletModel.WorkloadType type)
-        {
-            if (type != CmdletModel.WorkloadType.AzureFiles)
-            {
-                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
-                                            CmdletModel.WorkloadType.AzureFiles.ToString(),
-                                            type.ToString()));
-            }
-        }
-
-        private void ValidateAzureFilesWorkloadType(CmdletModel.WorkloadType itemWorkloadType,
-            CmdletModel.WorkloadType policyWorkloadType)
-        {
-            ValidateAzureFilesWorkloadType(itemWorkloadType);
-            ValidateAzureFilesWorkloadType(policyWorkloadType);
-            if (itemWorkloadType != policyWorkloadType)
-            {
-                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
-                                            CmdletModel.WorkloadType.AzureFiles.ToString(),
-                                            itemWorkloadType.ToString()));
-            }
         }
 
         private void ValidateFileShareEnableProtectionRequest(string fileShareName, string storageAccountName)
@@ -366,190 +568,51 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             return containerModels;
         }
 
-        public RestAzureNS.AzureOperationResponse DisableProtection()
+        private void ValidateAzureStorageBackupManagementType(
+            CmdletModel.BackupManagementType backupManagementType)
         {
-            throw new NotImplementedException();
+            if (backupManagementType != CmdletModel.BackupManagementType.AzureStorage)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
+                                            CmdletModel.BackupManagementType.AzureStorage.ToString(),
+                                            backupManagementType.ToString()));
+            }
         }
 
-        public List<ContainerBase> ListProtectionContainers()
+        private void ValidateAzureFileShareDisableProtectionRequest(ItemBase itemBase)
         {
-            CmdletModel.BackupManagementType? backupManagementTypeNullable =
-                (CmdletModel.BackupManagementType?)
-                    ProviderData[ContainerParams.BackupManagementType];
 
-            if (backupManagementTypeNullable.HasValue)
+            if (itemBase == null || itemBase.GetType() != typeof(AzureFileShareItem))
             {
-                ValidateAzureStorageBackupManagementType(backupManagementTypeNullable.Value);
+                throw new ArgumentException(string.Format(Resources.InvalidProtectionPolicyException,
+                                            typeof(AzureFileShareItem).ToString()));
             }
 
-            return AzureWorkloadProviderHelper.ListProtectionContainers(
-                ProviderData,
-                ServiceClientModel.BackupManagementType.AzureStorage);
+            ValidateAzureFilesWorkloadType(itemBase.WorkloadType);
+            ValidateAzureFilesContainerType(itemBase.ContainerType);
         }
 
-        public RestAzureNS.AzureOperationResponse TriggerBackup()
+        private void ValidateAzureFilesWorkloadType(CmdletModel.WorkloadType type)
         {
-            string vaultName = (string)ProviderData[VaultParams.VaultName];
-            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
-            DateTime? expiryDateTime = (DateTime?)ProviderData[ItemParams.ExpiryDateTimeUTC];
-            AzureFileShareItem azureFileShareItem = item as AzureFileShareItem;
-            BackupRequestResource triggerBackupRequest = new BackupRequestResource();
-            AzureFileShareBackupRequest azureFileShareBackupRequest = new AzureFileShareBackupRequest();
-            azureFileShareBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
-            triggerBackupRequest.Properties = azureFileShareBackupRequest;
-
-            return ServiceClientAdapter.TriggerBackup(
-               IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectionContainerName),
-               IdUtils.GetValueByName(azureFileShareItem.Id, IdUtils.IdNames.ProtectedItemName),
-               triggerBackupRequest,
-               vaultName: vaultName,
-               resourceGroupName: vaultResourceGroupName);
-        }
-
-        public RestAzureNS.AzureOperationResponse TriggerRestore()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ProtectedItemResource GetProtectedItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RecoveryPointBase GetRecoveryPointDetails()
-        {
-            return AzureWorkloadProviderHelper.GetRecoveryPointDetails(ProviderData);
-        }
-
-        public List<RecoveryPointBase> ListRecoveryPoints()
-        {
-            return AzureWorkloadProviderHelper.ListRecoveryPoints(ProviderData);
-        }
-
-        public ProtectionPolicyResource CreatePolicy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> ModifyPolicy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RPMountScriptDetails ProvisionItemLevelRecoveryAccess()
-
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RevokeItemLevelRecoveryAccess()
-
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<CmdletModel.BackupEngineBase> ListBackupManagementServers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ProtectionPolicyResource GetPolicy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeletePolicy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public SchedulePolicyBase GetDefaultSchedulePolicyObject()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RetentionPolicyBase GetDefaultRetentionPolicyObject()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ItemBase> ListProtectedItems()
-        {
-            string vaultName = (string)ProviderData[VaultParams.VaultName];
-            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            ContainerBase container =
-                (ContainerBase)ProviderData[ItemParams.Container];
-            string itemName = (string)ProviderData[ItemParams.ItemName];
-            ItemProtectionStatus protectionStatus =
-                (ItemProtectionStatus)ProviderData[ItemParams.ProtectionStatus];
-            ItemProtectionState status =
-                (ItemProtectionState)ProviderData[ItemParams.ProtectionState];
-            CmdletModel.WorkloadType workloadType =
-                (CmdletModel.WorkloadType)ProviderData[ItemParams.WorkloadType];
-            PolicyBase policy = (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy];
-
-            // 1. Filter by container
-            List<ProtectedItemResource> protectedItems = AzureWorkloadProviderHelper.ListProtectedItemsByContainer(
-                vaultName,
-                resourceGroupName,
-                container,
-                policy,
-                ServiceClientModel.BackupManagementType.AzureStorage,
-                DataSourceType.AzureFileShare);
-
-            List<ProtectedItemResource> protectedItemGetResponses =
-                new List<ProtectedItemResource>();
-
-            // 2. Filter by item name
-            List<ItemBase> itemModels = AzureWorkloadProviderHelper.ListProtectedItemsByItemName(
-                protectedItems,
-                itemName,
-                vaultName,
-                resourceGroupName,
-                (itemModel, protectedItemGetResponse) =>
-                {
-                    AzureFileShareItemExtendedInfo extendedInfo = new AzureFileShareItemExtendedInfo();
-                    var serviceClientExtendedInfo = ((AzureFileshareProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
-                    if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
-                    {
-                        extendedInfo.OldestRecoveryPoint = serviceClientExtendedInfo.OldestRecoveryPoint;
-                    }
-                    extendedInfo.PolicyState = serviceClientExtendedInfo.PolicyState.ToString();
-                    extendedInfo.RecoveryPointCount =
-                        (int)(serviceClientExtendedInfo.RecoveryPointCount.HasValue ?
-                            serviceClientExtendedInfo.RecoveryPointCount : 0);
-                    ((AzureFileShareItem)itemModel).ExtendedInfo = extendedInfo;
-                });
-
-            // 3. Filter by item's Protection Status
-            if (protectionStatus != 0)
+            if (type != CmdletModel.WorkloadType.AzureFiles)
             {
-                itemModels = itemModels.Where(itemModel =>
-                {
-                    return ((AzureFileShareItem)itemModel).ProtectionStatus == protectionStatus;
-                }).ToList();
+                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
+                                            CmdletModel.WorkloadType.AzureFiles.ToString(),
+                                            type.ToString()));
             }
+        }
 
-            // 4. Filter by item's Protection State
-            if (status != 0)
+        private void ValidateAzureFilesWorkloadType(CmdletModel.WorkloadType itemWorkloadType,
+            CmdletModel.WorkloadType policyWorkloadType)
+        {
+            ValidateAzureFilesWorkloadType(itemWorkloadType);
+            ValidateAzureFilesWorkloadType(policyWorkloadType);
+            if (itemWorkloadType != policyWorkloadType)
             {
-                itemModels = itemModels.Where(itemModel =>
-                {
-                    return ((AzureFileShareItem)itemModel).ProtectionState == status;
-                }).ToList();
+                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
+                                            CmdletModel.WorkloadType.AzureFiles.ToString(),
+                                            itemWorkloadType.ToString()));
             }
-
-            // 5. Filter by workload type
-            if (workloadType != 0)
-            {
-                itemModels = itemModels.Where(itemModel =>
-                {
-                    return itemModel.WorkloadType == workloadType;
-                }).ToList();
-            }
-
-            return itemModels;
         }
 
         public ResourceBackupStatus CheckBackupStatus()
@@ -601,14 +664,13 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 false);
         }
 
-        private void ValidateAzureStorageBackupManagementType(
-            CmdletModel.BackupManagementType backupManagementType)
+        private void ValidateAzureFilesContainerType(CmdletModel.ContainerType type)
         {
-            if (backupManagementType != CmdletModel.BackupManagementType.AzureStorage)
+            if (type != CmdletModel.ContainerType.AzureStorage)
             {
-                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
-                                            CmdletModel.BackupManagementType.AzureStorage.ToString(),
-                                            backupManagementType.ToString()));
+                throw new ArgumentException(string.Format(Resources.UnExpectedContainerTypeException,
+                                            CmdletModel.ContainerType.AzureStorage.ToString(),
+                                            type.ToString()));
             }
         }
     }
