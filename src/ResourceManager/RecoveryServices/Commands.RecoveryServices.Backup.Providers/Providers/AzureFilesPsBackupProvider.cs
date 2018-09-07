@@ -419,12 +419,66 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RecoveryPointBase GetRecoveryPointDetails()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            AzureFileShareItem item = ProviderData[RecoveryPointParams.Item]
+                as AzureFileShareItem;
+
+            string recoveryPointId = ProviderData[RecoveryPointParams.RecoveryPointId].ToString();
+
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(item.Id);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, item.Id);
+            string protectedItemName = HelperUtils.GetProtectedItemUri(uriDict, item.Id);
+
+            var rpResponse = ServiceClientAdapter.GetRecoveryPointDetails(
+                containerUri,
+                protectedItemName,
+                recoveryPointId,
+                vaultName: vaultName,
+                resourceGroupName: resourceGroupName);
+
+            var rp = RecoveryPointConversions.GetPSAzureRecoveryPoints(rpResponse, item);
+
+            return rp;
         }
 
         public List<RecoveryPointBase> ListRecoveryPoints()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            DateTime startDate = (DateTime)(ProviderData[RecoveryPointParams.StartDate]);
+            DateTime endDate = (DateTime)(ProviderData[RecoveryPointParams.EndDate]);
+
+            AzureFileShareItem item = ProviderData[RecoveryPointParams.Item]
+                as AzureFileShareItem;
+
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(item.Id);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, item.Id);
+            string protectedItemName = HelperUtils.GetProtectedItemUri(uriDict, item.Id);
+
+            TimeSpan duration = endDate - startDate;
+            if (duration.TotalDays > 30)
+            {
+                throw new Exception(Resources.RestoreDiskTimeRangeError);
+            }
+
+            //we need to fetch the list of RPs
+            var queryFilterString = QueryBuilder.Instance.GetQueryString(new BMSRPQueryObject()
+            {
+                StartDate = startDate,
+                EndDate = endDate
+            });
+
+            ODataQuery<BMSRPQueryObject> queryFilter = new ODataQuery<BMSRPQueryObject>();
+            queryFilter.Filter = queryFilterString;
+
+            List<RecoveryPointResource> rpListResponse = ServiceClientAdapter.GetRecoveryPoints(
+                containerUri,
+                protectedItemName,
+                queryFilter,
+                vaultName: vaultName,
+                resourceGroupName: resourceGroupName);
+            return RecoveryPointConversions.GetPSAzureRecoveryPoints(rpListResponse, item);
         }
 
         public ProtectionPolicyResource CreatePolicy()
