@@ -272,14 +272,46 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 ProviderData.ContainsKey(RestoreBackupItemParams.TargetResourceGroupName) ?
                 ProviderData[RestoreBackupItemParams.TargetResourceGroupName].ToString() : null;
             bool osaOption = (bool)ProviderData[RestoreBackupItemParams.OsaOption];
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(rp.Id);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, rp.Id);
+
+            var useOsa = ShouldUseOsa(rp, osaOption);
+
+            string vmType = containerUri.Split(';')[1].Equals("iaasvmcontainer", StringComparison.OrdinalIgnoreCase)
+                ? "Classic" : "Compute";
+            string strType = storageAccountType.Equals("Microsoft.ClassicStorage/StorageAccounts",
+                StringComparison.OrdinalIgnoreCase) ? "Classic" : "Compute";
+            if (vmType != strType)
+            {
+                throw new Exception(string.Format(Resources.RestoreDiskStorageTypeError, vmType));
+            }
+
+            if (targetResourceGroupName != null && rp.IsManagedVirtualMachine == false)
+            {
+                Logger.Instance.WriteWarning(Resources.UnManagedBackupVmWarning);
+            }
+
+            IaasVMRestoreRequest restoreRequest = new IaasVMRestoreRequest()
+            {
+                CreateNewCloudService = false,
+                RecoveryPointId = rp.RecoveryPointId,
+                RecoveryType = RecoveryType.RestoreDisks,
+                Region = vaultLocation,
+                StorageAccountId = storageAccountId,
+                SourceResourceId = rp.SourceResourceId,
+                TargetResourceGroupId = targetResourceGroupName != null ?
+                    "/subscriptions/" + ServiceClientAdapter.SubscriptionId + "/resourceGroups/" + targetResourceGroupName :
+                    null,
+                OriginalStorageAccountOption = useOsa,
+            };
+
+            RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
+            triggerRestoreRequest.Properties = restoreRequest;
 
             var response = ServiceClientAdapter.RestoreDisk(
                 rp,
-                storageAccountId,
                 storageAccountLocation,
-                storageAccountType,
-                targetResourceGroupName,
-                osaOption,
+                triggerRestoreRequest,
                 vaultName: vaultName,
                 resourceGroupName: resourceGroupName,
                 vaultLocation: vaultLocation);
@@ -1256,6 +1288,24 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             content = Convert.ToBase64String(contentBytes);
 
             return password;
+        }
+
+        private bool ShouldUseOsa(AzureVmRecoveryPoint rp, bool osaOption)
+        {
+            bool useOsa = false;
+            if (osaOption)
+            {
+                if (rp.OriginalSAEnabled)
+                {
+                    useOsa = true;
+                }
+                else
+                {
+                    throw new Exception("This recovery point doesn’t have the capability to restore disks to their original storage account. Re-run the restore command without the UseOriginalStorageAccountForDisks parameter.");
+                }
+            }
+
+            return useOsa;
         }
 
         #endregion

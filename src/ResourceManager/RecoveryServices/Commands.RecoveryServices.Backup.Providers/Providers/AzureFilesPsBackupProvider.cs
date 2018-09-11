@@ -147,7 +147,67 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            CmdletModel.AzureFileShareRecoveryPoint recoveryPoint = ProviderData[RestoreBackupItemParams.RecoveryPoint]
+                as CmdletModel.AzureFileShareRecoveryPoint;
+            string storageAccountId = ProviderData[RestoreBackupItemParams.StorageAccountId].ToString();
+            string storageAccountLocation = ProviderData.ContainsKey(RestoreBackupItemParams.StorageAccountLocation) ?
+                ProviderData[RestoreBackupItemParams.StorageAccountLocation].ToString() : null;
+            string copyOptions = (string)ProviderData[RestoreBackupItemParams.ResolveConflict];
+            string sourceFilePath = ProviderData.ContainsKey(RestoreBackupItemParams.SourceFilePath) ?
+                (string)ProviderData[RestoreBackupItemParams.SourceFilePath] : null;
+            string targetStorageAccountName =
+                ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountName) ?
+                (string)ProviderData[RestoreBackupItemParams.TargetStorageAccountName] : null;
+            string targetFileShareName = ProviderData.ContainsKey(RestoreBackupItemParams.TargetFileShareName) ?
+                (string)ProviderData[RestoreBackupItemParams.TargetFileShareName] : null;
+            string targetFolder = ProviderData.ContainsKey(RestoreBackupItemParams.TargetFolder) ?
+                (string)ProviderData[RestoreBackupItemParams.TargetFolder] : null;
+            string targetStorageAccountId = ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountId) ?
+                (string)ProviderData[RestoreBackupItemParams.TargetStorageAccountId] : null;
+            string targetStorageAccountLocation = ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountLocation) ?
+                ProviderData[RestoreBackupItemParams.TargetStorageAccountLocation].ToString() : null;
+
+            List<RestoreFileSpecs> restoreFileSpecs = null;
+            if (sourceFilePath != null || targetFolder != null)
+            {
+                RestoreFileSpecs restoreFileSpec = new RestoreFileSpecs();
+                restoreFileSpec.Path = sourceFilePath;
+                restoreFileSpec.TargetFolderPath = targetFolder;
+                restoreFileSpec.FileSpecType = sourceFilePath != null ? "Directory" : null;
+                restoreFileSpecs = new List<RestoreFileSpecs>();
+                restoreFileSpecs.Add(restoreFileSpec);
+            }
+
+            TargetAFSRestoreInfo targetDetails = null;
+            if (targetStorageAccountName != null)
+            {
+                targetDetails = new TargetAFSRestoreInfo();
+                targetDetails.Name = targetFileShareName;
+                targetDetails.TargetResourceId = targetStorageAccountId;
+            }
+
+            AzureFileShareRestoreRequest restoreRequest = new AzureFileShareRestoreRequest()
+            {
+                CopyOptions = copyOptions,
+                RecoveryType = targetStorageAccountName != null ? RecoveryType.AlternateLocation : RecoveryType.OriginalLocation,
+                RestoreFileSpecs = restoreFileSpecs,
+                RestoreRequestType = sourceFilePath != null ? RestoreRequestType.ItemLevelRestore : RestoreRequestType.FullShareRestore,
+                SourceResourceId = storageAccountId,
+                TargetDetails = targetDetails,
+            };
+
+            RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
+            triggerRestoreRequest.Properties = restoreRequest;
+
+            var response = ServiceClientAdapter.RestoreDisk(
+                recoveryPoint,
+                targetStorageAccountLocation = targetStorageAccountLocation ?? storageAccountLocation,
+                triggerRestoreRequest,
+                vaultName: vaultName,
+                resourceGroupName: resourceGroupName);
+            return response;
         }
 
         public ProtectedItemResource GetProtectedItem()
@@ -665,7 +725,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 properties.PolicyId = policy.Id;
                 properties.SourceResourceId = sourceResourceId;
             }
-            else if(disableWithRetentionData)
+            else if (disableWithRetentionData)
             {
                 //Disable protection while retaining backup data
                 ValidateAzureFileShareDisableProtectionRequest(itemBase);

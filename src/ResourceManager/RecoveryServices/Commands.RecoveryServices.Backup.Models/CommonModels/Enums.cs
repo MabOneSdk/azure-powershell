@@ -316,4 +316,22 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         Extend,
         Terminate,
     }
+
+    /// <summary>
+    /// Options to resolve conflict for a file share
+    /// </summary>
+    public enum ResolveConflict
+    {
+        Overwrite,
+        Skip
+    }
+
+    /// <summary>
+    /// Options to select the file type
+    /// </summary>
+    public enum FileType
+    {
+        File,
+        Folder
+    }
 }

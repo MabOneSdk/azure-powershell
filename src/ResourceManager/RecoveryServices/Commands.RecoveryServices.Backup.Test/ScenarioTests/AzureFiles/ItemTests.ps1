@@ -230,3 +230,64 @@ function Test-AzureFSGetRPs
 		Cleanup-Vault $vault $item $container
 	}
 }
+
+function Test-AzureFSFullRestore
+{
+	$resourceGroupName = "sisi-RSV"
+	$targetResourceGroupName = "sisi-RSV2"
+
+	try
+	{
+		$saName = "sisisa"
+		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name "sisi-RSV-29-6"
+		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'sisi-RSV' -Name 'sisi-RSV-29-6' | Set-AzureRmRecoveryServicesVaultContext
+		$container = Get-AzureRmRecoveryServicesBackupContainer -ContainerType “AzureStorage” -FriendlyName $saName
+		$item = Get-AzureRmRecoveryServicesBackupItem -Container $container[16] -WorkloadType “AzureFiles” -Name "igniteshare0"
+		
+		$recoveryPoint = Get-AzureRmRecoveryServicesBackupRecoveryPoint `
+			-VaultId $vault.ID `
+			-Item $item;
+
+		$restoreJob1 = Restore-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-RecoveryPoint $recoveryPoint[0] `
+			-StorageAccountName "sisisa" `
+			-StorageAccountResourceGroupName "sisi-RSV" `
+			-ResolveConflict Overwrite `
+			-SourceFilePath "d1/d2" `
+			-TargetStorageAccountName "sisitestaccount" `
+			-TargetStorageAccountResourceGroupName "sisi-RSV2" `
+			-TargetFileShareName "myshare" `
+			-TargetFolder "igniteshare1_restore11"
+
+		$restoreJob2 = Restore-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-RecoveryPoint $recoveryPoint[0] `
+			-StorageAccountName "sisisa" `
+			-StorageAccountResourceGroupName "sisi-RSV" `
+			-ResolveConflict Overwrite `
+			-TargetStorageAccountName "sisitestaccount" `
+			-TargetStorageAccountResourceGroupName "sisi-RSV2" `
+			-TargetFileShareName "myshare" `
+			-TargetFolder "igniteshare_restore22"
+
+		$restoreJob3 = Restore-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-RecoveryPoint $recoveryPoint[0] `
+			-StorageAccountName "sisisa" `
+			-StorageAccountResourceGroupName "sisi-RSV" `
+			-ResolveConflict Overwrite `
+		
+		$restoreJob4 = Restore-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-RecoveryPoint $recoveryPoint[0] `
+			-StorageAccountName "sisisa" `
+			-StorageAccountResourceGroupName "sisi-RSV" `
+			-ResolveConflict Overwrite `
+			-SourceFilePath "d1/d2" `
+	}
+	finally
+	{
+		# Cleanup
+	}
+}

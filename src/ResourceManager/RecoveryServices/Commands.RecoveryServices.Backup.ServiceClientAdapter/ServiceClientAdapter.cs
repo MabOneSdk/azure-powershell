@@ -35,6 +35,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
 
         ClientProxy<RecoveryServicesNS.RecoveryServicesClient> RSAdapter;
 
+        public string SubscriptionId;
+
         /// <summary>
         /// Resource provider namespace that this adapter uses to 
         /// communicate with the backend service. 
@@ -67,6 +69,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
         {
             BmsAdapter = new ClientProxy<RecoveryServicesBackupNS.RecoveryServicesBackupClient>(context);
             RSAdapter = new ClientProxy<RecoveryServicesNS.RecoveryServicesClient>(context);
+            SubscriptionId = context.Subscription.Id;
         }
     }
 }

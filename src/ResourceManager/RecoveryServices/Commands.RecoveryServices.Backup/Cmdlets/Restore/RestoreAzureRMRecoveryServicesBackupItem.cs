@@ -29,13 +29,18 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
     /// <summary>
     /// Restores an item using the recovery point provided within the recovery services vault
     /// </summary>
-    [Cmdlet("Restore", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RecoveryServicesBackupItem", SupportsShouldProcess = true),OutputType(typeof(JobBase))]
+    [Cmdlet("Restore", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RecoveryServicesBackupItem",
+        DefaultParameterSetName = AzureVMParameterSet, SupportsShouldProcess = true), OutputType(typeof(JobBase))]
     public class RestoreAzureRmRecoveryServicesBackupItem : RSBackupVaultCmdletBase
     {
+        internal const string AzureVMParameterSet = "AzureVMParameterSet";
+        internal const string AzureFileParameterSet = "AzureFileParameterSet";
+
         /// <summary>
         /// Location of the Recovery Services Vault.
         /// </summary>
-        [Parameter(Mandatory = false, HelpMessage = "Location of the Recovery Services Vault.",
+        [Parameter(Mandatory = false, ParameterSetName = AzureVMParameterSet,
+            HelpMessage = "Location of the Recovery Services Vault.",
             ValueFromPipeline = true)]
         [LocationCompleter("Microsoft.RecoveryServices/vaults")]
         [ValidateNotNullOrEmpty]
@@ -65,18 +70,75 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         [ValidateNotNullOrEmpty]
         public string StorageAccountResourceGroupName { get; set; }
 
-        /// <summary>
+        /// <summary> 
         /// The resource group to which the managed disks are restored. Applicable to backup of VM with managed disks.
         /// </summary>
-        [Parameter(Mandatory = false, Position = 3,
-            HelpMessage = ParamHelpMsgs.RestoreDisk.TargetResourceGroupName)]
+        [Parameter(Mandatory = false, Position = 3, ParameterSetName = AzureVMParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreVM.TargetResourceGroupName)]
         [ValidateNotNullOrEmpty]
         public string TargetResourceGroupName { get; set; }
 
         /// <summary>
+        /// Resolve conflict option
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 3, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.ResolveConflict)]
+        [ValidateNotNullOrEmpty]
+        public ResolveConflict ResolveConflict { get; set; }
+
+        /// <summary>
+        /// Source File Path of the file to be recovered
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 4, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.SourceFilePath)]
+        [ValidateNotNullOrEmpty]
+        public string SourceFilePath { get; set; }
+
+        /// <summary>
+        /// Source File Path of the file to be recovered
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 5, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.SourceFilePath)]
+        [ValidateNotNullOrEmpty]
+        public FileType SourceFileType { get; set; }
+
+        /// <summary>
+        /// Target storage account name where the disks need to be recovered
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 6, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.TargetStorageAccountName)]
+        [ValidateNotNullOrEmpty]
+        public string TargetStorageAccountName { get; set; }
+
+        /// <summary>
+        /// Target storage account name where the disks need to be recovered
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 7, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.TargetStorageAccountResourceGroupName)]
+        [ValidateNotNullOrEmpty]
+        public string TargetStorageAccountResourceGroupName { get; set; }
+
+        /// <summary> 
+        /// The target file share name to which the files are restored.
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 8, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.TargetFileShareName)]
+        [ValidateNotNullOrEmpty]
+        public string TargetFileShareName { get; set; }
+
+        /// <summary> 
+        /// The target folder name to which the files are restored.
+        /// </summary>
+        [Parameter(Mandatory = false, Position = 9, ParameterSetName = AzureFileParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreFS.TargetFolder)]
+        [ValidateNotNullOrEmpty]
+        public string TargetFolder { get; set; }
+
+        /// <summary>
         /// Use this switch if the disks from the recovery point are to be restored to their original storage accounts
         /// </summary>
-        [Parameter(Mandatory = false, HelpMessage = ParamHelpMsgs.RestoreDisk.OsaOption)]
+        [Parameter(Mandatory = false, ParameterSetName = AzureVMParameterSet,
+            HelpMessage = ParamHelpMsgs.RestoreVM.OsaOption)]
         public SwitchParameter UseOriginalStorageAccount { get; set; }
 
         public override void ExecuteCmdlet()
@@ -88,19 +150,36 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(VaultId);
                 string vaultName = resourceIdentifier.ResourceName;
                 string resourceGroupName = resourceIdentifier.ResourceGroupName;
-
-                GenericResource storageAccountResource = GetStorageAccountResource();
-                WriteDebug(string.Format("StorageId = {0}", storageAccountResource.Id));
-
                 Dictionary<Enum, object> providerParameters = new Dictionary<Enum, object>();
+
+                GenericResource storageAccountResource = GetStorageAccountResource(StorageAccountName,
+                    StorageAccountResourceGroupName);
+                WriteDebug(string.Format("StorageId = {0}", storageAccountResource.Id));
+                providerParameters.Add(RestoreBackupItemParams.StorageAccountId, storageAccountResource.Id);
+                providerParameters.Add(RestoreBackupItemParams.StorageAccountLocation, storageAccountResource.Location);
+                providerParameters.Add(RestoreBackupItemParams.StorageAccountType, storageAccountResource.Type);
+
+                if (ParameterSetName == AzureFileParameterSet && TargetStorageAccountName != null)
+                {
+                    GenericResource targetStorageAccountResource = GetStorageAccountResource(TargetStorageAccountName,
+                        TargetStorageAccountResourceGroupName);
+                    WriteDebug(string.Format("StorageId = {0}", targetStorageAccountResource.Id));
+                    providerParameters.Add(RestoreBackupItemParams.TargetStorageAccountId,
+                        targetStorageAccountResource.Id);
+                    providerParameters.Add(RestoreBackupItemParams.TargetStorageAccountLocation,
+                        targetStorageAccountResource.Location);
+                }
+
                 providerParameters.Add(VaultParams.VaultName, vaultName);
                 providerParameters.Add(VaultParams.ResourceGroupName, resourceGroupName);
                 providerParameters.Add(VaultParams.VaultLocation, VaultLocation);
                 providerParameters.Add(RestoreBackupItemParams.RecoveryPoint, RecoveryPoint);
-                providerParameters.Add(RestoreBackupItemParams.StorageAccountId, storageAccountResource.Id);
-                providerParameters.Add(RestoreBackupItemParams.StorageAccountLocation, storageAccountResource.Location);
-                providerParameters.Add(RestoreBackupItemParams.StorageAccountType, storageAccountResource.Type);
                 providerParameters.Add(RestoreBackupItemParams.OsaOption, UseOriginalStorageAccount.IsPresent);
+                providerParameters.Add(RestoreBackupItemParams.ResolveConflict, ResolveConflict.ToString());
+                providerParameters.Add(RestoreBackupItemParams.SourceFilePath, SourceFilePath);
+                providerParameters.Add(RestoreBackupItemParams.TargetStorageAccountName, TargetStorageAccountName);
+                providerParameters.Add(RestoreBackupItemParams.TargetFileShareName, TargetFileShareName);
+                providerParameters.Add(RestoreBackupItemParams.TargetFolder, TargetFolder);
 
                 if (TargetResourceGroupName != null)
                 {
@@ -122,11 +201,11 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             }, ShouldProcess(RecoveryPoint.ItemName, VerbsData.Restore));
         }
 
-        private GenericResource GetStorageAccountResource()
+        private GenericResource GetStorageAccountResource(string storageAccountName, string storageAccountResourceGroupName)
         {
-            StorageAccountName = StorageAccountName.ToLower();
+            storageAccountName = storageAccountName.ToLower();
             ResourceIdentity identity = new ResourceIdentity();
-            identity.ResourceName = StorageAccountName;
+            identity.ResourceName = storageAccountName;
             identity.ResourceProviderNamespace = "Microsoft.ClassicStorage/storageAccounts";
             identity.ResourceProviderApiVersion = "2015-12-01";
             identity.ResourceType = string.Empty;
@@ -138,7 +217,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                 WriteDebug(string.Format("Query Microsoft.ClassicStorage with name = {0}",
                     StorageAccountName));
                 resource = RmClient.Resources.GetAsync(
-                    StorageAccountResourceGroupName,
+                    storageAccountResourceGroupName,
                     identity.ResourceProviderNamespace,
                     identity.ParentResourcePath,
                     identity.ResourceType,
@@ -151,7 +230,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                 identity.ResourceProviderNamespace = "Microsoft.Storage/storageAccounts";
                 identity.ResourceProviderApiVersion = "2016-01-01";
                 resource = RmClient.Resources.GetAsync(
-                    StorageAccountResourceGroupName,
+                    storageAccountResourceGroupName,
                     identity.ResourceProviderNamespace,
                     identity.ParentResourcePath,
                     identity.ResourceType,
