@@ -17,12 +17,12 @@ using System;
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
 {
     /// <summary>
-    /// Azure VM specific recovery point class.
+    /// Base class for Azure recovery points(AzureVM, AzureFiles)
     /// </summary>
     public class AzureRecoveryPoint : RecoveryPointBase
     {
         /// <summary>
-        /// Base class for Azure recovery points(AzureVM, AzureFiles) 
+        /// Type of recovery point (appConsistent\CrashConsistent etc)
         /// </summary>
         public string RecoveryPointType { get; set; }
 
