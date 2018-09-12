@@ -76,7 +76,7 @@ function Test-AzureFileProtection
 		$enableJob = Enable-AzureRmRecoveryServicesBackupProtection `
 			-VaultId $vault.ID `
 			-Policy $Policy `
-			-Name "igniteshare2" `
+			-Name "igniteshare7" `
 			-StorageAccountName "sisisa"
 
 		$container = Get-AzureRmRecoveryServicesBackupContainer `
@@ -89,7 +89,7 @@ function Test-AzureFileProtection
 			-VaultId $vault.ID `
 			-Container $container[16] `
 			-WorkloadType AzureFiles `
-			-Name "igniteshare2"
+			-Name "igniteshare7"
 
 		# Disable protection
 		Disable-AzureRmRecoveryServicesBackupProtection `

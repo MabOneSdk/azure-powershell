@@ -72,7 +72,37 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         /// <returns>The job response returned from the service</returns>
         public RestAzureNS.AzureOperationResponse DisableProtection()
         {
-            return EnableOrDisableProtection();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            bool deleteBackupData = ProviderData.ContainsKey(ItemParams.DeleteBackupData) ?
+                (bool)ProviderData[ItemParams.DeleteBackupData] : false;
+
+            ItemBase itemBase = (ItemBase)ProviderData[ItemParams.Item];
+
+            AzureFileShareItem item = (AzureFileShareItem)ProviderData[ItemParams.Item];
+
+            string containerUri = "";
+            string protectedItemUri = "";
+            AzureFileshareProtectedItem properties = new AzureFileshareProtectedItem();
+
+            if (deleteBackupData)
+            {
+                ValidateAzureFileShareDisableProtectionRequest(itemBase);
+
+                Dictionary<UriEnums, string> keyValueDict = HelperUtils.ParseUri(item.Id);
+                containerUri = HelperUtils.GetContainerUri(keyValueDict, item.Id);
+                protectedItemUri = HelperUtils.GetProtectedItemUri(keyValueDict, item.Id);
+
+                return ServiceClientAdapter.DeleteProtectedItem(
+                                    containerUri,
+                                    protectedItemUri,
+                                    vaultName: vaultName,
+                                    resourceGroupName: vaultResourceGroupName);
+            }
+            else
+            {
+                return EnableOrDisableProtection();
+            }
         }
 
         public List<ContainerBase> ListProtectionContainers()
@@ -334,21 +364,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 Dictionary<UriEnums, string> keyValueDict = HelperUtils.ParseUri(item.Id);
                 containerUri = HelperUtils.GetContainerUri(keyValueDict, item.Id);
                 protectedItemUri = HelperUtils.GetProtectedItemUri(keyValueDict, item.Id);
-
-                if (deleteBackupData)
-                {
-                    return ServiceClientAdapter.DeleteProtectedItem(
-                                    containerUri,
-                                    protectedItemUri,
-                                    vaultName: vaultName,
-                                    resourceGroupName: vaultResourceGroupName);
-                }
-                else
-                {
-                    properties.PolicyId = string.Empty;
-                    properties.ProtectionState = ProtectionState.ProtectionStopped;
-                    properties.SourceResourceId = item.SourceResourceId;
-                }
+                properties.PolicyId = string.Empty;
+                properties.ProtectionState = ProtectionState.ProtectionStopped;
+                properties.SourceResourceId = item.SourceResourceId;
             }
 
             ProtectedItemResource serviceClientRequest = new ProtectedItemResource()
