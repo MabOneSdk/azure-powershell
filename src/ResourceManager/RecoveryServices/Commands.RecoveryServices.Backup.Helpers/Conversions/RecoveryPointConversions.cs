@@ -52,12 +52,12 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                     result.Add(GetPSAzureVMRecoveryPoint(rp, item));
                 }
 
-                if (rp.Properties.GetType() == typeof(ServiceClientModel.AzureFileShareRecoveryPoint))
+                else if (rp.Properties.GetType() == typeof(ServiceClientModel.AzureFileShareRecoveryPoint))
                 {
                     result.Add(GetPSAzureFileRecoveryPoint(rp, item));
                 }
 
-                if (rp.Properties.GetType() == typeof(ServiceClientModel.GenericRecoveryPoint))
+                else if (rp.Properties.GetType() == typeof(ServiceClientModel.GenericRecoveryPoint))
                 {
                     result.Add(GetPSAzureGenericRecoveryPoint(rp, item));
                 }
@@ -86,15 +86,15 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                 result = GetPSAzureVMRecoveryPoint(rpResponse, item);
             }
 
-            if (rpResponse.Properties.GetType() ==
+            else if (rpResponse.Properties.GetType() ==
                 typeof(ServiceClientModel.AzureFileShareRecoveryPoint))
             {
                 result = GetPSAzureFileRecoveryPoint(rpResponse, item);
             }
 
-            if (rpResponse.Properties.GetType() ==
+            else if (rpResponse.Properties.GetType() ==
                 typeof(ServiceClientModel.GenericRecoveryPoint))
-            { 
+            {
                 result = GetPSAzureGenericRecoveryPoint(rpResponse, item);
             }
             return result;
