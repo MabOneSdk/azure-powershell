@@ -77,3 +77,38 @@ function Test-AzureFileWaitJob
 		# Cleanup
 	}
 }
+
+function Test-AzureFileCancelJob
+{
+	$location = "westus"
+	$resourceGroupName = "sisi-RSV"
+
+	try
+	{
+		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name "sisi-RSV-29-6"
+		$container = Get-AzureRmRecoveryServicesBackupContainer `
+			-VaultId $vault.ID `
+			-ContainerType AzureStorage `
+			-Status Registered `
+			-FriendlyName "sisisa";
+ 		$item = Get-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Container $container[16] `
+			-WorkloadType AzureFiles `
+			-Name "sharetest"
+		
+		$backupJob = Backup-AzureRmRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Item $item[0]
+
+		Assert-True { $backupJob.Status -eq "InProgress" }
+
+		$cancelledJob = Stop-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID -Job $backupJob
+
+		Assert-True { $cancelledJob.Status -ne "InProgress" }
+	}
+	finally
+	{
+		# Cleanup
+	}
+}
