@@ -22,6 +22,18 @@ function Test-AzureFileJob
 	{
 		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
 		$jobs = Get-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+
+		# Test 2: Job details
+		foreach ($job in $jobs)
+		{
+			$jobDetails = Get-AzureRmRecoveryServicesBackupJobDetails -VaultId $vault.ID -Job $job;
+			$jobDetails2 = Get-AzureRmRecoveryServicesBackupJobDetails `
+				-VaultId $vault.ID `
+				-JobId $job.JobId
+
+			Assert-AreEqual $jobDetails.JobId $job.JobId
+			Assert-AreEqual $jobDetails2.JobId $job.JobId
+		}
 	}
 	finally
 	{
