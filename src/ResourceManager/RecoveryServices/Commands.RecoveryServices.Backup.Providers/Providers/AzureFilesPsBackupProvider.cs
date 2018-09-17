@@ -63,7 +63,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         /// <returns>The job response returned from the service</returns>
         public RestAzureNS.AzureOperationResponse EnableProtection()
         {
-            return EnableOrDisableProtection();
+            return EnableOrModifyProtection();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             }
             else
             {
-                return EnableOrDisableProtection();
+                return EnableOrModifyProtection();
             }
         }
 
@@ -286,7 +286,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             return itemModels;
         }
 
-        private RestAzureNS.AzureOperationResponse EnableOrDisableProtection()
+        private RestAzureNS.AzureOperationResponse EnableOrModifyProtection()
         {
             string vaultName = (string)ProviderData[VaultParams.VaultName];
             string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
