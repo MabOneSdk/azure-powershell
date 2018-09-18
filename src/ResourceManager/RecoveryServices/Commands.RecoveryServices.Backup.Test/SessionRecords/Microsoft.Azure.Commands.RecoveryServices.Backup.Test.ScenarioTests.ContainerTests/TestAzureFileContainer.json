@@ -1,0 +1,552 @@
+{
+  "Entries": [
+    {
+      "RequestUri": "/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults?api-version=2016-06-01",
+      "EncodedRequestUri": "L3N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHM/YXBpLXZlcnNpb249MjAxNi0wNi0wMQ==",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "5107a169-c340-4119-b31d-7e4d4f96b07a-2018-09-18 05:55:14Z-P"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.RecoveryServicesClient/4.2.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"location\": \"westus\",\r\n      \"name\": \"sisi-RSV-29-6\",\r\n      \"etag\": \"W/\\\"datetime'2018-06-29T06%3A15%3A06.0530654Z'\\\"\",\r\n      \"properties\": {\r\n        \"provisioningState\": \"Succeeded\"\r\n      },\r\n      \"id\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults\",\r\n      \"sku\": {\r\n        \"name\": \"RS0\",\r\n        \"tier\": \"Standard\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "384"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "1f6afde2-f22f-403c-9c18-9cdf1fc35ea0"
+        ],
+        "x-ms-client-request-id": [
+          "5107a169-c340-4119-b31d-7e4d4f96b07a-2018-09-18 05:55:14Z-P"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11987"
+        ],
+        "x-ms-correlation-request-id": [
+          "1f6afde2-f22f-403c-9c18-9cdf1fc35ea0"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055515Z:1f6afde2-f22f-403c-9c18-9cdf1fc35ea0"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:15 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectionContainers?$filter=friendlyName%20eq%20'pstestsaa'%20and%20backupManagementType%20eq%20'AzureStorage'%20and%20status%20eq%20'Registered'&api-version=2016-12-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0aW9uQ29udGFpbmVycz8kZmlsdGVyPWZyaWVuZGx5TmFtZSUyMGVxJTIwJ3BzdGVzdHNhYSclMjBhbmQlMjBiYWNrdXBNYW5hZ2VtZW50VHlwZSUyMGVxJTIwJ0F6dXJlU3RvcmFnZSclMjBhbmQlMjBzdGF0dXMlMjBlcSUyMCdSZWdpc3RlcmVkJyZhcGktdmVyc2lvbj0yMDE2LTEyLTAx",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "fa373b46-aa31-41fd-b4c2-47cd68e0e63c"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/pstestsaa\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"pstestsaa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "761"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "6d585eef-406b-42b3-b8ce-4d49256a797e"
+        ],
+        "x-ms-client-request-id": [
+          "fa373b46-aa31-41fd-b4c2-47cd68e0e63c",
+          "fa373b46-aa31-41fd-b4c2-47cd68e0e63c"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11997"
+        ],
+        "x-ms-correlation-request-id": [
+          "6d585eef-406b-42b3-b8ce-4d49256a797e"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055517Z:6d585eef-406b-42b3-b8ce-4d49256a797e"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:16 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectionContainers?$filter=friendlyName%20eq%20'pstestsaa'%20and%20backupManagementType%20eq%20'AzureStorage'%20and%20status%20eq%20'Registered'&api-version=2016-12-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0aW9uQ29udGFpbmVycz8kZmlsdGVyPWZyaWVuZGx5TmFtZSUyMGVxJTIwJ3BzdGVzdHNhYSclMjBhbmQlMjBiYWNrdXBNYW5hZ2VtZW50VHlwZSUyMGVxJTIwJ0F6dXJlU3RvcmFnZSclMjBhbmQlMjBzdGF0dXMlMjBlcSUyMCdSZWdpc3RlcmVkJyZhcGktdmVyc2lvbj0yMDE2LTEyLTAx",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "674ef98a-86f0-4b67-8319-da839ead7ad4"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/pstestsaa\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"pstestsaa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "761"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "00ecedff-c2fe-48e7-8df0-d739ec74f409"
+        ],
+        "x-ms-client-request-id": [
+          "674ef98a-86f0-4b67-8319-da839ead7ad4",
+          "674ef98a-86f0-4b67-8319-da839ead7ad4"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11994"
+        ],
+        "x-ms-correlation-request-id": [
+          "00ecedff-c2fe-48e7-8df0-d739ec74f409"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055518Z:00ecedff-c2fe-48e7-8df0-d739ec74f409"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:18 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectionContainers?$filter=friendlyName%20eq%20'pstestsaa'%20and%20backupManagementType%20eq%20'AzureStorage'%20and%20status%20eq%20'Registered'&api-version=2016-12-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0aW9uQ29udGFpbmVycz8kZmlsdGVyPWZyaWVuZGx5TmFtZSUyMGVxJTIwJ3BzdGVzdHNhYSclMjBhbmQlMjBiYWNrdXBNYW5hZ2VtZW50VHlwZSUyMGVxJTIwJ0F6dXJlU3RvcmFnZSclMjBhbmQlMjBzdGF0dXMlMjBlcSUyMCdSZWdpc3RlcmVkJyZhcGktdmVyc2lvbj0yMDE2LTEyLTAx",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "af43e96e-d0e4-4c44-b43f-5b78c5525ffa"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/pstestsaa\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"pstestsaa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "761"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "da1ea897-dea9-4560-a0de-cd43457be096"
+        ],
+        "x-ms-client-request-id": [
+          "af43e96e-d0e4-4c44-b43f-5b78c5525ffa",
+          "af43e96e-d0e4-4c44-b43f-5b78c5525ffa"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11992"
+        ],
+        "x-ms-correlation-request-id": [
+          "da1ea897-dea9-4560-a0de-cd43457be096"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055519Z:da1ea897-dea9-4560-a0de-cd43457be096"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:19 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectedItems?$filter=backupManagementType%20eq%20'AzureStorage'%20and%20itemType%20eq%20'AzureFileShare'&api-version=2017-07-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0ZWRJdGVtcz8kZmlsdGVyPWJhY2t1cE1hbmFnZW1lbnRUeXBlJTIwZXElMjAnQXp1cmVTdG9yYWdlJyUyMGFuZCUyMGl0ZW1UeXBlJTIwZXElMjAnQXp1cmVGaWxlU2hhcmUnJmFwaS12ZXJzaW9uPTIwMTctMDctMDE=",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "c5ba9126-2d40-453d-892c-514d7b489a9e"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv2;sisitestaccount/protectedItems/AzureFileShare;test1\",\r\n      \"name\": \"AzureFileShare;test1\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"test1\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.2518289Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv2;sisitestaccount\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv2/providers/Microsoft.storage/storageAccounts/sisitestaccount\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;test2\",\r\n      \"name\": \"AzureFileShare;test2\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"test2\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"ProtectionStopped\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-06T09:31:54.8353957Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare7\",\r\n      \"name\": \"AzureFileShare;igniteshare7\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare7\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"ProtectionStopped\",\r\n        \"lastBackupStatus\": \"IRPending\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare3\",\r\n      \"name\": \"AzureFileShare;igniteshare3\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare3\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.3081845Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare0\",\r\n      \"name\": \"AzureFileShare;igniteshare0\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare0\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.3706792Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;sharetest\",\r\n      \"name\": \"AzureFileShare;sharetest\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"sharetest\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.3819175Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare1\",\r\n      \"name\": \"AzureFileShare;igniteshare1\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare1\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.4911665Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare5\",\r\n      \"name\": \"AzureFileShare;igniteshare5\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare5\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.6111878Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare2\",\r\n      \"name\": \"AzureFileShare;igniteshare2\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare2\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"ProtectionStopped\",\r\n        \"lastBackupStatus\": \"IRPending\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;testfileshare\",\r\n      \"name\": \"AzureFileShare;testfileshare\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"testfileshare\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.6424226Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;storage;sisi-rsv;sisisa/protectedItems/AzureFileShare;igniteshare4\",\r\n      \"name\": \"AzureFileShare;igniteshare4\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems\",\r\n      \"properties\": {\r\n        \"friendlyName\": \"igniteshare4\",\r\n        \"protectionStatus\": \"Healthy\",\r\n        \"protectionState\": \"Protected\",\r\n        \"lastBackupStatus\": \"Completed\",\r\n        \"lastBackupTime\": \"2018-09-17T09:31:02.6786454Z\",\r\n        \"protectedItemType\": \"AzureFileShareProtectedItem\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"workloadType\": \"AzureFileShare\",\r\n        \"containerName\": \"StorageContainer;storage;sisi-rsv;sisisa\",\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-rsv/providers/Microsoft.storage/storageAccounts/sisisa\",\r\n        \"policyId\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupPolicies/AFSBackupPolicy\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "11333"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "84412e12-e24c-4742-8e6c-bbbf77562536"
+        ],
+        "x-ms-client-request-id": [
+          "c5ba9126-2d40-453d-892c-514d7b489a9e",
+          "c5ba9126-2d40-453d-892c-514d7b489a9e"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11996"
+        ],
+        "x-ms-correlation-request-id": [
+          "84412e12-e24c-4742-8e6c-bbbf77562536"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055517Z:84412e12-e24c-4742-8e6c-bbbf77562536"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:17 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectionContainers?$filter=backupManagementType%20eq%20'AzureStorage'%20and%20status%20eq%20'Registered'&api-version=2016-12-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0aW9uQ29udGFpbmVycz8kZmlsdGVyPWJhY2t1cE1hbmFnZW1lbnRUeXBlJTIwZXElMjAnQXp1cmVTdG9yYWdlJyUyMGFuZCUyMHN0YXR1cyUyMGVxJTIwJ1JlZ2lzdGVyZWQnJmFwaS12ZXJzaW9uPTIwMTYtMTItMDE=",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "4d7d1906-c2ac-473b-b972-7aba9ad10ae9"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa41\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa41\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa41\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa41\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa44\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa44\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa44\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa44\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa45\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa45\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa45\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa45\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa10\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa10\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa10\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa10\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa13\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa13\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa13\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa13\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa14\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa14\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa14\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa14\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa15\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa15\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa15\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa15\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa17\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa17\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa17\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa17\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa18\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa18\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa18\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa18\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa20\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa20\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa20\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa20\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa21\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa21\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa21\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa21\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa30\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa30\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa30\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa30\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa300\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa300\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa300\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa300\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa43\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa43\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa43\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa43\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisisa40\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisisa40\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisisa40\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa40\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisisa46\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisisa46\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisisa46\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa46\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisitestaccount\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisitestaccount\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisitestaccount\",\r\n        \"protectedItemCount\": 1,\r\n        \"friendlyName\": \"sisitestaccount\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/pstestsaa\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"pstestsaa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa\",\r\n        \"protectedItemCount\": 10,\r\n        \"friendlyName\": \"sisisa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa11\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa11\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa11\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa11\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa12\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa12\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa12\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa12\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa16\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa16\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa16\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa16\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa2\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa2\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa2\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa2\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa3\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa3\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa3\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa3\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa4\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa4\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa4\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa4\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa42\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa42\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa42\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa42\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa6\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa6\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa6\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa6\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa7\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa7\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa7\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa7\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa8\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa8\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa8\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa8\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "21962"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "734efdca-9cc7-4b6b-8c95-31db369fc303"
+        ],
+        "x-ms-client-request-id": [
+          "4d7d1906-c2ac-473b-b972-7aba9ad10ae9",
+          "4d7d1906-c2ac-473b-b972-7aba9ad10ae9"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11995"
+        ],
+        "x-ms-correlation-request-id": [
+          "734efdca-9cc7-4b6b-8c95-31db369fc303"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055518Z:734efdca-9cc7-4b6b-8c95-31db369fc303"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:17 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupProtectionContainers?$filter=backupManagementType%20eq%20'AzureStorage'%20and%20status%20eq%20'Registered'&api-version=2016-12-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9iYWNrdXBQcm90ZWN0aW9uQ29udGFpbmVycz8kZmlsdGVyPWJhY2t1cE1hbmFnZW1lbnRUeXBlJTIwZXElMjAnQXp1cmVTdG9yYWdlJyUyMGFuZCUyMHN0YXR1cyUyMGVxJTIwJ1JlZ2lzdGVyZWQnJmFwaS12ZXJzaW9uPTIwMTYtMTItMDE=",
+      "RequestMethod": "GET",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "8d9c3c71-8441-4dc1-9cc2-d71b93484ff3"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.Backup.RecoveryServicesBackupClient/3.0.0.0"
+        ]
+      },
+      "ResponseBody": "{\r\n  \"value\": [\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa41\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa41\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa41\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa41\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa44\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa44\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa44\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa44\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV2;sisisa45\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV2;sisisa45\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.ClassicStorage/storageAccounts/sisisa45\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa45\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa10\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa10\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa10\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa10\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa13\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa13\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa13\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa13\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa14\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa14\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa14\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa14\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa15\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa15\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa15\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa15\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa17\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa17\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa17\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa17\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa18\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa18\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa18\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa18\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa20\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa20\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa20\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa20\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa21\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa21\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa21\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa21\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa30\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa30\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa30\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa30\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa300\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa300\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa300\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa300\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;ClassicStorage;sisi-RSV;sisisa43\",\r\n      \"name\": \"StorageContainer;ClassicStorage;sisi-RSV;sisisa43\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.ClassicStorage/storageAccounts/sisisa43\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa43\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisisa40\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisisa40\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisisa40\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa40\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisisa46\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisisa46\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisisa46\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa46\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV2;sisitestaccount\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV2;sisitestaccount\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV2/providers/Microsoft.Storage/storageAccounts/sisitestaccount\",\r\n        \"protectedItemCount\": 1,\r\n        \"friendlyName\": \"sisitestaccount\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;pstestsaa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/pstestsaa\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"pstestsaa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa\",\r\n        \"protectedItemCount\": 10,\r\n        \"friendlyName\": \"sisisa\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Healthy\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa11\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa11\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa11\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa11\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa12\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa12\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa12\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa12\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa16\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa16\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa16\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa16\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa2\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa2\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa2\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa2\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa3\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa3\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa3\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa3\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa4\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa4\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa4\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa4\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa42\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa42\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa42\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa42\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa6\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa6\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa6\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa6\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa7\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa7\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa7\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa7\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;sisi-RSV;sisisa8\",\r\n      \"name\": \"StorageContainer;Storage;sisi-RSV;sisisa8\",\r\n      \"type\": \"Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers\",\r\n      \"properties\": {\r\n        \"sourceResourceId\": \"/subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.Storage/storageAccounts/sisisa8\",\r\n        \"protectedItemCount\": 0,\r\n        \"friendlyName\": \"sisisa8\",\r\n        \"backupManagementType\": \"AzureStorage\",\r\n        \"registrationStatus\": \"Registered\",\r\n        \"healthStatus\": \"Deleted\",\r\n        \"containerType\": \"StorageContainer\",\r\n        \"protectableObjectType\": \"StorageContainer\"\r\n      }\r\n    }\r\n  ]\r\n}",
+      "ResponseHeaders": {
+        "Content-Length": [
+          "21962"
+        ],
+        "Content-Type": [
+          "application/json"
+        ],
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "6ff1520a-b156-4f59-bbcc-c8967ea382f6"
+        ],
+        "x-ms-client-request-id": [
+          "8d9c3c71-8441-4dc1-9cc2-d71b93484ff3",
+          "8d9c3c71-8441-4dc1-9cc2-d71b93484ff3"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": [
+          "11993"
+        ],
+        "x-ms-correlation-request-id": [
+          "6ff1520a-b156-4f59-bbcc-c8967ea382f6"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055519Z:6ff1520a-b156-4f59-bbcc-c8967ea382f6"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:18 GMT"
+        ],
+        "Server": [
+          "Microsoft-IIS/10.0"
+        ],
+        "X-Powered-By": [
+          "ASP.NET"
+        ]
+      },
+      "StatusCode": 200
+    },
+    {
+      "RequestUri": "/Subscriptions/da364f0f-307b-41c9-9d47-b7413ec45535/resourceGroups/sisi-RSV/providers/Microsoft.RecoveryServices/vaults/sisi-RSV-29-6/registeredIdentities/Storage%3Bsisi-RSV%3Bpstestsaa?api-version=2016-06-01",
+      "EncodedRequestUri": "L1N1YnNjcmlwdGlvbnMvZGEzNjRmMGYtMzA3Yi00MWM5LTlkNDctYjc0MTNlYzQ1NTM1L3Jlc291cmNlR3JvdXBzL3Npc2ktUlNWL3Byb3ZpZGVycy9NaWNyb3NvZnQuUmVjb3ZlcnlTZXJ2aWNlcy92YXVsdHMvc2lzaS1SU1YtMjktNi9yZWdpc3RlcmVkSWRlbnRpdGllcy9TdG9yYWdlJTNCc2lzaS1SU1YlM0Jwc3Rlc3RzYWE/YXBpLXZlcnNpb249MjAxNi0wNi0wMQ==",
+      "RequestMethod": "DELETE",
+      "RequestBody": "",
+      "RequestHeaders": {
+        "x-ms-client-request-id": [
+          "bf5dac5d-a4b2-486d-a512-2db5471a31ee"
+        ],
+        "accept-language": [
+          "en-US"
+        ],
+        "User-Agent": [
+          "FxVersion/4.7.3163.0",
+          "OSName/Windows10Enterprise",
+          "OSVersion/6.3.17134",
+          "Microsoft.Azure.Management.RecoveryServices.RecoveryServicesClient/4.2.0.0"
+        ]
+      },
+      "ResponseBody": "",
+      "ResponseHeaders": {
+        "Expires": [
+          "-1"
+        ],
+        "Pragma": [
+          "no-cache"
+        ],
+        "X-Content-Type-Options": [
+          "nosniff"
+        ],
+        "x-ms-request-id": [
+          "7723a3d5-aa21-4463-9cc2-4335c9e862c6"
+        ],
+        "x-ms-client-request-id": [
+          "bf5dac5d-a4b2-486d-a512-2db5471a31ee",
+          "bf5dac5d-a4b2-486d-a512-2db5471a31ee"
+        ],
+        "Strict-Transport-Security": [
+          "max-age=31536000; includeSubDomains"
+        ],
+        "x-ms-ratelimit-remaining-subscription-deletes": [
+          "14998"
+        ],
+        "x-ms-correlation-request-id": [
+          "7723a3d5-aa21-4463-9cc2-4335c9e862c6"
+        ],
+        "x-ms-routing-request-id": [
+          "SOUTHINDIA:20180918T055522Z:7723a3d5-aa21-4463-9cc2-4335c9e862c6"
+        ],
+        "Cache-Control": [
+          "no-cache"
+        ],
+        "Date": [
+          "Tue, 18 Sep 2018 05:55:21 GMT"
+        ]
+      },
+      "StatusCode": 204
+    }
+  ],
+  "Names": {},
+  "Variables": {
+    "SubscriptionId": "da364f0f-307b-41c9-9d47-b7413ec45535"
+  }
+}
