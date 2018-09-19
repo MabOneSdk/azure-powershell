@@ -192,9 +192,7 @@ function Test-AzureFileShareGetRPs
 		-ContainerType AzureStorage `
 		-Status Registered `
 		-Name $saName
-	$backupJob = Backup-AzureRmRecoveryServicesBackupItem `
-		-VaultId $vault.ID `
-		-Item $item | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+	$backupJob = Backup-Item $vault $item
 
 	$recoveryPoint = Get-AzureRmRecoveryServicesBackupRecoveryPoint `
 		-VaultId $vault.ID `
