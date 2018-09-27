@@ -29,12 +29,11 @@ function Test-AzureFileJob
 {
 	$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
 	$item = Enable-Protection $vault $fileShareName $saName
-	
-	# Trigger backup and wait for completion
-	$backupJob = Backup-AzureRmRecoveryServicesBackupItem `
-		-VaultId $vault.ID `
-		-Item $item | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
-	$jobs = Get-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+
+	$startDate1 = Get-QueryDateInUtc $((Get-Date).AddDays(-1)) "StartDate1"
+	$endDate1 = Get-QueryDateInUtc $(Get-Date) "EndDate1"
+
+	$jobs = Get-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID -From $startDate1 -To $endDate1
 
 	foreach ($job in $jobs)
 	{

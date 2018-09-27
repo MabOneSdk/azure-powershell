@@ -27,7 +27,7 @@ $saName = "pstestsaa"
 function Test-AzureFileContainer
 {
 	$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
-	Enable-Protection $vault $fileShareName $saName
+	$items = Enable-Protection $vault $fileShareName $saName
 		
 	# VARIATION-1: Get All Containers with only mandatory parameters
 	$containers = Get-AzureRmRecoveryServicesBackupContainer `
@@ -60,7 +60,13 @@ function Test-AzureFileContainer
 		-Name $saName `
 		-ResourceGroupName $resourceGroupName;
 	Assert-True { $containers.FriendlyName -contains $saName }
-
+	
+	# Disable Protection
+	Disable-AzureRmRecoveryServicesBackupProtection `
+		-VaultId $vault.ID `
+		-Item $items `
+		-RemoveRecoveryPoints `
+		-Force;
 	Unregister-AzureRmRecoveryServicesBackupContainer `
 	-VaultId $vault.ID `
 	-Container $containers
@@ -69,16 +75,17 @@ function Test-AzureFileContainer
 function Test-AzureFileUnregisterContainer
 {
 	$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
-	Enable-Protection $vault $fileShareName $saName
+	$items = Enable-Protection $vault $fileShareName $saName
 
 	$container = Get-AzureRmRecoveryServicesBackupContainer `
 		-VaultId $vault.ID `
 		-ContainerType AzureStorage `
 		-Status Registered `
 		-FriendlyName $saName
+
 	Unregister-AzureRmRecoveryServicesBackupContainer `
-	-VaultId $vault.ID `
-	-Container $container
+		-VaultId $vault.ID `
+		-Container $container
 
 	$container = Get-AzureRmRecoveryServicesBackupContainer `
 		-VaultId $vault.ID `

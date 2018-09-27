@@ -42,6 +42,7 @@ function Test-AzureFileProtectionCheck
 		-Name $saName `
 		-ResourceGroupName $resourceGroupName `
 		-Type AzureFiles
+
 	Assert-NotNull $status
 	Assert-True { $status.BackedUp }
 	Assert-True { $status.VaultId -eq $vault.ID }
