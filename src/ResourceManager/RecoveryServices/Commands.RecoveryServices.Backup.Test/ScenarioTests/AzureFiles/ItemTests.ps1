@@ -18,6 +18,13 @@ $vaultName = "PSTestFSRSV1bca8f8e"
 $fileShareFriendlyName = "pstestfs1bca8f8e"
 $fileShareName = "AzureFileShare;pstestfs1bca8f8e"
 $saName = "pstestsa1bca8f8e"
+$saRgName = "pstestFSRG1bca8f8e"
+$targetSaName = "pstestsa3rty7d7s"
+$targetSaRgName ="pstestFSRG3rty7d7s"
+$targetFileShareName = "pstestfs3rty7d7s"
+$targetFolder = "pstestfolder3rty7d7s"
+$folderPath = "pstestfolder1bca8f8e"
+$filePath = "pstestfolder1bca8f8e/pstestfile1bca8f8e.txt"
 $skuName="Standard_LRS"
 $policyName = "AFSBackupPolicy"
 
@@ -233,61 +240,86 @@ function Test-AzureFSGetRPs
 
 function Test-AzureFSFullRestore
 {
-	$resourceGroupName = "sisi-RSV"
-	$targetResourceGroupName = "sisi-RSV2"
-
 	try
 	{
-		$saName = "sisisa"
-		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name "sisi-RSV-29-6"
-		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'sisi-RSV' -Name 'sisi-RSV-29-6' | Set-AzureRmRecoveryServicesVaultContext
-		$container = Get-AzureRmRecoveryServicesBackupContainer -ContainerType “AzureStorage” -FriendlyName $saName
-		$item = Get-AzureRmRecoveryServicesBackupItem -Container $container[16] -WorkloadType “AzureFiles” -Name "igniteshare0"
-		
+		$vault = Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
+		Get-AzureRmRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName | Set-AzureRmRecoveryServicesVaultContext
+		$item = Enable-Protection $vault $fileShareFriendlyName $saName
+		$container = Get-AzureRmRecoveryServicesBackupContainer `
+			-VaultId $vault.ID `
+			-ContainerType AzureStorage `
+			-Status Registered `
+			-Name $saName
+		$backupJob = Backup-Item $vault $item
+
+		$backupStartTime = $backupJob.StartTime.AddMinutes(-1);
+		$backupEndTime = $backupJob.EndTime.AddMinutes(1);
+
 		$recoveryPoint = Get-AzureRmRecoveryServicesBackupRecoveryPoint `
 			-VaultId $vault.ID `
+			-StartDate $backupStartTime `
+			-EndDate $backupEndTime `
 			-Item $item;
 
+		# Item level restore at alternate location
 		$restoreJob1 = Restore-AzureRmRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
 			-RecoveryPoint $recoveryPoint[0] `
-			-StorageAccountName "sisisa" `
-			-StorageAccountResourceGroupName "sisi-RSV" `
+			-StorageAccountName $saName `
+			-StorageAccountResourceGroupName $saRgName `
 			-ResolveConflict Overwrite `
-			-SourceFilePath "d1/d2" `
-			-TargetStorageAccountName "sisitestaccount" `
-			-TargetStorageAccountResourceGroupName "sisi-RSV2" `
-			-TargetFileShareName "myshare" `
-			-TargetFolder "igniteshare1_restore11"
+			-SourceFilePath $folderPath `
+			-SourceFileType Directory `
+			-TargetStorageAccountName $targetSaName `
+			-TargetStorageAccountResourceGroupName $targetSaRgName `
+			-TargetFileShareName $targetFileShareName `
+			-TargetFolder $targetFolder | `
+				Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob1.Status -eq "Completed" }
 
+		# Full share restore at alternate location		
 		$restoreJob2 = Restore-AzureRmRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
 			-RecoveryPoint $recoveryPoint[0] `
-			-StorageAccountName "sisisa" `
-			-StorageAccountResourceGroupName "sisi-RSV" `
+			-StorageAccountName $saName `
+			-StorageAccountResourceGroupName $saRgName `
 			-ResolveConflict Overwrite `
-			-TargetStorageAccountName "sisitestaccount" `
-			-TargetStorageAccountResourceGroupName "sisi-RSV2" `
-			-TargetFileShareName "myshare" `
-			-TargetFolder "igniteshare_restore22"
+			-TargetStorageAccountName $targetSaName `
+			-TargetStorageAccountResourceGroupName $targetSaRgName `
+			-TargetFileShareName $targetFileShareName `
+			-TargetFolder $targetFolder | `
+				Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob2.Status -eq "Completed" }
 
+		# Item level restore at original location
 		$restoreJob3 = Restore-AzureRmRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
 			-RecoveryPoint $recoveryPoint[0] `
-			-StorageAccountName "sisisa" `
-			-StorageAccountResourceGroupName "sisi-RSV" `
+			-StorageAccountName $saName `
+			-StorageAccountResourceGroupName $saRgName `
 			-ResolveConflict Overwrite `
-		
+			-SourceFilePath $filePath `
+			-SourceFileType File | `
+				Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+
+		Assert-True { $restoreJob3.Status -eq "Completed" }
+
+		# Full share restore at original location
 		$restoreJob4 = Restore-AzureRmRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
 			-RecoveryPoint $recoveryPoint[0] `
-			-StorageAccountName "sisisa" `
-			-StorageAccountResourceGroupName "sisi-RSV" `
-			-ResolveConflict Overwrite `
-			-SourceFilePath "d1/d2" `
+			-StorageAccountName $saName `
+			-StorageAccountResourceGroupName $saRgName `
+			-ResolveConflict Overwrite | `
+				Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+
+		Assert-True { $restoreJob4.Status -eq "Completed" }
+		
 	}
 	finally
 	{
-		# Cleanup
+		Cleanup-Vault $vault $item $container
 	}
 }

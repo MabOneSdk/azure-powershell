@@ -329,9 +329,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     /// <summary>
     /// Options to select the file type
     /// </summary>
-    public enum FileType
+    public enum SourceFileType
     {
         File,
-        Folder
+        Directory
     }
 }

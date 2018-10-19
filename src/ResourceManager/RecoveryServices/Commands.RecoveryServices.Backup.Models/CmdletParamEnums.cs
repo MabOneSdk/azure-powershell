@@ -52,13 +52,21 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         RecoveryPoint,
         StorageAccountId,
         StorageAccountLocation,
-        StorageAccountType,
+        StorageAccountType
+    }
+
+    public enum RestoreVMBackupItemParams
+    {
         TargetResourceGroupName,
-        OsaOption,
+        OsaOption
+    }
+
+    public enum RestoreFSBackupItemParams
+    {
         ResolveConflict,
         SourceFilePath,
+        SourceFileType,
         TargetStorageAccountName,
-        TargetStorageAccountResourceGroupName,
         TargetFileShareName,
         TargetFolder,
         TargetStorageAccountId,

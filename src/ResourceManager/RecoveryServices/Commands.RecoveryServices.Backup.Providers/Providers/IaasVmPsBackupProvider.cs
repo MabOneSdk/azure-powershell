@@ -269,9 +269,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             string storageAccountType =
                 ProviderData[RestoreBackupItemParams.StorageAccountType].ToString();
             string targetResourceGroupName =
-                ProviderData.ContainsKey(RestoreBackupItemParams.TargetResourceGroupName) ?
-                ProviderData[RestoreBackupItemParams.TargetResourceGroupName].ToString() : null;
-            bool osaOption = (bool)ProviderData[RestoreBackupItemParams.OsaOption];
+                ProviderData.ContainsKey(RestoreVMBackupItemParams.TargetResourceGroupName) ?
+                ProviderData[RestoreVMBackupItemParams.TargetResourceGroupName].ToString() : null;
+            bool osaOption = (bool)ProviderData[RestoreVMBackupItemParams.OsaOption];
             Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(rp.Id);
             string containerUri = HelperUtils.GetContainerUri(uriDict, rp.Id);
 

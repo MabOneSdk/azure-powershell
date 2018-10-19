@@ -154,20 +154,22 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             string storageAccountId = ProviderData[RestoreBackupItemParams.StorageAccountId].ToString();
             string storageAccountLocation = ProviderData.ContainsKey(RestoreBackupItemParams.StorageAccountLocation) ?
                 ProviderData[RestoreBackupItemParams.StorageAccountLocation].ToString() : null;
-            string copyOptions = (string)ProviderData[RestoreBackupItemParams.ResolveConflict];
-            string sourceFilePath = ProviderData.ContainsKey(RestoreBackupItemParams.SourceFilePath) ?
-                (string)ProviderData[RestoreBackupItemParams.SourceFilePath] : null;
+            string copyOptions = (string)ProviderData[RestoreFSBackupItemParams.ResolveConflict];
+            string sourceFilePath = ProviderData.ContainsKey(RestoreFSBackupItemParams.SourceFilePath) ?
+                (string)ProviderData[RestoreFSBackupItemParams.SourceFilePath] : null;
+            string sourceFileType = ProviderData.ContainsKey(RestoreFSBackupItemParams.SourceFileType) ?
+                (string)ProviderData[RestoreFSBackupItemParams.SourceFileType] : null;
             string targetStorageAccountName =
-                ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountName) ?
-                (string)ProviderData[RestoreBackupItemParams.TargetStorageAccountName] : null;
-            string targetFileShareName = ProviderData.ContainsKey(RestoreBackupItemParams.TargetFileShareName) ?
-                (string)ProviderData[RestoreBackupItemParams.TargetFileShareName] : null;
-            string targetFolder = ProviderData.ContainsKey(RestoreBackupItemParams.TargetFolder) ?
-                (string)ProviderData[RestoreBackupItemParams.TargetFolder] : null;
-            string targetStorageAccountId = ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountId) ?
-                (string)ProviderData[RestoreBackupItemParams.TargetStorageAccountId] : null;
-            string targetStorageAccountLocation = ProviderData.ContainsKey(RestoreBackupItemParams.TargetStorageAccountLocation) ?
-                ProviderData[RestoreBackupItemParams.TargetStorageAccountLocation].ToString() : null;
+                ProviderData.ContainsKey(RestoreFSBackupItemParams.TargetStorageAccountName) ?
+                (string)ProviderData[RestoreFSBackupItemParams.TargetStorageAccountName] : null;
+            string targetFileShareName = ProviderData.ContainsKey(RestoreFSBackupItemParams.TargetFileShareName) ?
+                (string)ProviderData[RestoreFSBackupItemParams.TargetFileShareName] : null;
+            string targetFolder = ProviderData.ContainsKey(RestoreFSBackupItemParams.TargetFolder) ?
+                (string)ProviderData[RestoreFSBackupItemParams.TargetFolder] : null;
+            string targetStorageAccountId = ProviderData.ContainsKey(RestoreFSBackupItemParams.TargetStorageAccountId) ?
+                (string)ProviderData[RestoreFSBackupItemParams.TargetStorageAccountId] : null;
+            string targetStorageAccountLocation = ProviderData.ContainsKey(RestoreFSBackupItemParams.TargetStorageAccountLocation) ?
+                ProviderData[RestoreFSBackupItemParams.TargetStorageAccountLocation].ToString() : null;
 
             List<RestoreFileSpecs> restoreFileSpecs = null;
             if (sourceFilePath != null || targetFolder != null)
@@ -175,7 +177,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 RestoreFileSpecs restoreFileSpec = new RestoreFileSpecs();
                 restoreFileSpec.Path = sourceFilePath;
                 restoreFileSpec.TargetFolderPath = targetFolder;
-                restoreFileSpec.FileSpecType = sourceFilePath != null ? "Directory" : null;
+                restoreFileSpec.FileSpecType = sourceFileType;
                 restoreFileSpecs = new List<RestoreFileSpecs>();
                 restoreFileSpecs.Add(restoreFileSpec);
             }
