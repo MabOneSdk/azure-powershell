@@ -172,33 +172,60 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 ProviderData[RestoreFSBackupItemParams.TargetStorageAccountLocation].ToString() : null;
 
             List<RestoreFileSpecs> restoreFileSpecs = null;
-            if (sourceFilePath != null || targetFolder != null)
+            TargetAFSRestoreInfo targetDetails = null;
+            RestoreFileSpecs restoreFileSpec = new RestoreFileSpecs();
+            AzureFileShareRestoreRequest restoreRequest = new AzureFileShareRestoreRequest();
+            restoreRequest.CopyOptions = copyOptions;
+            restoreRequest.SourceResourceId = storageAccountId;
+            if (sourceFilePath != null)
             {
-                RestoreFileSpecs restoreFileSpec = new RestoreFileSpecs();
                 restoreFileSpec.Path = sourceFilePath;
-                restoreFileSpec.TargetFolderPath = targetFolder;
                 restoreFileSpec.FileSpecType = sourceFileType;
+                restoreRequest.RestoreRequestType = RestoreRequestType.ItemLevelRestore;
+                if (targetFolder != null)
+                {
+                    //scenario : item level restore for alternate location
+                    restoreFileSpec.TargetFolderPath = targetFolder;
+                    targetDetails = new TargetAFSRestoreInfo();
+                    targetDetails.Name = targetFileShareName;
+                    targetDetails.TargetResourceId = targetStorageAccountId;
+                    restoreRequest.RecoveryType = RecoveryType.AlternateLocation;
+                }
+                else
+                {
+                    //scenario : item level restore for original location
+                    restoreFileSpec.TargetFolderPath = null;
+                    restoreRequest.RecoveryType = RecoveryType.OriginalLocation;
+                }
+
                 restoreFileSpecs = new List<RestoreFileSpecs>();
                 restoreFileSpecs.Add(restoreFileSpec);
             }
-
-            TargetAFSRestoreInfo targetDetails = null;
-            if (targetStorageAccountName != null)
+            else
             {
-                targetDetails = new TargetAFSRestoreInfo();
-                targetDetails.Name = targetFileShareName;
-                targetDetails.TargetResourceId = targetStorageAccountId;
+                restoreRequest.RestoreRequestType = RestoreRequestType.FullShareRestore;
+                if (targetFolder != null)
+                {
+                    //scenario : full level restore for alternate location
+                    restoreFileSpec.Path = null;
+                    restoreFileSpec.TargetFolderPath = targetFolder;
+                    restoreFileSpec.FileSpecType = null;
+                    restoreFileSpecs = new List<RestoreFileSpecs>();
+                    restoreFileSpecs.Add(restoreFileSpec);
+                    targetDetails = new TargetAFSRestoreInfo();
+                    targetDetails.Name = targetFileShareName;
+                    targetDetails.TargetResourceId = targetStorageAccountId;
+                    restoreRequest.RecoveryType = RecoveryType.AlternateLocation;
+                }
+                else
+                {
+                    //scenario : full level restore for original location
+                    restoreRequest.RecoveryType = RecoveryType.OriginalLocation;
+                }
             }
 
-            AzureFileShareRestoreRequest restoreRequest = new AzureFileShareRestoreRequest()
-            {
-                CopyOptions = copyOptions,
-                RecoveryType = targetStorageAccountName != null ? RecoveryType.AlternateLocation : RecoveryType.OriginalLocation,
-                RestoreFileSpecs = restoreFileSpecs,
-                RestoreRequestType = sourceFilePath != null ? RestoreRequestType.ItemLevelRestore : RestoreRequestType.FullShareRestore,
-                SourceResourceId = storageAccountId,
-                TargetDetails = targetDetails,
-            };
+            restoreRequest.RestoreFileSpecs = restoreFileSpecs;
+            restoreRequest.TargetDetails = targetDetails;
 
             RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
             triggerRestoreRequest.Properties = restoreRequest;

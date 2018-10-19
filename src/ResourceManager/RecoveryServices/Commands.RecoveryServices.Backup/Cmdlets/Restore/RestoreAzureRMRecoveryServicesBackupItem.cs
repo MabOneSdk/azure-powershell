@@ -12,10 +12,6 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Management.Automation;
-using System.Threading;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
@@ -23,6 +19,10 @@ using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Management.Internal.Resources;
 using Microsoft.Azure.Management.Internal.Resources.Models;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
+using System;
+using System.Collections.Generic;
+using System.Management.Automation;
+using System.Threading;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
 {
@@ -84,7 +84,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         [Parameter(Mandatory = true, Position = 3, ParameterSetName = AzureFileParameterSet,
             HelpMessage = ParamHelpMsgs.RestoreFS.ResolveConflict)]
         [ValidateNotNullOrEmpty]
-        public ResolveConflict ResolveConflict { get; set; }
+        public RestoreFSResolveConfictOption ResolveConflict { get; set; }
 
         /// <summary>
         /// Source File Path of the file to be recovered
@@ -95,7 +95,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         public string SourceFilePath { get; set; }
 
         /// <summary>
-        /// Source File Path of the file to be recovered
+        /// Source File Type of the file to be recovered
         /// </summary>
         [Parameter(Mandatory = false, Position = 5, ParameterSetName = AzureFileParameterSet,
             HelpMessage = ParamHelpMsgs.RestoreFS.SourceFilePath)]
@@ -111,7 +111,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         public string TargetStorageAccountName { get; set; }
 
         /// <summary>
-        /// Target storage account name where the disks need to be recovered
+        /// Target storage account resource group name where the file need to be recovered
         /// </summary>
         [Parameter(Mandatory = false, Position = 7, ParameterSetName = AzureFileParameterSet,
             HelpMessage = ParamHelpMsgs.RestoreFS.TargetStorageAccountResourceGroupName)]
@@ -192,7 +192,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                 }
 
                 PsBackupProviderManager providerManager =
-                        new PsBackupProviderManager(providerParameters, ServiceClientAdapter);
+                    new PsBackupProviderManager(providerParameters, ServiceClientAdapter);
                 IPsBackupProvider psBackupProvider = providerManager.GetProviderInstance(
                     RecoveryPoint.WorkloadType, RecoveryPoint.BackupManagementType);
                 var jobResponse = psBackupProvider.TriggerRestore();
