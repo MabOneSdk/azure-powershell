@@ -144,5 +144,20 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
                 triggerBackupRequest,
                 cancellationToken: BmsAdapter.CmdletCancellationToken).Result;
         }
+
+        /// <summary>
+        /// Get backup status of specified item
+        /// </summary>
+        /// <param name="azureRegion">Name of the region which this item belongs to</param>
+        /// <returns>Backup status response object created by this operation</returns>
+        public RestAzureNS.AzureOperationResponse<BackupStatusResponse> GetBackupStatus(
+            string azureRegion,
+            BackupStatusRequest backupStatusRequest)
+        {
+            return BmsAdapter.Client.BackupStatus.GetWithHttpMessagesAsync(
+                azureRegion,
+                backupStatusRequest,
+                cancellationToken: BmsAdapter.CmdletCancellationToken).Result;
+        }
     }
 }

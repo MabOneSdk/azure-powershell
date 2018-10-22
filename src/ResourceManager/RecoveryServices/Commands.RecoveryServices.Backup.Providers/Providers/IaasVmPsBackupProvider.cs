@@ -814,51 +814,29 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public ResourceBackupStatus CheckBackupStatus()
         {
-            string azureVmName = (string)ProviderData[ProtectionCheckParams.Name];
-            string azureVmResourceGroupName =
+            string name = (string)ProviderData[ProtectionCheckParams.Name];
+            string resourceGroupName =
                 (string)ProviderData[ProtectionCheckParams.ResourceGroupName];
+            string resourceId =
+                (string)ProviderData[ProtectionCheckParams.ResourceId];
+            string resourceType =
+                (string)ProviderData[ProtectionCheckParams.ResourceType];
+            string location =
+                (string)ProviderData[ProtectionCheckParams.Location];
 
-            ODataQuery<ProtectedItemQueryObject> queryParams =
-                new ODataQuery<ProtectedItemQueryObject>(
-                    q => q.BackupManagementType
-                            == ServiceClientModel.BackupManagementType.AzureIaasVM &&
-                         q.ItemType == DataSourceType.VM);
-
-            var vaultIds = ServiceClientAdapter.ListVaults();
-            foreach (var vaultId in vaultIds)
+            BackupStatusRequest backupStatusRequest = new BackupStatusRequest()
             {
-                ResourceIdentifier vaultIdentifier = new ResourceIdentifier(vaultId);
+                PoLogicalName = name,
+                ResourceId = resourceId,
+                ResourceType = "VM"
+            };
 
-                var items = ServiceClientAdapter.ListProtectedItem(
-                    queryParams,
-                    vaultName: vaultIdentifier.ResourceName,
-                    resourceGroupName: vaultIdentifier.ResourceGroupName);
+            BackupStatusResponse backupStatusResponse =
+                ServiceClientAdapter.GetBackupStatus(location, backupStatusRequest).Body;
 
-                if (items.Any(
-                    item =>
-                    {
-                        ResourceIdentifier vmIdentifier =
-                            new ResourceIdentifier(item.Properties.SourceResourceId);
-                        var itemVmName = vmIdentifier.ResourceName;
-                        var itemVmRgName = vmIdentifier.ResourceGroupName;
-
-                        return itemVmName.ToLower() == azureVmName.ToLower() &&
-                            itemVmRgName.ToLower() == azureVmResourceGroupName.ToLower();
-                    }))
-                {
-                    return new ResourceBackupStatus(
-                        azureVmName,
-                        azureVmResourceGroupName,
-                        vaultId,
-                        true);
-                }
-            }
-
-            return new ResourceBackupStatus(
-                azureVmName,
-                azureVmResourceGroupName,
-                null,
-                false);
+            bool isBackedup = string.Compare(backupStatusResponse.ProtectionStatus,
+                "Protected") == 0 ? true : false;
+            return new ResourceBackupStatus(name, resourceGroupName, backupStatusResponse.VaultId, isBackedup);
         }
 
         #region private

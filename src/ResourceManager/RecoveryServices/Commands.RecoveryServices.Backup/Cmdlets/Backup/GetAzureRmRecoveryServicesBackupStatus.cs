@@ -19,6 +19,10 @@ using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
+using Microsoft.Azure.Management.Internal.Resources.Models;
+using Microsoft.Azure.Management.Internal.Resources;
+using System.Threading;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
 {
@@ -81,11 +85,33 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                     type = resourceIdentifier.ResourceType;
                 }
 
+                GenericResource resource = null;
+                if (type == "Microsoft.Compute/virtualMachines" ||
+                type == "Microsoft.ClassicCompute/virtualMachines" ||
+                type == "AzureVM")
+                {
+                    resource = GetVirtualMachineResource(name,
+                    resourceGroupName);
+                }
+                else if (type == "AzureFiles")
+                {
+                    
+                }
+                else
+                {
+                    throw new ArgumentException(
+                        string.Format(Resources.UnsupportedResourceTypeException,
+                        type));
+                }
+
                 PsBackupProviderManager providerManager =
                     new PsBackupProviderManager(new Dictionary<Enum, object>()
                     {
                         { ProtectionCheckParams.Name, name },
                         { ProtectionCheckParams.ResourceGroupName, resourceGroupName },
+                        { ProtectionCheckParams.ResourceId, resource.Id },
+                        { ProtectionCheckParams.ResourceType, resource.Type },
+                        { ProtectionCheckParams.Location, resource.Location }
                     }, ServiceClientAdapter);
 
                 IPsBackupProvider psBackupProvider =
@@ -93,6 +119,47 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
 
                 WriteObject(psBackupProvider.CheckBackupStatus());
             });
+        }
+
+        public GenericResource GetVirtualMachineResource(string name, string resourceGroupName)
+        {
+            name = name.ToLower();
+            ResourceIdentity identity = new ResourceIdentity();
+            identity.ResourceName = name;
+            identity.ResourceProviderNamespace = "Microsoft.ClassicCompute/virtualMachines";
+            identity.ResourceProviderApiVersion = "2015-12-01";
+            identity.ResourceType = string.Empty;
+            identity.ParentResourcePath = string.Empty;
+
+            GenericResource resource = null;
+            try
+            {
+                WriteDebug(string.Format("Query Microsoft.ClassicCompute with name = {0}",
+                    name));
+                resource = RmClient.Resources.GetAsync(
+                    resourceGroupName,
+                    identity.ResourceProviderNamespace,
+                    identity.ParentResourcePath,
+                    identity.ResourceType,
+                    identity.ResourceName,
+                    identity.ResourceProviderApiVersion,
+                    CancellationToken.None).Result;
+            }
+            catch (Exception)
+            {
+                identity.ResourceProviderNamespace = "Microsoft.Compute/virtualMachines";
+                identity.ResourceProviderApiVersion = "2018-06-01";
+                resource = RmClient.Resources.GetAsync(
+                    resourceGroupName,
+                    identity.ResourceProviderNamespace,
+                    identity.ParentResourcePath,
+                    identity.ResourceType,
+                    identity.ResourceName,
+                    identity.ResourceProviderApiVersion,
+                    CancellationToken.None).Result;
+            }
+
+            return resource;
         }
     }
 }
