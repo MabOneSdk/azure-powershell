@@ -35,7 +35,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
             }
 
             string headerValue = Guid.NewGuid().ToString() + "-PS";
-            request.Headers.TryAddWithoutValidation(RequestIdHeaderName, headerValue);
+            request.Headers.Add(RequestIdHeaderName, headerValue);
 
             return base.SendAsync(request, cancellationToken);
         }
