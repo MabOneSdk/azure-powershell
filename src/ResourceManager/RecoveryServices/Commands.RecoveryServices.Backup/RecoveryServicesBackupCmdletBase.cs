@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             WriteDebug("Inside Restore. Going to create ResourceClient.");
             RmClient = AzureSession.Instance.ClientFactory.CreateArmClient<ResourcesNS.ResourceManagementClient>(DefaultContext, AzureEnvironment.Endpoint.ResourceManager);
 
-            WriteDebug("Client Created successfully");
+            WriteDebug("Client Created successfully!!");
 
             Logger.Instance = new Logger(WriteWarning, WriteDebug, WriteVerbose, WriteError, ThrowTerminatingError);
         }
