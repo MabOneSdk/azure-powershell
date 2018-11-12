@@ -14,14 +14,15 @@
 
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
+using Microsoft.Rest.Azure.OData;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -35,9 +36,13 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         private const CmdletModel.RetentionDurationType defaultFileRetentionType =
             CmdletModel.RetentionDurationType.Days;
         private const int defaultFileRetentionCount = 30;
+
         Dictionary<Enum, object> ProviderData { get; set; }
+
         ServiceClientAdapter ServiceClientAdapter { get; set; }
+
         AzureWorkloadProviderHelper AzureWorkloadProviderHelper { get; set; }
+
         /// <summary>
         /// Initializes the provider with the data recieved from the cmdlet layer
         /// </summary>
@@ -102,7 +107,18 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ContainerBase> ListProtectionContainers()
         {
-            throw new NotImplementedException();
+            CmdletModel.BackupManagementType? backupManagementTypeNullable =
+                (CmdletModel.BackupManagementType?)
+                    ProviderData[ContainerParams.BackupManagementType];
+
+            if (backupManagementTypeNullable.HasValue)
+            {
+                ValidateAzureWorkloadBackupManagementType(backupManagementTypeNullable.Value);
+            }
+
+            return AzureWorkloadProviderHelper.ListProtectionContainers(
+                ProviderData,
+                ServiceClientModel.BackupManagementType.AzureWorkload);
         }
 
         public List<RecoveryPointBase> ListRecoveryPoints()
@@ -133,6 +149,72 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateAzureWorkloadBackupManagementType(
+            CmdletModel.BackupManagementType backupManagementType)
+        {
+            if (backupManagementType != CmdletModel.BackupManagementType.AzureWorkload)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
+                                            CmdletModel.BackupManagementType.AzureWorkload.ToString(),
+                                            backupManagementType.ToString()));
+            }
+        }
+
+        public void RegisterContainer()
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string containerName = (string)ProviderData[ContainerParams.Name];
+            string backupManagementType = (string)ProviderData[ContainerParams.BackupManagementType];
+            string workloadType = (string)ProviderData[ContainerParams.ContainerType];
+
+            //Trigger Discovery
+            ODataQuery<BMSRefreshContainersQueryObject> queryParam = new ODataQuery<BMSRefreshContainersQueryObject>(
+               q => q.BackupManagementType
+                    == ServiceClientModel.BackupManagementType.AzureWorkload);
+            AzureWorkloadProviderHelper.RefreshContainer(vaultName, vaultResourceGroupName, queryParam);
+
+            List<ProtectableContainerResource> unregisteredVmContainers =
+                    GetUnRegisteredVmContainers(vaultName, vaultResourceGroupName);
+            ProtectableContainerResource unregisteredVmContainer = unregisteredVmContainers.Find(
+                vmContainer => string.Compare(vmContainer.Name.Split(';').Last(),
+                containerName, true) == 0);
+
+            if (unregisteredVmContainer != null)
+            {
+                ProtectionContainerResource protectionContainerResource =
+                        new ProtectionContainerResource(unregisteredVmContainer.Id,
+                        unregisteredVmContainer.Name);
+                AzureVMAppContainerProtectionContainer azureVMContainer = new AzureVMAppContainerProtectionContainer(
+                    friendlyName: containerName,
+                    backupManagementType: backupManagementType,
+                    sourceResourceId: unregisteredVmContainer.Properties.ContainerId,
+                    workloadType: workloadType.ToString());
+                protectionContainerResource.Properties = azureVMContainer;
+
+                AzureWorkloadProviderHelper.RegisterContainer(unregisteredVmContainer.Name,
+                        protectionContainerResource,
+                        vaultName,
+                        vaultResourceGroupName);
+            }
+        }
+
+        private List<ProtectableContainerResource> GetUnRegisteredVmContainers(string vaultName = null,
+            string vaultResourceGroupName = null)
+        {
+            ODataQuery<BMSContainerQueryObject> queryParams = null;
+            queryParams = new ODataQuery<BMSContainerQueryObject>(
+                q => q.BackupManagementType == ServiceClientModel.BackupManagementType.AzureWorkload);
+
+            var listResponse = ServiceClientAdapter.ListUnregisteredContainers(
+                queryParams,
+                vaultName: vaultName,
+                resourceGroupName: vaultResourceGroupName);
+            List<ProtectableContainerResource> containerModels = listResponse.ToList();
+
+            return containerModels;
         }
     }
 }
