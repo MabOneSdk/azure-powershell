@@ -67,10 +67,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         /// </summary>
         protected override void SetupHttpClientPipeline()
         {
-            base.SetupHttpClientPipeline();
             AzureSession.Instance.ClientFactory.AddHandler(
                 new RpNamespaceHandler(ServiceClientAdapter.ResourceProviderNamespace));
-            //AzureSession.Instance.ClientFactory.AddHandler(new ClientRequestIdHandler());
+            AzureSession.Instance.ClientFactory.AddHandler(new ClientRequestIdHandler());
         }
 
         /// <summary>

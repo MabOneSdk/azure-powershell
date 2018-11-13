@@ -26,7 +26,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
     public class RpNamespaceHandler : DelegatingHandler, ICloneable
     {
         string rpNamespace;
-        const string RequestIdHeaderName = "x-ms-client-request-id";
 
         public RpNamespaceHandler(string rpNamespace)
         {
@@ -38,14 +37,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
         {
             request.RequestUri = new Uri(request.RequestUri.AbsoluteUri.Replace(
                 ServiceClientAdapter.ResourceProviderProductionNamespace, rpNamespace));
-
-            if (request.Headers.Contains(RequestIdHeaderName))
-            {
-                request.Headers.Remove(RequestIdHeaderName);
-            }
-
-            string headerValue = Guid.NewGuid().ToString() + "-PS";
-            request.Headers.TryAddWithoutValidation(RequestIdHeaderName, headerValue);
 
             return base.SendAsync(request, cancellationToken);
         }
