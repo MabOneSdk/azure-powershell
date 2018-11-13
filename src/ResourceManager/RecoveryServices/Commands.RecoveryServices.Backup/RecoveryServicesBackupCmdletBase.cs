@@ -70,7 +70,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             base.SetupHttpClientPipeline();
             AzureSession.Instance.ClientFactory.AddHandler(
                 new RpNamespaceHandler(ServiceClientAdapter.ResourceProviderNamespace));
-            AzureSession.Instance.ClientFactory.AddHandler(new ClientRequestIdHandler());
+            //AzureSession.Instance.ClientFactory.AddHandler(new ClientRequestIdHandler());
         }
 
         /// <summary>
