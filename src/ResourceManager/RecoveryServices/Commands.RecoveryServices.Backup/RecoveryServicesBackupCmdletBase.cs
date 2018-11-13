@@ -67,6 +67,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         /// </summary>
         protected override void SetupHttpClientPipeline()
         {
+            AzureSession.Instance.ClientFactory.AddUserAgent(ModuleName, string.Format("v{0}", ModuleVersion));
+            AzureSession.Instance.ClientFactory.AddUserAgent("PSVersion", string.Format("v{0}", PSVersion));
             AzureSession.Instance.ClientFactory.AddHandler(
                 new RpNamespaceHandler(ServiceClientAdapter.ResourceProviderNamespace));
             AzureSession.Instance.ClientFactory.AddHandler(new ClientRequestIdHandler());

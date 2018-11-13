@@ -25,6 +25,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
     public class ClientRequestIdHandler : DelegatingHandler, ICloneable
     {
         const string RequestIdHeaderName = "x-ms-client-request-id";
+        const string newRequestIdHeaderName = "x-ms-client-request-id-new";
 
         protected override Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
@@ -36,6 +37,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
 
             string headerValue = Guid.NewGuid().ToString() + "-PS";
             request.Headers.TryAddWithoutValidation(RequestIdHeaderName, headerValue);
+            request.Headers.TryAddWithoutValidation(newRequestIdHeaderName, headerValue);
             return base.SendAsync(request, cancellationToken);
         }
 
