@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
+using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -84,7 +87,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RecoveryPointBase GetRecoveryPointDetails()
         {
-            return AzureWorkloadProviderHelper.GetRecoveryPointDetails(ProviderData);
+            throw new NotImplementedException();
         }
 
         public List<CmdletModel.BackupEngineBase> ListBackupManagementServers()
@@ -104,7 +107,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<RecoveryPointBase> ListRecoveryPoints()
         {
-            return AzureWorkloadProviderHelper.ListRecoveryPoints(ProviderData);
+            throw new NotImplementedException();
         }
 
         public RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> ModifyPolicy()
@@ -129,48 +132,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
-            string vaultName = (string)ProviderData[VaultParams.VaultName];
-            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
-            string vaultLocation = (string)ProviderData[VaultParams.VaultLocation];
-            RecoveryConfigBase wLRecoveryConfigBase = (RecoveryConfigBase)ProviderData[RestoreWLBackupItemParams.WLRecoveryConfig];
-
-            AzureWorkloadRecoveryConfig wLRecoveryConfig = (AzureWorkloadRecoveryConfig)ProviderData[RestoreWLBackupItemParams.WLRecoveryConfig];
-            RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
-
-            if (wLRecoveryConfig.RecoveryPoint != null)
-            {
-                AzureWorkloadSQLRestoreRequest azureWorkloadSQLRestoreRequest = new AzureWorkloadSQLRestoreRequest();
-
-                azureWorkloadSQLRestoreRequest.ShouldUseAlternateTargetLocation = string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") != 0 ? true : false;
-                azureWorkloadSQLRestoreRequest.IsNonRecoverable = string.Compare(wLRecoveryConfig.NoRecoveryMode, "Enabled") == 0 ? true : false;
-                azureWorkloadSQLRestoreRequest.SourceResourceId = wLRecoveryConfig.SourceResourceId;
-                azureWorkloadSQLRestoreRequest.RecoveryType = string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") != 0 ? RecoveryType.OriginalLocation : RecoveryType.AlternateLocation;
-                if (azureWorkloadSQLRestoreRequest.RecoveryType == RecoveryType.AlternateLocation)
-                {
-                    azureWorkloadSQLRestoreRequest.TargetInfo = new TargetRestoreInfo()
-                    {
-                        OverwriteOption = string.Compare(wLRecoveryConfig.OverwriteWLIfpresent, "no") == 0 ? OverwriteOptions.FailOnConflict : OverwriteOptions.Overwrite,
-                        DatabaseName = wLRecoveryConfig.RestoredDBName,
-                        ContainerId = "asda"
-                    };
-                }
-                triggerRestoreRequest.Properties = azureWorkloadSQLRestoreRequest;
-            }
-
-
-            var response = ServiceClientAdapter.RestoreDisk(
-                wLRecoveryConfig.RecoveryPoint,
-                "westus",
-                triggerRestoreRequest,
-                vaultName: vaultName,
-                resourceGroupName: resourceGroupName,
-                vaultLocation: vaultLocation);
-            return response;
+            throw new NotImplementedException();
         }
-
-    public List<PointInTimeRange> GetLogChains()
-    {
-        return AzureWorkloadProviderHelper.ListLogChains(ProviderData);
     }
-}
 }
