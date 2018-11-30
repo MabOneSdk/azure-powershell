@@ -144,5 +144,26 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
                 triggerBackupRequest,
                 cancellationToken: BmsAdapter.CmdletCancellationToken).Result;
         }
+
+        /// <summary>
+        /// Checks backup status for a given resource
+        /// </summary>
+        /// <param name="resoucreId">Resource id</param>
+        /// <param name="resourceLocation">Resource location</param>
+        /// <returns>Backup status</returns>
+        public RestAzureNS.AzureOperationResponse<BackupStatusResponse> CheckBackupStatus(
+            string resourceId,
+            string resourceLocation)
+    {
+            ODataQuery<ProtectionPolicyQueryObject> queryParams =
+             new ODataQuery<ProtectionPolicyQueryObject>();
+
+            BackupStatusRequest request = new BackupStatusRequest("VM", resourceId);
+
+            return BmsAdapter.Client.BackupStatus.GetWithHttpMessagesAsync(
+                resourceLocation,
+                request,
+                cancellationToken: BmsAdapter.CmdletCancellationToken).Result;
+        }
     }
 }

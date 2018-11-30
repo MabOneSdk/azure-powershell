@@ -818,49 +818,24 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             string azureVmName = (string)ProviderData[ProtectionCheckParams.Name];
             string azureVmResourceGroupName =
                 (string)ProviderData[ProtectionCheckParams.ResourceGroupName];
+            string resourceType =
+                (string)ProviderData[ProtectionCheckParams.ResourceType];
 
-            ODataQuery<ProtectedItemQueryObject> queryParams =
-                new ODataQuery<ProtectedItemQueryObject>(
-                    q => q.BackupManagementType
-                            == ServiceClientModel.BackupManagementType.AzureIaasVM &&
-                         q.ItemType == DataSourceType.VM);
+            string virtualMachineId =
+                "/subscriptions/" + ServiceClientAdapter.SubscriptionId + "/resourceGroups/" + azureVmResourceGroupName + resourceType + "/" + azureVmName;
 
-            var vaultIds = ServiceClientAdapter.ListVaults();
-            foreach (var vaultId in vaultIds)
-            {
-                ResourceIdentifier vaultIdentifier = new ResourceIdentifier(vaultId);
+            GenericResource virtualMachine = ServiceClientAdapter.GetAzureResource(virtualMachineId);
 
-                var items = ServiceClientAdapter.ListProtectedItem(
-                    queryParams,
-                    vaultName: vaultIdentifier.ResourceName,
-                    resourceGroupName: vaultIdentifier.ResourceGroupName);
+            BackupStatusResponse backupStatus = ServiceClientAdapter.CheckBackupStatus(virtualMachineId, virtualMachine.Location).Body;
 
-                if (items.Any(
-                    item =>
-                    {
-                        ResourceIdentifier vmIdentifier =
-                            new ResourceIdentifier(item.Properties.SourceResourceId);
-                        var itemVmName = vmIdentifier.ResourceName;
-                        var itemVmRgName = vmIdentifier.ResourceGroupName;
-
-                        return itemVmName.ToLower() == azureVmName.ToLower() &&
-                            itemVmRgName.ToLower() == azureVmResourceGroupName.ToLower();
-                    }))
-                {
-                    return new ResourceBackupStatus(
-                        azureVmName,
-                        azureVmResourceGroupName,
-                        vaultId,
-                        true);
-                }
-            }
+            Boolean isProtected = String.Equals(backupStatus.ProtectionStatus, "Protected", StringComparison.OrdinalIgnoreCase);
 
             return new ResourceBackupStatus(
-                azureVmName,
-                azureVmResourceGroupName,
-                null,
-                false);
-        }
+                        azureVmName,
+                        azureVmResourceGroupName,
+                        isProtected == true ? backupStatus.VaultId : null,
+                        isProtected);
+            }
 
         #region private
 

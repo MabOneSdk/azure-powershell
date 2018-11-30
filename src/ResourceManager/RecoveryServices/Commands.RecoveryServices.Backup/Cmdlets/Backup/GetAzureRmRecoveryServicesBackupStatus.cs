@@ -86,6 +86,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                     {
                         { ProtectionCheckParams.Name, name },
                         { ProtectionCheckParams.ResourceGroupName, resourceGroupName },
+                        { ProtectionCheckParams.ResourceType, type },
                     }, ServiceClientAdapter);
 
                 IPsBackupProvider psBackupProvider =
