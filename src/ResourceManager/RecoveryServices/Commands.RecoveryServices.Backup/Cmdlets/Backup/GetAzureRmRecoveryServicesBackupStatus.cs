@@ -19,6 +19,8 @@ using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
+using Microsoft.Azure.Management.Internal.Resources.Models;
+using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
 {
@@ -31,6 +33,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
     {
         const string NameParamSet = "Name";
         const string IdParamSet = "Id";
+        const string IdWorkloadParamSet = "IdWorkload";
 
         /// <summary>
         /// Name of the Azure Resource whose representative item needs to be checked 
@@ -56,6 +59,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
         /// </summary>
         [Parameter(ParameterSetName = NameParamSet, Mandatory = true,
             HelpMessage = ParamHelpMsgs.ProtectionCheck.Type)]
+        [Parameter(ParameterSetName = IdWorkloadParamSet, Mandatory = true,
+            HelpMessage = ParamHelpMsgs.ProtectionCheck.Type),]
         [ValidateSet("AzureVM", "AzureFiles")]
         public string Type { get; set; }
 
@@ -63,36 +68,48 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             HelpMessage = ParamHelpMsgs.ProtectionCheck.ResourceId, Mandatory = true)]
         public string ResourceId { get; set; }
 
+
+        [Parameter(ParameterSetName = IdWorkloadParamSet, ValueFromPipelineByPropertyName = true,
+          HelpMessage = ParamHelpMsgs.ProtectionCheck.ProtectableObjName, Mandatory = true)]
+        public string ProtectableObjName { get; set; }
+
         public override void ExecuteCmdlet()
         {
             ExecutionBlock(() =>
             {
                 base.ExecuteCmdlet();
 
-                string name = Name;
-                string resourceGroupName = ResourceGroupName;
-                string type = Type;
+                string resourceId = ResourceId;
 
-                if (ParameterSetName == IdParamSet)
+                if (ParameterSetName == NameParamSet)
                 {
-                    ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ResourceId);
-                    name = resourceIdentifier.ResourceName;
-                    resourceGroupName = resourceIdentifier.ResourceGroupName;
-                    type = resourceIdentifier.ResourceType;
+                    // Form ID from name
+
+                    ResourceIdentifier resourceIdentifier = new ResourceIdentifier();
+                    resourceIdentifier.Subscription = ServiceClientAdapter.SubscriptionId;
+                    resourceIdentifier.ResourceGroupName = ResourceGroupName;
+
+                    string armType = ConversionUtils.GetARMResourceType(Type);
+                    resourceIdentifier.ParentResource = armType.Split('/')[0];
+                    resourceIdentifier.ResourceType = armType.Split('/')[1];
+                    resourceIdentifier.ResourceName = Name;
+
+                    resourceId = resourceIdentifier.ToString();
+                }
+                else
+                {
+                    // Pass on the ID
                 }
 
-                PsBackupProviderManager providerManager =
-                    new PsBackupProviderManager(new Dictionary<Enum, object>()
-                    {
-                        { ProtectionCheckParams.Name, name },
-                        { ProtectionCheckParams.ResourceGroupName, resourceGroupName },
-                        { ProtectionCheckParams.ResourceType, type },
-                    }, ServiceClientAdapter);
+                GenericResource resource = ServiceClientAdapter.GetAzureResource(resourceId);
 
-                IPsBackupProvider psBackupProvider =
-                    providerManager.GetProviderInstance(type);
+                BackupStatusResponse backupStatus = ServiceClientAdapter.CheckBackupStatus(Type, resourceId, resource.Location, ProtectableObjName).Body;
 
-                WriteObject(psBackupProvider.CheckBackupStatus());
+                Boolean isProtected = String.Equals(backupStatus.ProtectionStatus, "Protected", StringComparison.OrdinalIgnoreCase);
+
+                WriteObject(new ResourceBackupStatus(
+                                isProtected == true ? backupStatus.VaultId : null,
+                                isProtected));
             });
         }
     }

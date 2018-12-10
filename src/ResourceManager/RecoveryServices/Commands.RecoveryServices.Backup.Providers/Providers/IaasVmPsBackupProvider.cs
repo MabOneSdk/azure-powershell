@@ -813,29 +813,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         }
 
-        public ResourceBackupStatus CheckBackupStatus()
-        {
-            string azureVmName = (string)ProviderData[ProtectionCheckParams.Name];
-            string azureVmResourceGroupName =
-                (string)ProviderData[ProtectionCheckParams.ResourceGroupName];
-            string resourceType =
-                (string)ProviderData[ProtectionCheckParams.ResourceType];
-
-            string virtualMachineId =
-                "/subscriptions/" + ServiceClientAdapter.SubscriptionId + "/resourceGroups/" + azureVmResourceGroupName + resourceType + "/" + azureVmName;
-
-            GenericResource virtualMachine = ServiceClientAdapter.GetAzureResource(virtualMachineId);
-
-            BackupStatusResponse backupStatus = ServiceClientAdapter.CheckBackupStatus(virtualMachineId, virtualMachine.Location).Body;
-
-            Boolean isProtected = String.Equals(backupStatus.ProtectionStatus, "Protected", StringComparison.OrdinalIgnoreCase);
-
-            return new ResourceBackupStatus(
-                        azureVmName,
-                        azureVmResourceGroupName,
-                        isProtected == true ? backupStatus.VaultId : null,
-                        isProtected);
-            }
 
         #region private
 

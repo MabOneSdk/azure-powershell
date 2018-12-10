@@ -104,6 +104,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     {
         Name,
         ResourceGroupName,
-        ResourceType
+        ResourceType,
+        ProtectableObjName
     }
 }

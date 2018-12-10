@@ -303,5 +303,24 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
                 throw new Exception("Unsupported WorkloadType: " + workloadType);
             }
         }
+
+        /// <summary>
+        /// Returns the ARM resource type from PS workload type
+        /// </summary>
+        /// <param name="workloadType">PS workload type</param>
+        /// <returns>ARM resource type type</returns>
+        public static string GetARMResourceType(string workloadType)
+        {
+            if (workloadType == WorkloadType.AzureVM.ToString())
+            {
+                return "Microsoft.Compute/virtualMachines";
+            }
+            if (workloadType == WorkloadType.AzureFiles.ToString())
+            {
+                return "Microsoft.Storage/storageAccounts";
+            }
+            
+            throw new Exception("Unsupported WorkloadType: " + workloadType);
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
         {
             GenericResource resource = RMAdapter.Client.Resources.GetByIdWithHttpMessagesAsync(
                 resourceId,
-                null, 
+                "2018-10-01", 
                 null,
                 cancellationToken: RMAdapter.CmdletCancellationToken).Result.Body;
             return resource;
