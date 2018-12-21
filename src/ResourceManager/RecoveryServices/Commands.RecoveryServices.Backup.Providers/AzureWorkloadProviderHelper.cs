@@ -352,5 +352,36 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
             return RecoveryPointConversions.GetPSAzureRecoveryPoints(rpResponse, item);
         }
+
+        public void TriggerInquiry(string vaultName, string vaultResourceGroupName,
+            string containerName, string workloadType)
+        {
+            ODataQuery<BMSContainersInquiryQueryObject> queryParams = new ODataQuery<BMSContainersInquiryQueryObject>(
+                q => q.WorkloadType
+                     == workloadType);
+            string errorMessage = string.Empty;
+            var inquiryResponse = ServiceClientAdapter.InquireContainer(
+               containerName,
+               queryParams,
+               vaultName,
+               vaultResourceGroupName);
+
+            var operationStatus = TrackingHelpers.GetOperationResult(
+                inquiryResponse,
+                operationId =>
+                    ServiceClientAdapter.GetContainerRefreshOrInquiryOperationResult(
+                        operationId,
+                        vaultName: vaultName,
+                        resourceGroupName: vaultResourceGroupName));
+
+            //Now wait for the operation to Complete
+            if (inquiryResponse.Response.StatusCode
+                    != SystemNet.HttpStatusCode.NoContent)
+            {
+                errorMessage = string.Format(Resources.TriggerEnquiryFailureErrorCode,
+                    inquiryResponse.Response.StatusCode);
+                Logger.Instance.WriteDebug(errorMessage);
+            }
+        }
     }
 }
