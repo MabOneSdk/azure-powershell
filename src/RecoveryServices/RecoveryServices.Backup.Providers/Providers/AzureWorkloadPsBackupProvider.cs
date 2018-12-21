@@ -14,14 +14,15 @@
 
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdapterNS;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
+using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -62,12 +63,42 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse DisableProtection()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            bool deleteBackupData = ProviderData.ContainsKey(ItemParams.DeleteBackupData) ?
+                (bool)ProviderData[ItemParams.DeleteBackupData] : false;
+
+            ItemBase itemBase = (ItemBase)ProviderData[ItemParams.Item];
+
+            AzureWorkloadSQLDatabaseProtectedItem item = (AzureWorkloadSQLDatabaseProtectedItem)ProviderData[ItemParams.Item];
+            string containerUri = "";
+            string protectedItemUri = "";
+            AzureVmWorkloadSQLDatabaseProtectedItem properties = new AzureVmWorkloadSQLDatabaseProtectedItem();
+
+            if (deleteBackupData)
+            {
+                //Disable protection and delete backup data
+                ValidateAzureWorkloadSQLDatabaseDisableProtectionRequest(itemBase);
+
+                Dictionary<UriEnums, string> keyValueDict = HelperUtils.ParseUri(item.Id);
+                containerUri = HelperUtils.GetContainerUri(keyValueDict, item.Id);
+                protectedItemUri = HelperUtils.GetProtectedItemUri(keyValueDict, item.Id);
+
+                return ServiceClientAdapter.DeleteProtectedItem(
+                                    containerUri,
+                                    protectedItemUri,
+                                    vaultName: vaultName,
+                                    resourceGroupName: vaultResourceGroupName);
+            }
+            else
+            {
+                return EnableOrModifyProtection(disableWithRetentionData: true);
+            }
         }
 
         public RestAzureNS.AzureOperationResponse EnableProtection()
         {
-            throw new NotImplementedException();
+            return EnableOrModifyProtection();
         }
 
         public RetentionPolicyBase GetDefaultRetentionPolicyObject()
@@ -97,7 +128,80 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ItemBase> ListProtectedItems()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            ContainerBase container =
+                (ContainerBase)ProviderData[ItemParams.Container];
+            string itemName = (string)ProviderData[ItemParams.ItemName];
+            ItemProtectionStatus protectionStatus =
+                (ItemProtectionStatus)ProviderData[ItemParams.ProtectionStatus];
+            ItemProtectionState status =
+                (ItemProtectionState)ProviderData[ItemParams.ProtectionState];
+            CmdletModel.WorkloadType workloadType =
+                (CmdletModel.WorkloadType)ProviderData[ItemParams.WorkloadType];
+            PolicyBase policy = (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy];
+
+            // 1. Filter by container
+            List<ProtectedItemResource> protectedItems = AzureWorkloadProviderHelper.ListProtectedItemsByContainer(
+                vaultName,
+                resourceGroupName,
+                container,
+                policy,
+                ServiceClientModel.BackupManagementType.AzureWorkload,
+                DataSourceType.SQLDataBase);
+
+            List<ProtectedItemResource> protectedItemGetResponses =
+                new List<ProtectedItemResource>();
+
+            // 2. Filter by item name
+            List<ItemBase> itemModels = AzureWorkloadProviderHelper.ListProtectedItemsByItemName(
+                protectedItems,
+                itemName,
+                vaultName,
+                resourceGroupName,
+                (itemModel, protectedItemGetResponse) =>
+                {
+                    AzureWorkloadSQLDatabaseProtectedItemExtendedInfo extendedInfo = new AzureWorkloadSQLDatabaseProtectedItemExtendedInfo();
+                    var serviceClientExtendedInfo = ((AzureVmWorkloadSQLDatabaseProtectedItem)protectedItemGetResponse.Properties).ExtendedInfo;
+                    if (serviceClientExtendedInfo.OldestRecoveryPoint.HasValue)
+                    {
+                        extendedInfo.OldestRecoveryPoint = serviceClientExtendedInfo.OldestRecoveryPoint;
+                    }
+                    extendedInfo.PolicyState = serviceClientExtendedInfo.PolicyState.ToString();
+                    extendedInfo.RecoveryPointCount =
+                        (int)(serviceClientExtendedInfo.RecoveryPointCount.HasValue ?
+                            serviceClientExtendedInfo.RecoveryPointCount : 0);
+                    ((AzureWorkloadSQLDatabaseProtectedItem)itemModel).ExtendedInfo = extendedInfo;
+                });
+
+            // 3. Filter by item's Protection Status
+            if (protectionStatus != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureWorkloadSQLDatabaseProtectedItem)itemModel).ProtectionStatus == protectionStatus;
+                }).ToList();
+            }
+
+            // 4. Filter by item's Protection State
+            if (status != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return ((AzureWorkloadSQLDatabaseProtectedItem)itemModel).ProtectionState == status;
+                }).ToList();
+            }
+
+            // 5. Filter by workload type
+            if (workloadType != 0)
+            {
+                itemModels = itemModels.Where(itemModel =>
+                {
+                    return itemModel.WorkloadType == workloadType;
+                }).ToList();
+            }
+
+            return itemModels;
         }
 
         public List<ContainerBase> ListProtectionContainers()
@@ -133,6 +237,79 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
             throw new NotImplementedException();
+        }
+
+        private RestAzureNS.AzureOperationResponse EnableOrModifyProtection(bool disableWithRetentionData = false)
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+
+            PolicyBase policy = ProviderData.ContainsKey(ItemParams.Policy) ?
+                (PolicyBase)ProviderData[ItemParams.Policy] : null;
+
+            ProtectableItemBase protectableItemBase = (ProtectableItemBase)ProviderData[ItemParams.ProtectableItem];
+
+            AzureWorkloadProtectableItem protectableItem = (AzureWorkloadProtectableItem)ProviderData[ItemParams.ProtectableItem];
+
+            string containerUri = "";
+            string protectedItemUri = "";
+            AzureVmWorkloadSQLDatabaseProtectedItem properties = new AzureVmWorkloadSQLDatabaseProtectedItem();
+
+            if (protectableItemBase == null)
+            {
+                Dictionary<UriEnums, string> keyValueDict =
+                    HelperUtils.ParseUri(protectableItem.Id);
+                containerUri = HelperUtils.GetContainerUri(
+                    keyValueDict, protectableItem.Id);
+                protectedItemUri = HelperUtils.GetProtectableItemUri(
+                    keyValueDict, protectableItem.Id);
+
+                properties.PolicyId = policy.Id;
+            }
+            ProtectedItemResource serviceClientRequest = new ProtectedItemResource()
+            {
+                Properties = properties
+            };
+
+            return ServiceClientAdapter.CreateOrUpdateProtectedItem(
+                containerUri,
+                protectedItemUri,
+                serviceClientRequest,
+                vaultName: vaultName,
+                resourceGroupName: vaultResourceGroupName);
+        }
+
+        private void ValidateAzureWorkloadSQLDatabaseDisableProtectionRequest(ItemBase itemBase)
+        {
+
+            if (itemBase == null || itemBase.GetType() != typeof(AzureWorkloadSQLDatabaseProtectedItem))
+            {
+                throw new ArgumentException(string.Format(Resources.InvalidProtectionPolicyException,
+                                            typeof(AzureWorkloadSQLDatabaseProtectedItem).ToString()));
+            }
+
+            ValidateAzureVmWorkloadType(itemBase.WorkloadType);
+            ValidateAzureVmContainerType(itemBase.ContainerType);
+        }
+
+        private void ValidateAzureVmWorkloadType(CmdletModel.WorkloadType type)
+        {
+            if (type != CmdletModel.WorkloadType.MSSQL)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
+                                            CmdletModel.WorkloadType.MSSQL.ToString(),
+                                            type.ToString()));
+            }
+        }
+
+        private void ValidateAzureVmContainerType(CmdletModel.ContainerType type)
+        {
+            if (type != CmdletModel.ContainerType.AzureWorkload)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedContainerTypeException,
+                                            CmdletModel.ContainerType.AzureWorkload.ToString(),
+                                            type.ToString()));
+            }
         }
     }
 }
