@@ -44,7 +44,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices
         /// <summary>
         /// Expiry in hours for generated certificate.
         /// </summary>
-        private const int VaultCertificateExpiryInHoursForBackup = 48;
+        private const int VaultCertificateExpiryInHoursForBackup = 87600;
 
         /// <summary>
         /// Vault Credential version.
