@@ -12,25 +12,21 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
+using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
+
+namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
 {
     /// <summary>
-    /// Some constants to be used with the tests.
+    /// Azure Workload specific container class.
     /// </summary>
-    public class TestConstants
+    public class AzureWorkloadContainer : AzureContainer
     {
-        public const string Workload = "Workload";
-
-        public const string AzureVM = "AzureVM";
-
-        public const string DPM = "DPM";
-
-        public const string AzureSql = "AzureSql";
-
-        public const string MAB = "MAB";
-
-        public const string AzureFS = "AzureFS";
-
-        public const string AzureWorkload = "AzureWorkload";
+        /// <summary>
+        /// Constructor. Takes the service client object representing the container 
+        /// and converts it in to the PS container model
+        /// </summary>
+        /// <param name="protectionContainerResource">Service client object representing the container</param>
+        public AzureWorkloadContainer(ProtectionContainerResource protectionContainerResource)
+            : base(protectionContainerResource) { }
     }
 }
