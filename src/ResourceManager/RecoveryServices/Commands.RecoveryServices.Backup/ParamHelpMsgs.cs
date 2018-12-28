@@ -83,6 +83,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             public const string AzureFileShareName = "Azure FileShare Name.";
             public const string AzureFileStorageAccountName = "Azure file share storage account name";
             public const string AzureFileStorageAccountResourceGroupName = "Azure file share storage account resource group name";
+            public const string BackupType = "Type of backup to be performed";
+            public const string EnableCompression = "If enabling compression is required";
         }
 
         internal static class RecoveryPoint

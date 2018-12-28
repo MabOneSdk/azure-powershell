@@ -19,9 +19,6 @@ using System;
 using System.Collections.Generic;
 using CmdletModel = Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using RestAzureNS = Microsoft.Rest.Azure;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
-using ServiceClientModel = Microsoft.Azure.Management.RecoveryServices.Backup.Models;
-using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 
 namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 {
@@ -127,7 +124,26 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse TriggerBackup()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            ItemBase item = (ItemBase)ProviderData[ItemParams.Item];
+            DateTime? expiryDateTime = (DateTime?)ProviderData[ItemParams.ExpiryDateTimeUTC];
+            string backupType = ProviderData[ItemParams.BackupType].ToString();
+            bool enableCompression = (bool)ProviderData[ItemParams.EnableCompression];
+            AzureWorkloadSQLDatabaseProtectedItem azureWorkloadProtectedItem = item as AzureWorkloadSQLDatabaseProtectedItem;
+            BackupRequestResource triggerBackupRequest = new BackupRequestResource();
+            AzureWorkloadBackupRequest azureWorkloadBackupRequest = new AzureWorkloadBackupRequest();
+            azureWorkloadBackupRequest.RecoveryPointExpiryTimeInUTC = expiryDateTime;
+            azureWorkloadBackupRequest.BackupType = backupType;
+            azureWorkloadBackupRequest.EnableCompression = enableCompression;
+            triggerBackupRequest.Properties = azureWorkloadBackupRequest;
+
+            return ServiceClientAdapter.TriggerBackup(
+               IdUtils.GetValueByName(azureWorkloadProtectedItem.Id, IdUtils.IdNames.ProtectionContainerName),
+               IdUtils.GetValueByName(azureWorkloadProtectedItem.Id, IdUtils.IdNames.ProtectedItemName),
+               triggerBackupRequest,
+               vaultName: vaultName,
+               resourceGroupName: vaultResourceGroupName);
         }
 
         public RestAzureNS.AzureOperationResponse TriggerRestore()

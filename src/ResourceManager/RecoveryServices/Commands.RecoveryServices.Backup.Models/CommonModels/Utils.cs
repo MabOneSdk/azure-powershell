@@ -330,9 +330,13 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
             {
                 return "Microsoft.Compute/virtualMachines";
             }
-            if (workloadType == WorkloadType.AzureFiles.ToString())
+            else if (workloadType == WorkloadType.AzureFiles.ToString())
             {
                 return "Microsoft.Storage/storageAccounts";
+            }
+            else if (workloadType == WorkloadType.MSSQL.ToString())
+            {
+                return "VMAppContainer";
             }
 
             throw new Exception("Unsupported WorkloadType: " + workloadType);
@@ -350,9 +354,13 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
             {
                 return WorkloadType.AzureVM.ToString();
             }
-            if (string.Compare(armType, "Microsoft.Storage/storageAccounts", ignoreCase: true) == 0)
+            else if (string.Compare(armType, "Microsoft.Storage/storageAccounts", ignoreCase: true) == 0)
             {
                 return WorkloadType.AzureFiles.ToString();
+            }
+            else if (string.Compare(armType, "VMAppContainer", ignoreCase: true) == 0)
+            {
+                return WorkloadType.MSSQL.ToString();
             }
 
             throw new Exception("Unsupported ArmType: " + armType);
