@@ -342,4 +342,15 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         File,
         Directory
     }
+
+    /// <summary>
+    /// Type of the backup.
+    /// </summary>
+    public enum BackupType
+    {
+        Full,
+        Differential,
+        Log,
+        CopyOnlyFull
+    }
 }
