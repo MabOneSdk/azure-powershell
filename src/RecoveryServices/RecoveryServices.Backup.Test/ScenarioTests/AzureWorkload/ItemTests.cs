@@ -24,28 +24,10 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
         [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
-        public void TestAzureVmWorkloadProtectableItem()
+        public void TestAzureVmWorkloadBackupItem()
         {
             TestController.NewInstance.RunPsTest(
-                _logger, PsBackupProviderTypes.AzureWorkload, "Test-AzureVmWorkloadProtectableItem");
-        }
-
-        [Fact]
-        [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
-        public void TestAzureVmWorkloadProtectedItem()
-        {
-            TestController.NewInstance.RunPsTest(
-                _logger, PsBackupProviderTypes.AzureWorkload, "Test-AzureVmWorkloadProtectedItem");
-        }
-
-        [Fact]
-        [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
-        public void TestAzureVmWorkloadNewProtectableItem()
-        {
-            TestController.NewInstance.RunPsTest(
-                _logger, PsBackupProviderTypes.AzureWorkload, "Test-AzureVmWorkloadNewProtectableItem");
+                _logger, PsBackupProviderTypes.AzureWorkload, "Test-AzureVmWorkloadBackupItem");
         }
     }
 }

@@ -11,42 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ----------------------------------------------------------------------------------
-
-function Test-AzureVmWorkloadProtectableItem
+ 
+function Test-AzureVmWorkloadBackupItem
 {
 	try
 	{
-		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'shracrg' -Name 'shracsql' | Set-AzureRmRecoveryServicesVaultContext
-		$items = Get-AzRecoveryServicesBackupProtectableItem -ProtectableItemType "SQLDataBase"
+ 		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'shracrg' -Name 'shracsql' | Set-AzureRmRecoveryServicesVaultContext
+ 		Backup-AzureRmRecoveryServicesBackupItem -BackupType "Full" -EnableCompression
 	}
 	finally
 	{
-	
-	}
-}
-
-function Test-AzureVmWorkloadProtectedItem
-{
-	try
-	{
-		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'shracrg' -Name 'shracsql' | Set-AzureRmRecoveryServicesVaultContext
-		$items = Get-AzRecoveryServicesBackupItem -BackupManagementType "AzureWorkload" -WorkloadType MSSQL
-	}
-	finally
-	{
-	
-	}
-}
-
-function Test-AzureVmWorkloadNewProtectableItem
-{
-	try
-	{
-		Get-AzureRmRecoveryServicesVault -ResourceGroupName 'shracrg' -Name 'shracsql' | Set-AzureRmRecoveryServicesVaultContext
-		$items = New-AzRecoveryServicesBackupProtectableItem -WorkloadType MSSQL
-	}
-	finally
-	{
-	
+ 
 	}
 }
