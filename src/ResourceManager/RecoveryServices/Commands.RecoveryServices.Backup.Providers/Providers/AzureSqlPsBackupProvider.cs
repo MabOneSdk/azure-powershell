@@ -485,6 +485,11 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             return itemModels;
         }
 
+        public List<PointInTimeRange> GetLogChains()
+        {
+            throw new NotImplementedException();
+        }
+
         #region private
         private void ValidateAzureSqlWorkloadType(CmdletModel.WorkloadType type)
         {

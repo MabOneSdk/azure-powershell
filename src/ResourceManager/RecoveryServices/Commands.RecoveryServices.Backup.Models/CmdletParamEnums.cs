@@ -45,6 +45,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         TargetLocation,
         KeyFileDownloadLocation,
         FileDownloadLocation,
+        RestorePointQueryType
     }
 
     public enum RestoreBackupItemParams
@@ -66,6 +67,16 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         SourceFilePath,
         SourceFileType,
         TargetStorageAccountName,
+        TargetFileShareName,
+        TargetFolder
+    }
+
+    public enum WorkloadRecoveryConfigParams
+    {
+        PointInTime,
+        RecoveryPoint,
+        OriginalWorkloadRestore,
+        Item,
         TargetFileShareName,
         TargetFolder
     }
