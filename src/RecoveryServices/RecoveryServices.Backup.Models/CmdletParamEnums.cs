@@ -70,15 +70,19 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         TargetFileShareName,
         TargetFolder
     }
+    public enum RestoreWLBackupItemParams
+    {
+        WLRecoveryConfig
+    }
 
     public enum WorkloadRecoveryConfigParams
     {
         PointInTime,
         RecoveryPoint,
         OriginalWorkloadRestore,
+        AlternateWorkloadRestore,
         Item,
-        TargetFileShareName,
-        TargetFolder
+        TargetItem
     }
 
     public enum PolicyParams
