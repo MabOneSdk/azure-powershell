@@ -464,7 +464,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         /// <summary>
         /// Recovery point for full/differential backup.
         /// </summary>
-        public AzureRecoveryPoint RecoveryPoint { get; set; }
+        public RecoveryPointBase RecoveryPoint { get; set; }
 
         /// <summary>
         /// PointInTime for Log backup.

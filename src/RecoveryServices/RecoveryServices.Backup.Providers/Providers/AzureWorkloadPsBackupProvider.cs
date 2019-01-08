@@ -337,7 +337,43 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
-            throw new NotImplementedException();
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string vaultLocation = (string)ProviderData[VaultParams.VaultLocation];
+            RecoveryConfigBase wLRecoveryConfigBase = (RecoveryConfigBase)ProviderData[RestoreWLBackupItemParams.WLRecoveryConfig];
+
+            AzureWorkloadRecoveryConfig wLRecoveryConfig = (AzureWorkloadRecoveryConfig)ProviderData[RestoreWLBackupItemParams.WLRecoveryConfig];
+            RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
+
+            if (wLRecoveryConfig.RecoveryPoint != null)
+            {
+                AzureWorkloadSQLRestoreRequest azureWorkloadSQLRestoreRequest = new AzureWorkloadSQLRestoreRequest();
+
+                azureWorkloadSQLRestoreRequest.ShouldUseAlternateTargetLocation = string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") != 0 ? true : false;
+                azureWorkloadSQLRestoreRequest.IsNonRecoverable = string.Compare(wLRecoveryConfig.NoRecoveryMode, "Enabled") == 0 ? true : false;
+                azureWorkloadSQLRestoreRequest.SourceResourceId = wLRecoveryConfig.SourceResourceId;
+                azureWorkloadSQLRestoreRequest.RecoveryType = string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") != 0 ? RecoveryType.OriginalLocation : RecoveryType.AlternateLocation;
+                if (azureWorkloadSQLRestoreRequest.RecoveryType == RecoveryType.AlternateLocation)
+                {
+                    azureWorkloadSQLRestoreRequest.TargetInfo = new TargetRestoreInfo()
+                    {
+                        OverwriteOption = string.Compare(wLRecoveryConfig.OverwriteWLIfpresent, "no") == 0 ? OverwriteOptions.FailOnConflict : OverwriteOptions.Overwrite,
+                        DatabaseName = wLRecoveryConfig.RestoredDBName,
+                        ContainerId = "asda"
+                    };
+                }
+                triggerRestoreRequest.Properties = azureWorkloadSQLRestoreRequest;
+            }
+
+
+            var response = ServiceClientAdapter.RestoreDisk(
+                new AzureRecoveryPoint(),
+                "westus",
+                triggerRestoreRequest,
+                vaultName: vaultName,
+                resourceGroupName: resourceGroupName,
+                vaultLocation: vaultLocation);
+            return response;
         }
 
         private RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> CreateorModifyPolicy()
