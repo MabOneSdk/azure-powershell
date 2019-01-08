@@ -632,6 +632,21 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                 }
             }
         }
+
+        /// <summary>
+        /// Helper function to convert ps protectable item list from service response.
+        /// </summary>
+        public static List<ProtectableItemBase> GetProtectableItemModelList(IEnumerable<ServiceClientModel.WorkloadProtectableItemResource> protectableItems)
+        {
+            List<ProtectableItemBase> itemModels = new List<ProtectableItemBase>();
+
+            foreach (var protectableItem in protectableItems)
+            {
+                itemModels.Add(GetProtectableItemModel(protectableItem));
+            }
+
+            return itemModels;
+        }
         #endregion
     }
 }
