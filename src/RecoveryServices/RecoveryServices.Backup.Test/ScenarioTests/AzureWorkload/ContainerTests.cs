@@ -23,7 +23,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
     {
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureWorkload)]
+        [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
         public void GetAzureWorkloadContainer()
         {
             TestController.NewInstance.RunPsTest(
@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureWorkload)]
+        [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
         public void RegisterAzureWorkloadContainer()
         {
             TestController.NewInstance.RunPsTest(
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        [Trait(TestConstants.Workload, TestConstants.AzureWorkload)]
+        [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
         public void UnregisterAzureWorkloadContainer()
         {
             TestController.NewInstance.RunPsTest(

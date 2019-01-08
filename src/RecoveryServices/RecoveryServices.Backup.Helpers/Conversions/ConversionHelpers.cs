@@ -58,7 +58,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
                 else if (protectionContainer.Properties.GetType() ==
                     typeof(ServiceClientModel.AzureVMAppContainerProtectionContainer))
                 {
-                    containerModel = new AzureWorkloadContainer(protectionContainer);
+                    containerModel = new AzureVmWorkloadContainer(protectionContainer);
                 }
             }
 
