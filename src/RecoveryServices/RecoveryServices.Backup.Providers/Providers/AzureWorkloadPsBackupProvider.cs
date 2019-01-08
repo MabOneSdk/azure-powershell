@@ -17,6 +17,7 @@ using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClientAdap
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
+using Microsoft.Rest.Azure.OData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public ProtectionPolicyResource CreatePolicy()
         {
-            throw new NotImplementedException();
+            return CreateorModifyPolicy().Body;
         }
 
         public RestAzureNS.AzureOperationResponse DisableProtection()
@@ -103,12 +104,101 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RetentionPolicyBase GetDefaultRetentionPolicyObject()
         {
-            throw new NotImplementedException();
+            SQLRetentionPolicy defaultRetention = new SQLRetentionPolicy();
+            DateTime retentionTime = AzureWorkloadProviderHelper.GenerateRandomScheduleTime();
+
+            defaultRetention.FullBackupRetentionPolicy = new CmdletModel.LongTermRetentionPolicy();
+            defaultRetention.DifferentialBackupRetentionPolicy = new CmdletModel.SimpleRetentionPolicy();
+            defaultRetention.LogBackupRetentionPolicy = new CmdletModel.SimpleRetentionPolicy();
+
+            //Setup FullBackupRetentionPolicy
+            //Daily Retention policy
+            defaultRetention.FullBackupRetentionPolicy.IsDailyScheduleEnabled = true;
+            defaultRetention.FullBackupRetentionPolicy.DailySchedule = new CmdletModel.DailyRetentionSchedule();
+            defaultRetention.FullBackupRetentionPolicy.DailySchedule.RetentionTimes = new List<DateTime>();
+            defaultRetention.FullBackupRetentionPolicy.DailySchedule.RetentionTimes.Add(retentionTime);
+            defaultRetention.FullBackupRetentionPolicy.DailySchedule.DurationCountInDays = 180; //TBD make it const
+
+            //Weekly Retention policy
+            defaultRetention.FullBackupRetentionPolicy.IsWeeklyScheduleEnabled = true;
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule = new CmdletModel.WeeklyRetentionSchedule();
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule.DaysOfTheWeek = new List<System.DayOfWeek>();
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule.DaysOfTheWeek.Add(System.DayOfWeek.Sunday);
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule.DurationCountInWeeks = 104; //TBD make it const
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule.RetentionTimes = new List<DateTime>();
+            defaultRetention.FullBackupRetentionPolicy.WeeklySchedule.RetentionTimes.Add(retentionTime);
+
+            //Monthly retention policy
+            defaultRetention.FullBackupRetentionPolicy.IsMonthlyScheduleEnabled = true;
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule = new CmdletModel.MonthlyRetentionSchedule();
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.DurationCountInMonths = 60; //tbd: make it const
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.RetentionTimes = new List<DateTime>();
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.RetentionTimes.Add(retentionTime);
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.RetentionScheduleFormatType =
+            CmdletModel.RetentionScheduleFormat.Weekly;
+
+            //Initialize day based schedule
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.RetentionScheduleDaily = AzureWorkloadProviderHelper.GetDailyRetentionFormat();
+
+            //Initialize Week based schedule
+            defaultRetention.FullBackupRetentionPolicy.MonthlySchedule.RetentionScheduleWeekly = AzureWorkloadProviderHelper.GetWeeklyRetentionFormat();
+
+            //Yearly retention policy
+            defaultRetention.FullBackupRetentionPolicy.IsYearlyScheduleEnabled = true;
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule = new CmdletModel.YearlyRetentionSchedule();
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.DurationCountInYears = 10;
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.RetentionTimes = new List<DateTime>();
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.RetentionTimes.Add(retentionTime);
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.RetentionScheduleFormatType =
+            CmdletModel.RetentionScheduleFormat.Weekly;
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.MonthsOfYear = new List<Month>();
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.MonthsOfYear.Add(Month.January);
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.RetentionScheduleDaily = AzureWorkloadProviderHelper.GetDailyRetentionFormat();
+            defaultRetention.FullBackupRetentionPolicy.YearlySchedule.RetentionScheduleWeekly = AzureWorkloadProviderHelper.GetWeeklyRetentionFormat();
+
+            //Setup DifferentialBackupRetentionPolicy
+            defaultRetention.DifferentialBackupRetentionPolicy.RetentionDurationType = CmdletModel.RetentionDurationType.Days;
+            defaultRetention.DifferentialBackupRetentionPolicy.RetentionCount = 30;
+
+            //Setup LogBackupRetentionPolicy
+            defaultRetention.LogBackupRetentionPolicy.RetentionDurationType = CmdletModel.RetentionDurationType.Days;
+            defaultRetention.LogBackupRetentionPolicy.RetentionCount = 15;
+
+            return defaultRetention;
         }
 
         public SchedulePolicyBase GetDefaultSchedulePolicyObject()
         {
-            throw new NotImplementedException();
+            SQLSchedulePolicy defaultSchedule = new SQLSchedulePolicy();
+
+            defaultSchedule.FullBackupSchedulePolicy = new CmdletModel.SimpleSchedulePolicy();
+            defaultSchedule.DifferentialBackupSchedulePolicy = new CmdletModel.SimpleSchedulePolicy();
+            defaultSchedule.LogBackupSchedulePolicy = new CmdletModel.LogSchedulePolicy();
+            defaultSchedule.IsDifferentialBackupEnabled = false;
+            defaultSchedule.IsLogBackupEnabled = true;
+            defaultSchedule.IsCompression = false;
+
+            //Setup FullBackupSchedulePolicy
+            defaultSchedule.FullBackupSchedulePolicy.ScheduleRunFrequency = CmdletModel.ScheduleRunType.Daily;
+            DateTime scheduleTime = AzureWorkloadProviderHelper.GenerateRandomScheduleTime();
+            defaultSchedule.FullBackupSchedulePolicy.ScheduleRunTimes = new List<DateTime>();
+            defaultSchedule.FullBackupSchedulePolicy.ScheduleRunTimes.Add(scheduleTime);
+
+            defaultSchedule.FullBackupSchedulePolicy.ScheduleRunDays = new List<System.DayOfWeek>();
+            defaultSchedule.FullBackupSchedulePolicy.ScheduleRunDays.Add(System.DayOfWeek.Sunday);
+
+            //Setup DifferentialBackupSchedulePolicy
+            defaultSchedule.DifferentialBackupSchedulePolicy.ScheduleRunFrequency = CmdletModel.ScheduleRunType.Weekly;
+            defaultSchedule.DifferentialBackupSchedulePolicy.ScheduleRunTimes = new List<DateTime>();
+            defaultSchedule.DifferentialBackupSchedulePolicy.ScheduleRunTimes.Add(scheduleTime);
+
+            defaultSchedule.DifferentialBackupSchedulePolicy.ScheduleRunDays = new List<System.DayOfWeek>();
+            defaultSchedule.DifferentialBackupSchedulePolicy.ScheduleRunDays.Add(System.DayOfWeek.Monday);
+
+            //Setup LogBackupSchedulePolicy
+            defaultSchedule.LogBackupSchedulePolicy.ScheduleFrequencyInMins = 120;
+
+            return defaultSchedule;
         }
 
         public ProtectedItemResource GetProtectedItem()
@@ -118,7 +208,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public RecoveryPointBase GetRecoveryPointDetails()
         {
-            throw new NotImplementedException();
+            return AzureWorkloadProviderHelper.GetRecoveryPointDetails(ProviderData);
         }
 
         public List<CmdletModel.BackupEngineBase> ListBackupManagementServers()
@@ -206,17 +296,28 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
 
         public List<ContainerBase> ListProtectionContainers()
         {
-            throw new NotImplementedException();
+            CmdletModel.BackupManagementType? backupManagementTypeNullable =
+                (CmdletModel.BackupManagementType?)
+                    ProviderData[ContainerParams.BackupManagementType];
+
+            if (backupManagementTypeNullable.HasValue)
+            {
+                ValidateAzureWorkloadBackupManagementType(backupManagementTypeNullable.Value);
+            }
+
+            return AzureWorkloadProviderHelper.ListProtectionContainers(
+               ProviderData,
+               ServiceClientModel.BackupManagementType.AzureWorkload);
         }
 
         public List<RecoveryPointBase> ListRecoveryPoints()
         {
-            throw new NotImplementedException();
+            return AzureWorkloadProviderHelper.ListRecoveryPoints(ProviderData);
         }
 
         public RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> ModifyPolicy()
         {
-            throw new NotImplementedException();
+            return CreateorModifyPolicy();
         }
 
         public RPMountScriptDetails ProvisionItemLevelRecoveryAccess()
@@ -237,6 +338,119 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
         public RestAzureNS.AzureOperationResponse TriggerRestore()
         {
             throw new NotImplementedException();
+        }
+
+        private RestAzureNS.AzureOperationResponse<ProtectionPolicyResource> CreateorModifyPolicy()
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string resourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string policyName = ProviderData.ContainsKey(PolicyParams.PolicyName) ?
+                (string)ProviderData[PolicyParams.PolicyName] : null;
+            RetentionPolicyBase retentionPolicy =
+                ProviderData.ContainsKey(PolicyParams.RetentionPolicy) ?
+                (RetentionPolicyBase)ProviderData[PolicyParams.RetentionPolicy] :
+                null;
+            SchedulePolicyBase schedulePolicy =
+                ProviderData.ContainsKey(PolicyParams.SchedulePolicy) ?
+                (SchedulePolicyBase)ProviderData[PolicyParams.SchedulePolicy] :
+                null;
+            PolicyBase policy =
+                ProviderData.ContainsKey(PolicyParams.ProtectionPolicy) ?
+                (PolicyBase)ProviderData[PolicyParams.ProtectionPolicy] :
+                null;
+            ProtectionPolicyResource serviceClientRequest = new ProtectionPolicyResource();
+
+            if (policy != null)
+            {
+                // do validations
+                ValidateAzureWorkloadProtectionPolicy(policy);
+                Logger.Instance.WriteDebug("Validation of Protection Policy is successful");
+
+                // RetentionPolicy and SchedulePolicy both should not be empty
+                if (retentionPolicy == null && schedulePolicy == null)
+                {
+                    throw new ArgumentException(Resources.BothRetentionAndSchedulePoliciesEmpty);
+                }
+
+                // validate RetentionPolicy and SchedulePolicy
+                if (schedulePolicy != null)
+                {
+                    AzureWorkloadProviderHelper.ValidateSQLSchedulePolicy(schedulePolicy);
+                    AzureWorkloadProviderHelper.GetUpdatedSchedulePolicy(policy, (SQLSchedulePolicy)schedulePolicy);
+                    Logger.Instance.WriteDebug("Validation of Schedule policy is successful");
+                }
+                if (retentionPolicy != null)
+                {
+                    AzureWorkloadProviderHelper.ValidateSQLRetentionPolicy(retentionPolicy);
+                    AzureWorkloadProviderHelper.GetUpdatedRetentionPolicy(policy, (SQLRetentionPolicy)retentionPolicy);
+                    Logger.Instance.WriteDebug("Validation of Retention policy is successful");
+                }
+
+                // copy the backupSchedule time to retentionPolicy after converting to UTC
+                AzureWorkloadProviderHelper.CopyScheduleTimeToRetentionTimes(
+                    (CmdletModel.LongTermRetentionPolicy)((AzureVmWorkloadPolicy)policy).FullBackupRetentionPolicy,
+                    (CmdletModel.SimpleSchedulePolicy)((AzureVmWorkloadPolicy)policy).FullBackupSchedulePolicy);
+                Logger.Instance.WriteDebug("Copy of RetentionTime from with SchedulePolicy to RetentionPolicy is successful");
+
+                // Now validate both RetentionPolicy and SchedulePolicy matches or not
+                PolicyHelpers.ValidateLongTermRetentionPolicyWithSimpleRetentionPolicy(
+                    (CmdletModel.LongTermRetentionPolicy)((AzureVmWorkloadPolicy)policy).FullBackupRetentionPolicy,
+                    (CmdletModel.SimpleSchedulePolicy)((AzureVmWorkloadPolicy)policy).FullBackupSchedulePolicy);
+                Logger.Instance.WriteDebug("Validation of Retention policy with Schedule policy is successful");
+
+                // construct Service Client policy request
+                AzureVmWorkloadProtectionPolicy azureVmWorkloadProtectionPolicy = new AzureVmWorkloadProtectionPolicy();
+                azureVmWorkloadProtectionPolicy.Settings = new Settings("UTC",
+                    ((AzureVmWorkloadPolicy)policy).IsCompression,
+                    ((AzureVmWorkloadPolicy)policy).IsCompression);
+                azureVmWorkloadProtectionPolicy.WorkLoadType = ConversionUtils.GetServiceClientWorkloadType(policy.WorkloadType.ToString());
+                azureVmWorkloadProtectionPolicy.SubProtectionPolicy = new List<SubProtectionPolicy>();
+                azureVmWorkloadProtectionPolicy.SubProtectionPolicy = PolicyHelpers.GetServiceClientSubProtectionPolicy((AzureVmWorkloadPolicy)policy);
+                serviceClientRequest.Properties = azureVmWorkloadProtectionPolicy;
+            }
+            else
+            {
+                CmdletModel.WorkloadType workloadType =
+                (CmdletModel.WorkloadType)ProviderData[PolicyParams.WorkloadType];
+
+                // do validations
+                ValidateAzureWorkloadWorkloadType(workloadType);
+                AzureWorkloadProviderHelper.ValidateSQLSchedulePolicy(schedulePolicy);
+                Logger.Instance.WriteDebug("Validation of Schedule policy is successful");
+
+                // validate RetentionPolicy
+                AzureWorkloadProviderHelper.ValidateSQLRetentionPolicy(retentionPolicy);
+                Logger.Instance.WriteDebug("Validation of Retention policy is successful");
+
+                // update the retention times from backupSchedule to retentionPolicy after converting to UTC           
+                AzureWorkloadProviderHelper.CopyScheduleTimeToRetentionTimes(((SQLRetentionPolicy)retentionPolicy).FullBackupRetentionPolicy,
+                                                 ((SQLSchedulePolicy)schedulePolicy).FullBackupSchedulePolicy);
+                Logger.Instance.WriteDebug("Copy of RetentionTime from with SchedulePolicy to RetentionPolicy is successful");
+
+                // Now validate both RetentionPolicy and SchedulePolicy together
+                PolicyHelpers.ValidateLongTermRetentionPolicyWithSimpleRetentionPolicy(
+                                    (SQLRetentionPolicy)retentionPolicy,
+                                    (SQLSchedulePolicy)schedulePolicy);
+                Logger.Instance.WriteDebug("Validation of Retention policy with Schedule policy is successful");
+
+                // construct Service Client policy request            
+                AzureVmWorkloadProtectionPolicy azureVmWorkloadProtectionPolicy = new AzureVmWorkloadProtectionPolicy();
+                azureVmWorkloadProtectionPolicy.Settings = new Settings("UTC",
+                    ((SQLSchedulePolicy)schedulePolicy).IsCompression,
+                    ((SQLSchedulePolicy)schedulePolicy).IsCompression);
+                azureVmWorkloadProtectionPolicy.WorkLoadType = ConversionUtils.GetServiceClientWorkloadType(workloadType.ToString());
+                azureVmWorkloadProtectionPolicy.SubProtectionPolicy = new List<SubProtectionPolicy>();
+                azureVmWorkloadProtectionPolicy.SubProtectionPolicy = PolicyHelpers.GetServiceClientSubProtectionPolicy(
+                                                    (SQLRetentionPolicy)retentionPolicy,
+                                                    (SQLSchedulePolicy)schedulePolicy);
+                serviceClientRequest.Properties = azureVmWorkloadProtectionPolicy;
+            }
+
+            return ServiceClientAdapter.CreateOrUpdateProtectionPolicy(
+                policyName = policyName ?? policy.Name,
+                serviceClientRequest,
+                vaultName: vaultName,
+                resourceGroupName: resourceGroupName);
         }
 
         private RestAzureNS.AzureOperationResponse EnableOrModifyProtection(bool disableWithRetentionData = false)
@@ -279,6 +493,50 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 resourceGroupName: vaultResourceGroupName);
         }
 
+        public void RegisterContainer()
+        {
+            string vaultName = (string)ProviderData[VaultParams.VaultName];
+            string vaultResourceGroupName = (string)ProviderData[VaultParams.ResourceGroupName];
+            string containerName = (string)ProviderData[ContainerParams.Name];
+            string backupManagementType = (string)ProviderData[ContainerParams.BackupManagementType];
+            string workloadType = (string)ProviderData[ContainerParams.ContainerType];
+
+            //Trigger Discovery
+            ODataQuery<BMSRefreshContainersQueryObject> queryParam = new ODataQuery<BMSRefreshContainersQueryObject>(
+               q => q.BackupManagementType
+                    == ServiceClientModel.BackupManagementType.AzureWorkload);
+            AzureWorkloadProviderHelper.RefreshContainer(vaultName, vaultResourceGroupName, queryParam);
+
+            List<ProtectableContainerResource> unregisteredVmContainers =
+                    GetUnRegisteredVmContainers(vaultName, vaultResourceGroupName);
+            ProtectableContainerResource unregisteredVmContainer = unregisteredVmContainers.Find(
+                vmContainer => string.Compare(vmContainer.Name.Split(';').Last(),
+                containerName, true) == 0);
+
+            if (unregisteredVmContainer != null)
+            {
+                ProtectionContainerResource protectionContainerResource =
+                        new ProtectionContainerResource(unregisteredVmContainer.Id,
+                        unregisteredVmContainer.Name);
+                AzureVMAppContainerProtectionContainer azureVMContainer = new AzureVMAppContainerProtectionContainer(
+                    friendlyName: containerName,
+                    backupManagementType: backupManagementType,
+                    sourceResourceId: unregisteredVmContainer.Properties.ContainerId,
+                    workloadType: workloadType.ToString());
+                protectionContainerResource.Properties = azureVMContainer;
+
+                AzureWorkloadProviderHelper.RegisterContainer(unregisteredVmContainer.Name,
+                        protectionContainerResource,
+                        vaultName,
+                        vaultResourceGroupName);
+            }
+        }
+
+        public List<PointInTimeRange> GetLogChains()
+        {
+            return AzureWorkloadProviderHelper.ListLogChains(ProviderData);
+        }
+
         private void ValidateAzureWorkloadSQLDatabaseDisableProtectionRequest(ItemBase itemBase)
         {
 
@@ -308,6 +566,57 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             {
                 throw new ArgumentException(string.Format(Resources.UnExpectedContainerTypeException,
                                             CmdletModel.ContainerType.AzureWorkload.ToString(),
+                                            type.ToString()));
+            }
+        }
+
+        private void ValidateAzureWorkloadBackupManagementType(
+            CmdletModel.BackupManagementType backupManagementType)
+        {
+            if (backupManagementType != CmdletModel.BackupManagementType.AzureWorkload)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedBackupManagementTypeException,
+                                            CmdletModel.BackupManagementType.AzureWorkload.ToString(),
+                                            backupManagementType.ToString()));
+            }
+        }
+
+        private List<ProtectableContainerResource> GetUnRegisteredVmContainers(string vaultName = null,
+           string vaultResourceGroupName = null)
+        {
+            ODataQuery<BMSContainerQueryObject> queryParams = null;
+            queryParams = new ODataQuery<BMSContainerQueryObject>(
+                q => q.BackupManagementType == ServiceClientModel.BackupManagementType.AzureWorkload);
+
+            var listResponse = ServiceClientAdapter.ListUnregisteredContainers(
+                queryParams,
+                vaultName: vaultName,
+                resourceGroupName: vaultResourceGroupName);
+            List<ProtectableContainerResource> containerModels = listResponse.ToList();
+
+            return containerModels;
+        }
+
+        private void ValidateAzureWorkloadProtectionPolicy(PolicyBase policy)
+        {
+            if (policy == null || policy.GetType() != typeof(AzureVmWorkloadPolicy))
+            {
+                throw new ArgumentException(string.Format(Resources.InvalidProtectionPolicyException,
+                                            typeof(AzureVmWorkloadPolicy).ToString()));
+            }
+
+            ValidateAzureWorkloadWorkloadType(policy.WorkloadType);
+
+            // call validation
+            policy.Validate();
+        }
+
+        private void ValidateAzureWorkloadWorkloadType(CmdletModel.WorkloadType type)
+        {
+            if (type != CmdletModel.WorkloadType.MSSQL)
+            {
+                throw new ArgumentException(string.Format(Resources.UnExpectedWorkLoadTypeException,
+                                            CmdletModel.WorkloadType.MSSQL.ToString(),
                                             type.ToString()));
             }
         }
