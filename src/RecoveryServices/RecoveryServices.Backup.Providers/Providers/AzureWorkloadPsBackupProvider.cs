@@ -34,9 +34,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
     {
         private const int defaultOperationStatusRetryTimeInMilliSec = 5 * 1000; // 5 sec
         private const string separator = ";";
-        private const CmdletModel.RetentionDurationType defaultFileRetentionType =
-            CmdletModel.RetentionDurationType.Days;
-        private const int defaultFileRetentionCount = 30;
         Dictionary<Enum, object> ProviderData { get; set; }
         ServiceClientAdapter ServiceClientAdapter { get; set; }
         AzureWorkloadProviderHelper AzureWorkloadProviderHelper { get; set; }

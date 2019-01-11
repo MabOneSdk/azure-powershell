@@ -121,7 +121,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                     azureWorkloadRecoveryConfig.NoRecoveryMode = "Disabled";
                     List<SQLDataDirectoryMapping> targetPhysicalPath = new List<SQLDataDirectoryMapping>();
 
-                    RecoveryPointBase rpDetails = GetRpDetails(vaultName, resourceGroupName);
+                    string itemId = GetItemId(RecoveryPoint.Id);
+                    RecoveryPointBase rpDetails = GetRpDetails(vaultName, resourceGroupName, itemId);
                     foreach (var dataDirectoryPath in ((Models.AzureWorkloadRecoveryPoint)rpDetails).DataDirectoryPaths)
                     {
                         targetPhysicalPath.Add(new SQLDataDirectoryMapping()
@@ -146,7 +147,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                     azureWorkloadRecoveryConfig.NoRecoveryMode = "Disabled";
                     List<SQLDataDirectoryMapping> targetPhysicalPath = new List<SQLDataDirectoryMapping>();
 
-                    RecoveryPointBase rpDetails = GetRpDetails(vaultName, resourceGroupName);
+                    string itemId = GetItemId(RecoveryPoint.Id);
+                    RecoveryPointBase rpDetails = GetRpDetails(vaultName, resourceGroupName, itemId);
                     foreach (var dataDirectoryPath in ((Models.AzureWorkloadRecoveryPoint)rpDetails).DataDirectoryPaths)
                     {
                         targetPhysicalPath.Add(new SQLDataDirectoryMapping()
@@ -183,17 +185,23 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
             return resourceIdentifier.ToString();
         }
 
+        public string GetItemId(string recoveryPointId)
+        {
+            string[] split = recoveryPointId.Split(new string[] { "/" }, StringSplitOptions.None);
+            return string.Join("/", split.ToList().GetRange(0, split.Length - 2));
+
+        }
         public string GetContainerId(string itemId)
         {
             string[] split = itemId.Split(new string[] { "/" }, StringSplitOptions.None);
             return string.Join("/", split.ToList().GetRange(0, split.Length - 2));
         }
 
-        public RecoveryPointBase GetRpDetails(string vaultName, string resourceGroupName)
+        public RecoveryPointBase GetRpDetails(string vaultName, string resourceGroupName, string itemId)
         {
-            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(TargetItem.Id);
-            string containerUri = HelperUtils.GetContainerUri(uriDict, TargetItem.Id);
-            string protectedItemName = HelperUtils.GetProtectedItemUri(uriDict, TargetItem.Id);
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(itemId);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, itemId);
+            string protectedItemName = HelperUtils.GetProtectedItemUri(uriDict, itemId);
 
             var rpResponse = ServiceClientAdapter.GetRecoveryPointDetails(
                 containerUri,
