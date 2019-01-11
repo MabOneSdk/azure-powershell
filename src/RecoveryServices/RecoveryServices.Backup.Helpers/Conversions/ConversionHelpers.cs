@@ -587,16 +587,6 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers
             return itemModels;
         }
 
-        public static SettingsBase GetPSPolicySetting(ServiceClientModel.Settings policySettings)
-        {
-            SettingsBase settings = new SettingsBase();
-            settings.IsCompression = policySettings.IsCompression;
-            settings.Issqlcompression = policySettings.Issqlcompression;
-            settings.TimeZone = policySettings.TimeZone;
-
-            return settings;
-        }
-
         public static void GetPSSubProtectionPolicy(AzureVmWorkloadPolicy azureVmWorkloadPolicyModel,
            ServiceClientModel.ProtectionPolicyResource serviceClientResponse, string timeZone)
         {
