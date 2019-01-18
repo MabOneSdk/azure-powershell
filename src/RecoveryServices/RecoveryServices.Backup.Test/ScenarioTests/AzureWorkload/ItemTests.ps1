@@ -317,40 +317,124 @@ function Test-AzureVmWorkloadFullRestore
 	try
 	{
 		$vault = Get-AzRecoveryServicesVault -ResourceGroupName $resourceGroupName -Name $vaultName
+		$container = Register-AzRecoveryServicesBackupContainer `
+			-ResourceId $resourceId `
+			-BackupManagementType AzureWorkload `
+			-WorkloadType MSSQL `
+			-VaultId $vault.ID
+
 		$policy = Get-AzRecoveryServicesBackupProtectionPolicy `
 			-VaultId $vault.ID `
 			-Name $policyName
-		
-		$container = Get-AzRecoveryServicesBackupContainer `
+
+		$protectableItems = Get-AzRecoveryServicesBackupProtectableItem `
 			-VaultId $vault.ID `
-			-ContainerType AzureWorkload `
-			-Status Registered `
-			-FriendlyName $containerName `
-			-ResourceGroupName $resourceGroupName;
-		
-		$items = Get-AzRecoveryServicesBackupItem `
+			-Container $container `
+			-WorkloadType "MSSQL" `
+			-ItemType "SQLDataBase";
+
+		Enable-AzRecoveryServicesBackupProtection `
+			-VaultId $vault.ID `
+			-Policy $policy `
+			-ProtectableItem $protectableItems[3];
+
+		$item = Get-AzRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
 			-Container $container `
 			-WorkloadType MSSQL;
 
+		$backupJob = Backup-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Item $item[0] `
+			-BackupType "Full" | Wait-AzRecoveryServicesBackupJob -VaultId $vault.ID
+
+		$backupStartTime = $backupJob.StartTime.AddMinutes(-1);
+		$backupEndTime = $backupJob.EndTime.AddMinutes(1);
+
 		$recoveryPoint = Get-AzRecoveryServicesBackupRecoveryPoint `
 			-VaultId $vault.ID `
-			-Item $items[1];
+			-StartDate $backupStartTime `
+			-EndDate $backupEndTime `
+			-Item $item;
 
-		$restoreConfig = Get-AzRecoveryServicesBackupWorkloadRecoveryConfig `
+		$restoreConfig1 = Get-AzRecoveryServicesBackupWorkloadRecoveryConfig `
 			-VaultId $vault.ID `
 			-RecoveryPoint $recoveryPoint[0] `
-			-TargetItem $items[0] `
+			-TargetItem $item[0] `
 			–AlternateWorkloadRestore;
 
-		Assert-NotNull $restoreConfig
+		Assert-NotNull $restoreConfig1
 
-		Restore-AzRecoveryServicesBackupItem `
+		$restoreJob1 = Restore-AzRecoveryServicesBackupItem `
 			-VaultId $vault.ID `
-			-WLRecoveryConfig $restoreConfig
+			-WLRecoveryConfig $restoreConfig1 | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob1.Status -eq "Completed" }
+
+		$restoreConfig2 = Get-AzRecoveryServicesBackupWorkloadRecoveryConfig `
+			-VaultId $vault.ID `
+			-RecoveryPoint $recoveryPoint[0] `
+			–OriginalWorkloadRestore;
+
+		Assert-NotNull $restoreConfig2
+
+		$restoreJob2 = Restore-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-WLRecoveryConfig $restoreConfig2 | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob2.Status -eq "Completed" }
+		
+		## Log Restores
+		$backupJob2 = Backup-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Item $item[0] `
+			-BackupType "Full" | Wait-AzRecoveryServicesBackupJob -VaultId $vault.ID
+
+		$backupJob3 = Backup-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-Item $item[0] `
+			-BackupType "Log" | Wait-AzRecoveryServicesBackupJob -VaultId $vault.ID
+
+		$backupStartTime = $backupJob3.StartTime.AddMinutes(-1);
+		$backupEndTime = $backupJob3.EndTime.AddMinutes(1);
+
+		$recoveryLogChain = Get-AzRecoveryServicesBackupRecoveryLogChain `
+			-VaultId $vault.ID `
+			-StartDate $backupStartTime `
+			-EndDate $backupEndTime `
+			-Item $item[0];
+
+		$restoreConfig3 = Get-AzRecoveryServicesBackupWorkloadRecoveryConfig `
+			-VaultId $vault.ID `
+			-PointInTime $recoveryLogChain[0].StartTime.AddMinutes(1) `
+			-Item $item[0] `
+			-TargetItem $item[0] `
+			–AlternateWorkloadRestore;
+
+		Assert-NotNull $restoreConfig3
+
+		$restoreJob3 = Restore-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-WLRecoveryConfig $restoreConfig3 | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob3.Status -eq "Completed" }
+
+		$restoreConfig4 = Get-AzRecoveryServicesBackupWorkloadRecoveryConfig `
+			-VaultId $vault.ID `
+			-PointInTime $recoveryLogChain[0].StartTime.AddMinutes(1) `
+			-Item $item[0] `
+			–OriginalWorkloadRestore;
+
+		Assert-NotNull $restoreConfig4
+
+		$restoreJob4 = Restore-AzRecoveryServicesBackupItem `
+			-VaultId $vault.ID `
+			-WLRecoveryConfig $restoreConfig4 | Wait-AzureRmRecoveryServicesBackupJob -VaultId $vault.ID
+		
+		Assert-True { $restoreJob4.Status -eq "Completed" }
 	}
 	finally
 	{
-	
+		Cleanup-Vault $vault $item $container
 	}
 }

@@ -355,7 +355,8 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 {
                     StartDate = startDate,
                     EndDate = endDate,
-                    RestorePointQueryType = restorePointQueryType
+                    RestorePointQueryType = restorePointQueryType,
+                    ExtendedInfo = true
                 });
             }
 
@@ -394,6 +395,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
             //we need to fetch the list of RPs
             var queryFilterString = QueryBuilder.Instance.GetQueryString(new BMSRPQueryObject()
             {
+                ExtendedInfo = true,
                 StartDate = startDate,
                 EndDate = endDate,
                 RestorePointQueryType = restorePointQueryType

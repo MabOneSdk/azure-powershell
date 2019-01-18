@@ -75,7 +75,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Test.ScenarioTests
                 _logger, PsBackupProviderTypes.AzureWorkload, "Test-AzureVmWorkloadGetLogChains");
         }
 
-        [Fact]
+        [Fact(Skip ="OnGoing Work")]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
         [Trait(TestConstants.Workload, TestConstants.AzureVmWorkload)]
         public void TestAzureVmWorkloadAutoProtection()

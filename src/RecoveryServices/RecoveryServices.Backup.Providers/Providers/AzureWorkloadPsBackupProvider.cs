@@ -363,9 +363,10 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 (AzureWorkloadRecoveryConfig)ProviderData[RestoreWLBackupItemParams.WLRecoveryConfig];
             RestoreRequestResource triggerRestoreRequest = new RestoreRequestResource();
 
-            if (wLRecoveryConfig.RecoveryPoint != null)
+            if (wLRecoveryConfig.RecoveryPoint.ContainerName != null)
             {
-                AzureWorkloadSQLRestoreRequest azureWorkloadSQLRestoreRequest = new AzureWorkloadSQLRestoreRequest();
+                AzureWorkloadSQLRestoreRequest azureWorkloadSQLRestoreRequest =
+                    new AzureWorkloadSQLRestoreRequest();
 
                 azureWorkloadSQLRestoreRequest.SourceResourceId = wLRecoveryConfig.SourceResourceId;
                 azureWorkloadSQLRestoreRequest.ShouldUseAlternateTargetLocation =
@@ -388,10 +389,37 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ProviderModel
                 }
                 triggerRestoreRequest.Properties = azureWorkloadSQLRestoreRequest;
             }
+            else
+            {
+                AzureWorkloadSQLPointInTimeRestoreRequest azureWorkloadSQLPointInTimeRestoreRequest =
+                    new AzureWorkloadSQLPointInTimeRestoreRequest();
+
+                azureWorkloadSQLPointInTimeRestoreRequest.SourceResourceId = wLRecoveryConfig.SourceResourceId;
+                azureWorkloadSQLPointInTimeRestoreRequest.ShouldUseAlternateTargetLocation =
+                    string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") != 0 ? true : false;
+                azureWorkloadSQLPointInTimeRestoreRequest.IsNonRecoverable =
+                    string.Compare(wLRecoveryConfig.NoRecoveryMode, "Enabled") == 0 ? true : false;
+                azureWorkloadSQLPointInTimeRestoreRequest.RecoveryType =
+                    string.Compare(wLRecoveryConfig.RestoreRequestType, "Original WL Restore") == 0 ?
+                    RecoveryType.OriginalLocation : RecoveryType.AlternateLocation;
+                if (azureWorkloadSQLPointInTimeRestoreRequest.RecoveryType == RecoveryType.AlternateLocation)
+                {
+                    azureWorkloadSQLPointInTimeRestoreRequest.TargetInfo = new TargetRestoreInfo()
+                    {
+                        OverwriteOption = string.Compare(wLRecoveryConfig.OverwriteWLIfpresent, "No") == 0 ?
+                        OverwriteOptions.FailOnConflict : OverwriteOptions.Overwrite,
+                        DatabaseName = wLRecoveryConfig.RestoredDBName,
+                        ContainerId = wLRecoveryConfig.ContainerId
+                    };
+                    azureWorkloadSQLPointInTimeRestoreRequest.AlternateDirectoryPaths = wLRecoveryConfig.targetPhysicalPath;
+                }
+                azureWorkloadSQLPointInTimeRestoreRequest.PointInTime = wLRecoveryConfig.PointInTime;
+                triggerRestoreRequest.Properties = azureWorkloadSQLPointInTimeRestoreRequest;
+            }
 
             var response = ServiceClientAdapter.RestoreDisk(
                 (AzureRecoveryPoint)wLRecoveryConfig.RecoveryPoint,
-                "sea",
+                "LocationNotRequired",
                 triggerRestoreRequest,
                 vaultName: vaultName,
                 resourceGroupName: resourceGroupName,
