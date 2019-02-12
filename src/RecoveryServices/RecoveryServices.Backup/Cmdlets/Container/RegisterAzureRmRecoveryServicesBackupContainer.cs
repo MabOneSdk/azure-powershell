@@ -27,17 +27,28 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
     /// <summary>
     /// Unregisters container from the recovery services vault.
     /// </summary>
-    [Cmdlet("Register", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RecoveryServicesBackupContainer", SupportsShouldProcess = true), OutputType(typeof(ContainerBase))]
+    [Cmdlet("Register", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "RecoveryServicesBackupContainer", DefaultParameterSetName = RegisterParamSet, SupportsShouldProcess = true), OutputType(typeof(ContainerBase))]
     public class RegisterAzureRmRecoveryServicesBackupContainer
         : RSBackupVaultCmdletBase
     {
+        internal const string RegisterParamSet = "Register";
+        internal const string ReRegisterParamSet = "ReRegister";
+
         /// <summary>
         /// Azure Vm Id.
         /// </summary>
-        [Parameter(Mandatory = true, Position = 0,
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = RegisterParamSet,
             HelpMessage = ParamHelpMsgs.Container.ResourceId)]
         [ValidateNotNullOrEmpty]
         public string ResourceId { get; set; }
+
+        /// <summary>
+        /// When this option is specified, The contiane will be registered
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = ParamHelpMsgs.Item.Container,
+            ParameterSetName = ReRegisterParamSet, ValueFromPipelineByPropertyName = true)]
+        [ValidateNotNullOrEmpty]
+        public ContainerBase Container { get; set; }
 
         /// <summary>
         /// The backup management type of the container(s) to be fetched.
@@ -66,7 +77,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                 string vaultName = resourceIdentifier.ResourceName;
                 string vaultResourceGroupName = resourceIdentifier.ResourceGroupName;
 
-                string containerName = ResourceId.Split('/')[8];
+                string containerName = Container != null ? Container.Name : ResourceId.Split('/')[8];
 
                 PsBackupProviderManager providerManager =
                     new PsBackupProviderManager(new Dictionary<Enum, object>()
@@ -76,6 +87,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
                         { ContainerParams.Name, containerName },
                         { ContainerParams.ContainerType, ServiceClientHelpers.GetServiceClientWorkloadType(WorkloadType).ToString() },
                         { ContainerParams.BackupManagementType, BackupManagementType.ToString() },
+                        { ContainerParams.Container, Container}
                     }, ServiceClientAdapter);
 
                 IPsBackupProvider psBackupProvider =

@@ -30,10 +30,12 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets
     public class EnableAzureRmRecoveryServicesBackupAutoProtection : RSBackupVaultCmdletBase
     {
         /// <summary>
-        /// Name of the Azure VM whose representative item needs to be protected.
+        /// Item Id That needs to be auto protected
         /// </summary>
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = ParamHelpMsgs.ProtectableItem.ItemId)]
+        [Alias("Id")]
+        [ValidateNotNullOrEmpty]
         public string InputItem { get; set; }
 
         /// <summary>

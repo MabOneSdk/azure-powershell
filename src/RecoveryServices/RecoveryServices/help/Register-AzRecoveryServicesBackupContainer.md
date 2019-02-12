@@ -12,8 +12,16 @@ Registers a protectable container.
 
 ## SYNTAX
 
+### Register
 ```
 Register-AzRecoveryServicesBackupContainer [-ResourceId] <String>
+ [-BackupManagementType] <BackupManagementType> [-WorkloadType] <WorkloadType> [-VaultId <String>]
+ [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ReRegister
+```
+Register-AzRecoveryServicesBackupContainer [-Container] <ContainerBase>
  [-BackupManagementType] <BackupManagementType> [-WorkloadType] <WorkloadType> [-VaultId <String>]
  [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -25,7 +33,7 @@ The cmdlet registers an Azure VM for AzureWorkloads with specific workloadType.
 
 ### Example 1
 ```
-PS C:\> Register-AzRecoveryServicesBackupContainer -ResourceId <AzureVMID> -VaultId <vaultID> -WorkloadType “MSSQL” -BackupManagementType “AzureWorkload”
+PS C:\> Register-AzRecoveryServicesBackupContainer -ResourceId <AzureVMID> -VaultId <vaultID> -WorkloadType "MSSQL" -BackupManagementType "AzureWorkload"
 ```
 
 The cmdlet registers an azure VM for the workload MSSQL.
@@ -42,9 +50,24 @@ Aliases:
 Accepted values: AzureWorkload
 
 Required: True
-Position: 2
+Position: 1
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Container
+Container where the item resides
+
+```yaml
+Type: Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models.ContainerBase
+Parameter Sets: ReRegister
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -68,11 +91,11 @@ Azure VM Id
 
 ```yaml
 Type: System.String
-Parameter Sets: (All)
+Parameter Sets: Register
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -103,7 +126,7 @@ Aliases:
 Accepted values: AzureVM, AzureSQLDatabase, AzureFiles, MSSQL
 
 Required: True
-Position: 3
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
