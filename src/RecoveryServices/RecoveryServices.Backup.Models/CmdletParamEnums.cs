@@ -116,7 +116,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         StorageAccountName,
         BackupType,
         EnableCompression,
-        DeleteState
+        InclusionDisksList,
+        ExclusionDisksList,
+        ResetExclusionSettings
     }
 
     public enum ProtectionCheckParams
