@@ -58,7 +58,9 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     public enum RestoreVMBackupItemParams
     {
         TargetResourceGroupName,
-        OsaOption
+        OsaOption,
+        RestoreDiskList,
+        RestoreOnlyOSDisk
     }
 
     public enum RestoreFSBackupItemParams
@@ -116,6 +118,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         StorageAccountName,
         BackupType,
         EnableCompression,
+        DeleteState,
         InclusionDisksList,
         ExclusionDisksList,
         ResetExclusionSettings
