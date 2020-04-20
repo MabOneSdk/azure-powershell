@@ -150,6 +150,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         /// </summary>
         AzureFiles,
         AzureWorkload,
+        PrivateEndpoint
     }
 
     /// <summary>
