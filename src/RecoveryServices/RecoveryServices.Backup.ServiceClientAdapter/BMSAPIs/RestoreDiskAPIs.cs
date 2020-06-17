@@ -16,6 +16,7 @@ using Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Helpers;
 using Microsoft.Azure.Commands.RecoveryServices.Backup.Properties;
 using Microsoft.Azure.Management.RecoveryServices.Backup.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using RestAzureNS = Microsoft.Rest.Azure;
@@ -62,6 +63,76 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
                 triggerRestoreRequest,
                 cancellationToken: BmsAdapter.CmdletCancellationToken).Result;
 
+            return response;
+        }
+
+
+        /// <summary>
+        /// Restores the disk based on the recovery point and other input parameters
+        /// </summary>
+        /// <param name="rp">Recovery point to restore the disk to</param>
+        /// <param name="storageAccountId">ID of the storage account where to restore the disk</param>
+        /// <param name="storageAccountLocation">Location of the storage account where to restore the disk</param>
+        /// <param name="storageAccountType">Type of the storage account where to restore the disk</param>
+        /// <returns>Job created by this operation</returns>
+        public CrrAccessToken GetCRRAccessToken(
+            AzureRecoveryPoint rp,
+            string secondaryRegion,
+            string vaultName = null,
+            string resourceGroupName = null)
+        {
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(rp.Id);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, rp.Id);
+            string protectedItemUri = HelperUtils.GetProtectedItemUri(uriDict, rp.Id);
+            string recoveryPointId = rp.RecoveryPointId;
+
+            AADPropertiesResource userInfo = GetAADProperties(secondaryRegion);
+
+            //remove
+            //= new AADPropertiesResource();
+            // userInfo.Properties = new AADProperties();
+            /*userInfo.Properties.ServicePrincipalObjectId = "82aa95c9-20ee-4472-905a-4ba4996d94fa";
+            userInfo.Properties.TenantId = "33e01921-4d64-4f8c-a055-5bdaffd5e33d";*/
+
+            var accessToken = BmsAdapter.Client.RecoveryPoints.GetAccessTokenWithHttpMessagesAsync(vaultName ?? BmsAdapter.GetResourceName(), resourceGroupName ?? BmsAdapter.GetResourceGroupName(),
+                AzureFabricName, containerUri, protectedItemUri, recoveryPointId, userInfo).Result.Body; 
+
+            var accessTokenJson = JsonConvert.SerializeObject(accessToken);
+            return accessToken.Properties; 
+        }
+
+        /// <summary>
+        /// Restores the disk based on the recovery point and other input parameters
+        /// </summary>
+        /// <param name="rp">Recovery point to restore the disk to</param>
+        /// <param name="storageAccountId">ID of the storage account where to restore the disk</param>
+        /// <param name="storageAccountLocation">Location of the storage account where to restore the disk</param>
+        /// <param name="storageAccountType">Type of the storage account where to restore the disk</param>
+        /// <returns>Job created by this operation</returns>
+        public RestAzureNS.AzureOperationResponse RestoreDiskSecondryRegion(
+            AzureRecoveryPoint rp,
+            string storageAccountLocation,
+            CrossRegionRestoreRequest triggerCRRRestoreRequest,
+            string vaultName = null,
+            string resourceGroupName = null,
+            string secondaryRegion = null)
+        {
+            
+            Dictionary<UriEnums, string> uriDict = HelperUtils.ParseUri(rp.Id);
+            string containerUri = HelperUtils.GetContainerUri(uriDict, rp.Id);
+            string protectedItemUri = HelperUtils.GetProtectedItemUri(uriDict, rp.Id);
+            string recoveryPointId = rp.RecoveryPointId;
+
+            //validtion block
+            if (!triggerCRRRestoreRequest.RestoreRequest.GetType().IsSubclassOf(typeof(AzureWorkloadRestoreRequest)))
+            {
+                if (storageAccountLocation != secondaryRegion)
+                {
+                    throw new Exception(Resources.TriggerRestoreIncorrectRegion);
+                }
+            }
+            
+            var response = BmsAdapter.Client.CrossRegionRestore.TriggerWithHttpMessagesAsync(secondaryRegion, triggerCRRRestoreRequest).Result;
             return response;
         }
     }

@@ -50,5 +50,28 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.ServiceClient
             return BmsAdapter.Client.BackupResourceStorageConfigs.GetWithHttpMessagesAsync(
                 vaultName, resouceGroupName).Result.Body;
         }
+
+        /// <summary>
+        /// Method to get Azure Recovery Services Vault
+        /// </summary>
+        /// <param name="resouceGroupName">Name of the resouce group</param>
+        /// <param name="resourceName">Name of the resource</param>
+        /// <returns>vault response object.</returns>
+        public ARSVault GetVault(string resouceGroupName, string resourceName)
+        {
+            return new ARSVault(RSAdapter.Client.Vaults.GetWithHttpMessagesAsync(
+                resouceGroupName, resourceName).Result.Body);
+        }
+
+        /// <summary>
+        /// Method to get secondary region AAD properties
+        /// </summary>
+        /// <param name="azureRegion">Azure region to fetch AAD properties</param>
+        /// <returns>vault response object.</returns>
+        public AADPropertiesResource GetAADProperties(string azureRegion)
+        {
+            AADPropertiesResource aadProperties =  BmsAdapter.Client.AadProperties.GetWithHttpMessagesAsync(azureRegion).Result.Body;
+            return aadProperties;
+        }
     }
 }
