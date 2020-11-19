@@ -20,6 +20,7 @@
 ## Upcoming Release
 * Added Cross Region Restore feature.  
 * Blocked getting workload config when target item is an availability group.
+* Added null check for target storage account in FileShare restore.
 
 ## Version 3.2.0
 * Enabled softdelete feature for SQL.
