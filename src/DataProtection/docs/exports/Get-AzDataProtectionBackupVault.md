@@ -12,7 +12,7 @@ Returns a resource belonging to a resource group.
 
 ## SYNTAX
 
-### multiple (Default)
+### list (Default)
 ```
 Get-AzDataProtectionBackupVault [-ResourceGroupName <String>] [-SubscriptionId <String[]>] [-Confirm]
  [-WhatIf] [<CommonParameters>]
@@ -104,7 +104,7 @@ The name of the resource group where the backup vault is present.
 
 ```yaml
 Type: System.String
-Parameter Sets: Get, multiple
+Parameter Sets: Get, list
 Aliases:
 
 Required: True
@@ -119,7 +119,7 @@ The subscription Id.
 
 ```yaml
 Type: System.String[]
-Parameter Sets: Get, multiple
+Parameter Sets: Get, list
 Aliases:
 
 Required: False

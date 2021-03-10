@@ -659,17 +659,17 @@ https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/get-azdatap
 #>
 function Get-AzDataProtectionBackupVault {
 [OutputType([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource], [PSObject])]
-[CmdletBinding(DefaultParameterSetName='multiple', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
+[CmdletBinding(DefaultParameterSetName='list', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
 param(
     [Parameter(ParameterSetName='Get', Mandatory)]
-    [Parameter(ParameterSetName='multiple')]
+    [Parameter(ParameterSetName='list')]
     [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
     [System.String]
     # The name of the resource group where the backup vault is present.
     ${ResourceGroupName},
 
     [Parameter(ParameterSetName='Get')]
-    [Parameter(ParameterSetName='multiple')]
+    [Parameter(ParameterSetName='list')]
     [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
     [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.DefaultInfo(Script='(Get-AzContext).Subscription.Id')]
     [System.String[]]
@@ -754,9 +754,9 @@ begin {
         $mapping = @{
             Get = 'Az.DataProtection.private\Get-AzDataProtectionBackupVault_Get';
             GetViaIdentity = 'Az.DataProtection.private\Get-AzDataProtectionBackupVault_GetViaIdentity';
-            multiple = 'Az.DataProtection.custom\Get-AzDataProtectionBackupVault_multiple';
+            list = 'Az.DataProtection.custom\Get-AzDataProtectionBackupVault_list';
         }
-        if (('Get', 'multiple') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
+        if (('Get', 'list') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
             $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
         }
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)

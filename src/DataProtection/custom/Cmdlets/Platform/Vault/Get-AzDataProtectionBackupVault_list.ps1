@@ -1,4 +1,4 @@
-﻿function Get-AzDataProtectionBackupVault_multiple
+﻿function Get-AzDataProtectionBackupVault_list
 {
 	[OutputType('PSObject')]
     [CmdletBinding(PositionalBinding=$false, SupportsShouldProcess)]
