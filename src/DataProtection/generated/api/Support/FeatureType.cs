@@ -6,6 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>backup support feature type.</summary>
     public partial struct FeatureType :
         System.IEquatable<FeatureType>
     {
@@ -20,7 +21,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="FeatureType" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new FeatureType(System.Convert.ToString(value));
+            return new FeatureType(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type FeatureType</summary>

@@ -70,9 +70,9 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return;
             }
-            {_exposureControlledFeature = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonArray>("exposureControlledFeatures"), out var __jsonExposureControlledFeatures) ? If( __jsonExposureControlledFeatures as Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonArray, out var __v) ? new global::System.Func<string[]>(()=> global::System.Linq.Enumerable.ToArray(global::System.Linq.Enumerable.Select(__v, (__u)=>(string) (__u is Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString __t ? (string)(__t.ToString()) : null)) ))() : null : ExposureControlledFeature;}
             {_featureName = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("featureName"), out var __jsonFeatureName) ? (string)__jsonFeatureName : (string)FeatureName;}
             {_supportStatus = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("supportStatus"), out var __jsonSupportStatus) ? (string)__jsonSupportStatus : (string)SupportStatus;}
+            {_exposureControlledFeature = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonArray>("exposureControlledFeatures"), out var __jsonExposureControlledFeatures) ? If( __jsonExposureControlledFeatures as Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonArray, out var __v) ? new global::System.Func<string[]>(()=> global::System.Linq.Enumerable.ToArray(global::System.Linq.Enumerable.Select(__v, (__u)=>(string) (__u is Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString __t ? (string)(__t.ToString()) : null)) ))() : null : ExposureControlledFeature;}
             AfterFromJson(json);
         }
 
@@ -95,6 +95,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return container;
             }
+            AddIf( null != (((object)this._featureName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._featureName.ToString()) : null, "featureName" ,container.Add );
+            AddIf( null != (((object)this._supportStatus)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._supportStatus.ToString()) : null, "supportStatus" ,container.Add );
             if (null != this._exposureControlledFeature)
             {
                 var __w = new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.XNodeArray();
@@ -104,8 +106,6 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 }
                 container.Add("exposureControlledFeatures",__w);
             }
-            AddIf( null != (((object)this._featureName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._featureName.ToString()) : null, "featureName" ,container.Add );
-            AddIf( null != (((object)this._supportStatus)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._supportStatus.ToString()) : null, "supportStatus" ,container.Add );
             AfterToJson(ref container);
             return container;
         }

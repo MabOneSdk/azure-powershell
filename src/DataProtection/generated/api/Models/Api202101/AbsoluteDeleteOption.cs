@@ -16,11 +16,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Duration of deletion after given timespan</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string Duration { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).Duration; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).Duration = value; }
+        public string Duration { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).Duration; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).Duration = value ; }
 
         /// <summary>Type of the specific object - used for deserializing</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).ObjectType = value; }
+        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDeleteOptionInternal)__deleteOption).ObjectType = value ; }
 
         /// <summary>Creates an new <see cref="AbsoluteDeleteOption" /> instance.</summary>
         public AbsoluteDeleteOption()

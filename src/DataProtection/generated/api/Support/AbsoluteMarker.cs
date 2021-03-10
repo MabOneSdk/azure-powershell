@@ -33,7 +33,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="AbsoluteMarker" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new AbsoluteMarker(System.Convert.ToString(value));
+            return new AbsoluteMarker(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type AbsoluteMarker</summary>

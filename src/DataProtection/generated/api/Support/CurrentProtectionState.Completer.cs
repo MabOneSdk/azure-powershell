@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for CurrentProtectionState.</summary>
+    /// <summary>Specifies the current protection state of the resource</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.CurrentProtectionStateTypeConverter))]
     public partial struct CurrentProtectionState :
         System.Management.Automation.IArgumentCompleter

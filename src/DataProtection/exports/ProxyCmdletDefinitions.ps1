@@ -39,7 +39,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -265,7 +265,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -452,7 +452,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -648,7 +648,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -831,7 +831,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -1021,7 +1021,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -1177,6 +1177,181 @@ end {
 
 <#
 .Synopsis
+
+.Description
+
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+
+.Inputs
+Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IDataProtectionIdentity
+.Outputs
+Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource
+.Notes
+COMPLEX PARAMETER PROPERTIES
+
+To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
+
+INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
+  [BackupInstanceName <String>]: The name of the backup instance
+  [BackupPolicyName <String>]: 
+  [Id <String>]: Resource identity path
+  [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+  [Location <String>]: The location in which uniqueness will be verified.
+  [OperationId <String>]: 
+  [RecoveryPointId <String>]: 
+  [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
+  [SubscriptionId <String>]: The subscription Id.
+  [VaultName <String>]: The name of the backup vault.
+.Link
+https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/get-azdataprotectionoperationresultpatch
+#>
+function Get-AzDataProtectionOperationResultPatch {
+[OutputType([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource])]
+[CmdletBinding(DefaultParameterSetName='Get', PositionalBinding=$false)]
+param(
+    [Parameter(ParameterSetName='Get', Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
+    [System.String]
+    # .
+    ${OperationId},
+
+    [Parameter(ParameterSetName='Get', Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
+    [System.String]
+    # The name of the resource group where the backup vault is present.
+    ${ResourceGroupName},
+
+    [Parameter(ParameterSetName='Get')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.DefaultInfo(Script='(Get-AzContext).Subscription.Id')]
+    [System.String[]]
+    # The subscription Id.
+    ${SubscriptionId},
+
+    [Parameter(ParameterSetName='Get', Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
+    [System.String]
+    # The name of the backup vault.
+    ${VaultName},
+
+    [Parameter(ParameterSetName='GetViaIdentity', Mandatory, ValueFromPipeline)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IDataProtectionIdentity]
+    # Identity Parameter
+    # To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
+    ${InputObject},
+
+    [Parameter()]
+    [Alias('AzureRMContext', 'AzureCredential')]
+    [ValidateNotNull()]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Azure')]
+    [System.Management.Automation.PSObject]
+    # The credentials, account, tenant, and subscription used for communication with Azure.
+    ${DefaultProfile},
+
+    [Parameter(DontShow)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [System.Management.Automation.SwitchParameter]
+    # Wait for .NET debugger to attach
+    ${Break},
+
+    [Parameter(DontShow)]
+    [ValidateNotNull()]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
+    # SendAsync Pipeline Steps to be appended to the front of the pipeline
+    ${HttpPipelineAppend},
+
+    [Parameter(DontShow)]
+    [ValidateNotNull()]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
+    # SendAsync Pipeline Steps to be prepended to the front of the pipeline
+    ${HttpPipelinePrepend},
+
+    [Parameter(DontShow)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [System.Uri]
+    # The URI for the proxy server to use
+    ${Proxy},
+
+    [Parameter(DontShow)]
+    [ValidateNotNull()]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [System.Management.Automation.PSCredential]
+    # Credentials for a proxy server to use for the remote call
+    ${ProxyCredential},
+
+    [Parameter(DontShow)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
+    [System.Management.Automation.SwitchParameter]
+    # Use the default credentials for the proxy
+    ${ProxyUseDefaultCredentials}
+)
+
+begin {
+    try {
+        $outBuffer = $null
+        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
+            $PSBoundParameters['OutBuffer'] = 1
+        }
+        $parameterSet = $PSCmdlet.ParameterSetName
+        $mapping = @{
+            Get = 'Az.DataProtection.private\Get-AzDataProtectionOperationResultPatch_Get';
+            GetViaIdentity = 'Az.DataProtection.private\Get-AzDataProtectionOperationResultPatch_GetViaIdentity';
+        }
+        if (('Get') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
+            $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
+        }
+        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
+        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
+        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
+        $steppablePipeline.Begin($PSCmdlet)
+    } catch {
+        throw
+    }
+}
+
+process {
+    try {
+        $steppablePipeline.Process($_)
+    } catch {
+        throw
+    }
+}
+
+end {
+    try {
+        $steppablePipeline.End()
+    } catch {
+        throw
+    }
+}
+}
+
+# ----------------------------------------------------------------------------------
+#
+# Copyright Microsoft Corporation
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ----------------------------------------------------------------------------------
+
+<#
+.Synopsis
 Gets the operation result for a resource
 .Description
 Gets the operation result for a resource
@@ -1203,7 +1378,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -1372,7 +1547,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -1554,7 +1729,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -1738,181 +1913,6 @@ end {
 .Description
 
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Inputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IDataProtectionIdentity
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource
-.Notes
-COMPLEX PARAMETER PROPERTIES
-
-To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
-
-INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
-  [BackupInstanceName <String>]: The name of the backup instance
-  [BackupPolicyName <String>]: 
-  [Id <String>]: Resource identity path
-  [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
-  [OperationId <String>]: 
-  [RecoveryPointId <String>]: 
-  [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
-  [SubscriptionId <String>]: The subscription Id.
-  [VaultName <String>]: The name of the backup vault.
-.Link
-https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/get-azdataprotectionresourceoperationresultpatch
-#>
-function Get-AzDataProtectionResourceOperationResultPatch {
-[OutputType([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource])]
-[CmdletBinding(DefaultParameterSetName='Get', PositionalBinding=$false)]
-param(
-    [Parameter(ParameterSetName='Get', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # .
-    ${OperationId},
-
-    [Parameter(ParameterSetName='Get', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the resource group where the backup vault is present.
-    ${ResourceGroupName},
-
-    [Parameter(ParameterSetName='Get')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.DefaultInfo(Script='(Get-AzContext).Subscription.Id')]
-    [System.String[]]
-    # The subscription Id.
-    ${SubscriptionId},
-
-    [Parameter(ParameterSetName='Get', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the backup vault.
-    ${VaultName},
-
-    [Parameter(ParameterSetName='GetViaIdentity', Mandatory, ValueFromPipeline)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IDataProtectionIdentity]
-    # Identity Parameter
-    # To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
-    ${InputObject},
-
-    [Parameter()]
-    [Alias('AzureRMContext', 'AzureCredential')]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Azure')]
-    [System.Management.Automation.PSObject]
-    # The credentials, account, tenant, and subscription used for communication with Azure.
-    ${DefaultProfile},
-
-    [Parameter(DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Wait for .NET debugger to attach
-    ${Break},
-
-    [Parameter(DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be appended to the front of the pipeline
-    ${HttpPipelineAppend},
-
-    [Parameter(DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be prepended to the front of the pipeline
-    ${HttpPipelinePrepend},
-
-    [Parameter(DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Uri]
-    # The URI for the proxy server to use
-    ${Proxy},
-
-    [Parameter(DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.PSCredential]
-    # Credentials for a proxy server to use for the remote call
-    ${ProxyCredential},
-
-    [Parameter(DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Use the default credentials for the proxy
-    ${ProxyUseDefaultCredentials}
-)
-
-begin {
-    try {
-        $outBuffer = $null
-        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
-            $PSBoundParameters['OutBuffer'] = 1
-        }
-        $parameterSet = $PSCmdlet.ParameterSetName
-        $mapping = @{
-            Get = 'Az.DataProtection.private\Get-AzDataProtectionResourceOperationResultPatch_Get';
-            GetViaIdentity = 'Az.DataProtection.private\Get-AzDataProtectionResourceOperationResultPatch_GetViaIdentity';
-        }
-        if (('Get') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
-            $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
-        }
-        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
-        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
-        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
-        $steppablePipeline.Begin($PSCmdlet)
-    } catch {
-        throw
-    }
-}
-
-process {
-    try {
-        $steppablePipeline.Process($_)
-    } catch {
-        throw
-    }
-}
-
-end {
-    try {
-        $steppablePipeline.End()
-    } catch {
-        throw
-    }
-}
-}
-
-# ----------------------------------------------------------------------------------
-#
-# Copyright Microsoft Corporation
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------------
-
-<#
-.Synopsis
-
-.Description
-
-.Example
 PS C:\> $instance = Get-AzDataProtectionBackupInstance -SubscriptionId "xxxx-xxx-xxx" -ResourceGroupName "MyResourceGroup" -VaultName "MyVault"
 PS C:\> Remove-AzDataProtectionBackupInstance -SubscriptionId "xxxx-xxx-xxx" -ResourceGroupName "MyResourceGroup" -VaultName "MyVault" -Name $instance[0].name
 
@@ -1931,7 +1931,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -2121,7 +2121,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -2298,7 +2298,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -2447,535 +2447,6 @@ end {
 
 <#
 .Synopsis
-
-.Description
-
-.Example
-PS C:\> $sub = "xxxx-xxx-xx"
-PS C:\> $DiskId = "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.Compute/disks/{diskname}"
-PS C:\> $policy = Get-AzDataProtectionBackupPolicy -SubscriptionId $sub -ResourceGroupName sarath-rg -VaultName sarath-vault -Name "MyPolicy"
-PS C:\> $vault = Get-AzDataProtectionBackupVault -SubscriptionId $sub -ResourceGroupName sarath-rg -VaultName sarath-vault
-PS C:\> $instance = Initialize-AzDataProtectionBackupInstance -DatasourceType AzureDisk -DatasourceLocation $vault.Location -PolicyId $policy.Id -DatasourceId $DiskId 
-PS C:\> $instance.Property.PolicyInfo.PolicyParameter.DataStoreParametersList[0].ResourceGroupId = "/subscriptions/{subscription}/resourceGroups/{resourceGroup}"
-PS C:\> Set-AzDataProtectionBackupInstance -VaultId $vault.ID -BackupInstance $instance
-
-
-Name                                                       Type                                                  BackupInstanceName
-----                                                       ----                                                  ------------------
-sarathdisk-sarathdisk-3df6ac08-9496-4839-8fb5-8b78e594f166 Microsoft.DataProtection/backupVaults/backupInstances sarathdisk-sarathdisk-3df6ac08-9496-4839-8fb5-8b78e594f166
-
-.Inputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource
-.Notes
-COMPLEX PARAMETER PROPERTIES
-
-To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
-
-BACKUPINSTANCE <IBackupInstanceResource>: Backup instance request object which will be used to configure backup
-  [Property <IBackupInstance>]: BackupInstanceResource properties
-    DataSourceInfo <IDatasource>: Gets or sets the data source information.
-      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-      [ResourceLocation <String>]: Location of datasource.
-      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-      [ResourceType <String>]: Resource Type of Datasource.
-      [ResourceUri <String>]: Uri of the resource.
-      [Type <String>]: DatasourceType of the resource.
-    FriendlyName <String>: Gets or sets the Backup Instance friendly name.
-    ObjectType <String>: 
-    PolicyInfo <IPolicyInfo>: Gets or sets the policy information.
-      PolicyId <String>: 
-      [PolicyParameter <IPolicyParameters>]: Policy parameters for the backup instance
-        [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
-          DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-          ObjectType <String>: Type of the specific object - used for deserializing
-          [ResourceGroupId <String>]: Gets or sets the Resource Group Uri.
-    [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
-      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-      [DatasourceType <String>]: DatasourceType of the resource.
-      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-      [ResourceLocation <String>]: Location of datasource.
-      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-      [ResourceType <String>]: Resource Type of Datasource.
-      [ResourceUri <String>]: Uri of the resource.
-
-PARAMETER <IBackupInstanceResource>: BackupInstance Resource
-  [Property <IBackupInstance>]: BackupInstanceResource properties
-    DataSourceInfo <IDatasource>: Gets or sets the data source information.
-      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-      [ResourceLocation <String>]: Location of datasource.
-      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-      [ResourceType <String>]: Resource Type of Datasource.
-      [ResourceUri <String>]: Uri of the resource.
-      [Type <String>]: DatasourceType of the resource.
-    FriendlyName <String>: Gets or sets the Backup Instance friendly name.
-    ObjectType <String>: 
-    PolicyInfo <IPolicyInfo>: Gets or sets the policy information.
-      PolicyId <String>: 
-      [PolicyParameter <IPolicyParameters>]: Policy parameters for the backup instance
-        [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
-          DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-          ObjectType <String>: Type of the specific object - used for deserializing
-          [ResourceGroupId <String>]: Gets or sets the Resource Group Uri.
-    [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
-      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-      [DatasourceType <String>]: DatasourceType of the resource.
-      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-      [ResourceLocation <String>]: Location of datasource.
-      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-      [ResourceType <String>]: Resource Type of Datasource.
-      [ResourceUri <String>]: Uri of the resource.
-
-PROPERTY <IBackupInstance>: BackupInstanceResource properties
-  DataSourceInfo <IDatasource>: Gets or sets the data source information.
-    ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-    [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-    [ResourceLocation <String>]: Location of datasource.
-    [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-    [ResourceType <String>]: Resource Type of Datasource.
-    [ResourceUri <String>]: Uri of the resource.
-    [Type <String>]: DatasourceType of the resource.
-  FriendlyName <String>: Gets or sets the Backup Instance friendly name.
-  ObjectType <String>: 
-  PolicyInfo <IPolicyInfo>: Gets or sets the policy information.
-    PolicyId <String>: 
-    [PolicyParameter <IPolicyParameters>]: Policy parameters for the backup instance
-      [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
-        DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-        ObjectType <String>: Type of the specific object - used for deserializing
-        [ResourceGroupId <String>]: Gets or sets the Resource Group Uri.
-  [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
-    ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
-    [DatasourceType <String>]: DatasourceType of the resource.
-    [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
-    [ResourceLocation <String>]: Location of datasource.
-    [ResourceName <String>]: Unique identifier of the resource in the context of parent.
-    [ResourceType <String>]: Resource Type of Datasource.
-    [ResourceUri <String>]: Uri of the resource.
-.Link
-https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/set-azdataprotectionbackupinstance
-#>
-function Set-AzDataProtectionBackupInstance {
-[OutputType([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource])]
-[CmdletBinding(DefaultParameterSetName='PutExpanded', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
-param(
-    [Parameter(ParameterSetName='Put', Mandatory)]
-    [Parameter(ParameterSetName='PutExpanded', Mandatory)]
-    [Alias('BackupInstanceName')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the backup instance
-    ${Name},
-
-    [Parameter(ParameterSetName='Put', Mandatory)]
-    [Parameter(ParameterSetName='PutExpanded', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the resource group where the backup vault is present.
-    ${ResourceGroupName},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.DefaultInfo(Script='(Get-AzContext).Subscription.Id')]
-    [System.String]
-    # The subscription Id.
-    ${SubscriptionId},
-
-    [Parameter(ParameterSetName='Put', Mandatory)]
-    [Parameter(ParameterSetName='PutExpanded', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the backup vault.
-    ${VaultName},
-
-    [Parameter(ParameterSetName='Put', Mandatory, ValueFromPipeline)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource]
-    # BackupInstance Resource
-    # To construct, see NOTES section for PARAMETER properties and create a hash table.
-    ${Parameter},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstance]
-    # BackupInstanceResource properties
-    # To construct, see NOTES section for PROPERTY properties and create a hash table.
-    ${Property},
-
-    [Parameter(ParameterSetName='dppplatform', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Id of the backup vault
-    ${VaultId},
-
-    [Parameter(ParameterSetName='dppplatform', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource]
-    # Backup instance request object which will be used to configure backup
-    # To construct, see NOTES section for BACKUPINSTANCE properties and create a hash table.
-    ${BackupInstance},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Alias('AzureRMContext', 'AzureCredential')]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Azure')]
-    [System.Management.Automation.PSObject]
-    # The credentials, account, tenant, and subscription used for communication with Azure.
-    ${DefaultProfile},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Run the command as a job
-    ${AsJob},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Wait for .NET debugger to attach
-    ${Break},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be appended to the front of the pipeline
-    ${HttpPipelineAppend},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be prepended to the front of the pipeline
-    ${HttpPipelinePrepend},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Run the command asynchronously
-    ${NoWait},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Uri]
-    # The URI for the proxy server to use
-    ${Proxy},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.PSCredential]
-    # Credentials for a proxy server to use for the remote call
-    ${ProxyCredential},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Use the default credentials for the proxy
-    ${ProxyUseDefaultCredentials}
-)
-
-begin {
-    try {
-        $outBuffer = $null
-        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
-            $PSBoundParameters['OutBuffer'] = 1
-        }
-        $parameterSet = $PSCmdlet.ParameterSetName
-        $mapping = @{
-            Put = 'Az.DataProtection.private\Set-AzDataProtectionBackupInstance_Put';
-            PutExpanded = 'Az.DataProtection.private\Set-AzDataProtectionBackupInstance_PutExpanded';
-            dppplatform = 'Az.DataProtection.custom\Set-AzDataProtectionBackupInstance_dppplatform';
-        }
-        if (('Put', 'PutExpanded') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
-            $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
-        }
-        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
-        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
-        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
-        $steppablePipeline.Begin($PSCmdlet)
-    } catch {
-        throw
-    }
-}
-
-process {
-    try {
-        $steppablePipeline.Process($_)
-    } catch {
-        throw
-    }
-}
-
-end {
-    try {
-        $steppablePipeline.End()
-    } catch {
-        throw
-    }
-}
-}
-
-# ----------------------------------------------------------------------------------
-#
-# Copyright Microsoft Corporation
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------------
-
-<#
-.Synopsis
-Creates or updates a BackupVault resource belonging to a resource group.
-.Description
-Creates or updates a BackupVault resource belonging to a resource group.
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Inputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource
-.Outputs
-System.Management.Automation.PSObject
-.Notes
-COMPLEX PARAMETER PROPERTIES
-
-To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
-
-PARAMETER <IBackupVaultResource>: Backup Vault Resource
-  [ETag <String>]: Optional ETag.
-  [IdentityType <String>]: The identityType which can be either SystemAssigned or None
-  [Location <String>]: Resource location.
-  [Tag <IDppTrackedResourceTags>]: Resource tags.
-    [(Any) <String>]: This indicates any property can be added to this object.
-  [StorageSetting <IStorageSetting[]>]: Storage Settings
-    [DatastoreType <StorageSettingStoreTypes?>]: Gets or sets the type of the datastore.
-    [Type <StorageSettingTypes?>]: Gets or sets the type.
-
-STORAGESETTING <IStorageSetting[]>: Storage Settings
-  [DatastoreType <StorageSettingStoreTypes?>]: Gets or sets the type of the datastore.
-  [Type <StorageSettingTypes?>]: Gets or sets the type.
-.Link
-https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/set-azdataprotectionbackupvault
-#>
-function Set-AzDataProtectionBackupVault {
-[OutputType([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource], [PSObject])]
-[CmdletBinding(DefaultParameterSetName='PutExpanded', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
-param(
-    [Parameter(Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the resource group where the backup vault is present.
-    ${ResourceGroupName},
-
-    [Parameter(Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [System.String]
-    # The name of the backup vault.
-    ${VaultName},
-
-    [Parameter()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Path')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.DefaultInfo(Script='(Get-AzContext).Subscription.Id')]
-    [System.String]
-    # The subscription Id.
-    ${SubscriptionId},
-
-    [Parameter(ParameterSetName='Put', Mandatory, ValueFromPipeline)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupVaultResource]
-    # Backup Vault Resource
-    # To construct, see NOTES section for PARAMETER properties and create a hash table.
-    ${Parameter},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Optional ETag.
-    ${ETag},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Parameter(ParameterSetName='custom')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # The identityType which can be either SystemAssigned or None
-    ${IdentityType},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Parameter(ParameterSetName='custom', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Resource location.
-    ${Location},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Parameter(ParameterSetName='custom', Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IStorageSetting[]]
-    # Storage Settings
-    # To construct, see NOTES section for STORAGESETTING properties and create a hash table.
-    ${StorageSetting},
-
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Parameter(ParameterSetName='custom')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(PossibleTypes=([Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDppTrackedResourceTags]))]
-    [System.Collections.Hashtable]
-    # Resource tags.
-    ${Tag},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Alias('AzureRMContext', 'AzureCredential')]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Azure')]
-    [System.Management.Automation.PSObject]
-    # The credentials, account, tenant, and subscription used for communication with Azure.
-    ${DefaultProfile},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Run the command as a job
-    ${AsJob},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Wait for .NET debugger to attach
-    ${Break},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be appended to the front of the pipeline
-    ${HttpPipelineAppend},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SendAsyncStep[]]
-    # SendAsync Pipeline Steps to be prepended to the front of the pipeline
-    ${HttpPipelinePrepend},
-
-    [Parameter(ParameterSetName='Put')]
-    [Parameter(ParameterSetName='PutExpanded')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Run the command asynchronously
-    ${NoWait},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Uri]
-    # The URI for the proxy server to use
-    ${Proxy},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [ValidateNotNull()]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.PSCredential]
-    # Credentials for a proxy server to use for the remote call
-    ${ProxyCredential},
-
-    [Parameter(ParameterSetName='Put', DontShow)]
-    [Parameter(ParameterSetName='PutExpanded', DontShow)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Runtime')]
-    [System.Management.Automation.SwitchParameter]
-    # Use the default credentials for the proxy
-    ${ProxyUseDefaultCredentials}
-)
-
-begin {
-    try {
-        $outBuffer = $null
-        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
-            $PSBoundParameters['OutBuffer'] = 1
-        }
-        $parameterSet = $PSCmdlet.ParameterSetName
-        $mapping = @{
-            Put = 'Az.DataProtection.private\Set-AzDataProtectionBackupVault_Put';
-            PutExpanded = 'Az.DataProtection.private\Set-AzDataProtectionBackupVault_PutExpanded';
-            custom = 'Az.DataProtection.custom\Set-AzDataProtectionBackupVault_custom';
-        }
-        if (('Put', 'PutExpanded', 'custom') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
-            $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
-        }
-        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
-        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
-        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
-        $steppablePipeline.Begin($PSCmdlet)
-    } catch {
-        throw
-    }
-}
-
-process {
-    try {
-        $steppablePipeline.Process($_)
-    } catch {
-        throw
-    }
-}
-
-end {
-    try {
-        $steppablePipeline.End()
-    } catch {
-        throw
-    }
-}
-}
-
-# ----------------------------------------------------------------------------------
-#
-# Copyright Microsoft Corporation
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------------
-
-<#
-.Synopsis
 rehydrate recovery point for restore for a BackupInstance
 .Description
 rehydrate recovery point for restore for a BackupInstance
@@ -3004,7 +2475,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -3240,7 +2711,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -3477,7 +2948,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -3666,7 +3137,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -3917,7 +3388,6 @@ BACKUPINSTANCE <IBackupInstance>: Backup Instance
       [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
         DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
         ObjectType <String>: Type of the specific object - used for deserializing
-        [ResourceGroupId <String>]: Gets or sets the Resource Group Uri.
   [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
     ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
     [DatasourceType <String>]: DatasourceType of the resource.
@@ -3932,7 +3402,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -3957,7 +3427,6 @@ PARAMETER <IValidateForBackupRequest>: Validate for backup request
         [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
           DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
           ObjectType <String>: Type of the specific object - used for deserializing
-          [ResourceGroupId <String>]: Gets or sets the Resource Group Uri.
     [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
       ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
       [DatasourceType <String>]: DatasourceType of the resource.
@@ -4165,7 +3634,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -4368,7 +3837,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -4378,9 +3847,9 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
 PARAMETER <IFeatureValidationRequestBase>: Base class for Backup Feature support
   ObjectType <String>: Type of the specific object - used for deserializing
 .Link
-https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/test-azdataprotectiondppfeaturesupport
+https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/test-azdataprotectionfeaturesupport
 #>
-function Test-AzDataProtectionDppFeatureSupport {
+function Test-AzDataProtectionFeatureSupport {
 [OutputType([System.String])]
 [CmdletBinding(DefaultParameterSetName='CheckExpanded', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
 param(
@@ -4478,10 +3947,10 @@ begin {
         }
         $parameterSet = $PSCmdlet.ParameterSetName
         $mapping = @{
-            Check = 'Az.DataProtection.private\Test-AzDataProtectionDppFeatureSupport_Check';
-            CheckExpanded = 'Az.DataProtection.private\Test-AzDataProtectionDppFeatureSupport_CheckExpanded';
-            CheckViaIdentity = 'Az.DataProtection.private\Test-AzDataProtectionDppFeatureSupport_CheckViaIdentity';
-            CheckViaIdentityExpanded = 'Az.DataProtection.private\Test-AzDataProtectionDppFeatureSupport_CheckViaIdentityExpanded';
+            Check = 'Az.DataProtection.private\Test-AzDataProtectionFeatureSupport_Check';
+            CheckExpanded = 'Az.DataProtection.private\Test-AzDataProtectionFeatureSupport_CheckExpanded';
+            CheckViaIdentity = 'Az.DataProtection.private\Test-AzDataProtectionFeatureSupport_CheckViaIdentity';
+            CheckViaIdentityExpanded = 'Az.DataProtection.private\Test-AzDataProtectionFeatureSupport_CheckViaIdentityExpanded';
         }
         if (('Check', 'CheckExpanded') -contains $parameterSet -and -not $PSBoundParameters.ContainsKey('SubscriptionId')) {
             $PSBoundParameters['SubscriptionId'] = (Get-AzContext).Subscription.Id
@@ -4557,7 +4026,7 @@ INPUTOBJECT <IDataProtectionIdentity>: Identity Parameter
   [BackupPolicyName <String>]: 
   [Id <String>]: Resource identity path
   [JobId <String>]: The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-  [Location <String>]: 
+  [Location <String>]: The location in which uniqueness will be verified.
   [OperationId <String>]: 
   [RecoveryPointId <String>]: 
   [ResourceGroupName <String>]: The name of the resource group where the backup vault is present.
@@ -4875,7 +4344,6 @@ POLICY <IBackupPolicy>: Backup Policy Object
   PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
     Name <String>: 
     ObjectType <String>: 
-    BackupParameterObjectType <String>: Type of the specific object - used for deserializing
     DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
     DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
     TriggerObjectType <String>: Type of the specific object - used for deserializing
@@ -4888,6 +4356,7 @@ POLICY <IBackupPolicy>: Backup Policy Object
         CopyAfterObjectType <String>: Type of the specific object - used for deserializing
         DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
         DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    [BackupParameterObjectType <String>]: Type of the specific object - used for deserializing
     [IsDefault <Boolean?>]: 
 .Link
 https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/edit-azdataprotectionpolicyretentionruleclientobject
@@ -5023,7 +4492,6 @@ POLICY <IBackupPolicy>: Backup Policy Object.
   PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
     Name <String>: 
     ObjectType <String>: 
-    BackupParameterObjectType <String>: Type of the specific object - used for deserializing
     DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
     DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
     TriggerObjectType <String>: Type of the specific object - used for deserializing
@@ -5036,6 +4504,7 @@ POLICY <IBackupPolicy>: Backup Policy Object.
         CopyAfterObjectType <String>: Type of the specific object - used for deserializing
         DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
         DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    [BackupParameterObjectType <String>]: Type of the specific object - used for deserializing
     [IsDefault <Boolean?>]: 
 .Link
 https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/edit-azdataprotectionpolicytagclientobject
@@ -5148,7 +4617,6 @@ POLICY <IBackupPolicy>: Backup Policy object.
   PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
     Name <String>: 
     ObjectType <String>: 
-    BackupParameterObjectType <String>: Type of the specific object - used for deserializing
     DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
     DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
     TriggerObjectType <String>: Type of the specific object - used for deserializing
@@ -5161,6 +4629,7 @@ POLICY <IBackupPolicy>: Backup Policy object.
         CopyAfterObjectType <String>: Type of the specific object - used for deserializing
         DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
         DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    [BackupParameterObjectType <String>]: Type of the specific object - used for deserializing
     [IsDefault <Boolean?>]: 
 .Link
 https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/edit-azdataprotectionpolicytriggerclientobject
@@ -6254,6 +5723,250 @@ end {
 
 <#
 .Synopsis
+Configures Backup for supported azure resources
+.Description
+Configures Backup for supported azure resources
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+
+.Notes
+COMPLEX PARAMETER PROPERTIES
+
+To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
+
+BACKUPINSTANCE <IBackupInstanceResource>: Backup instance request object which will be used to configure backup
+  [Property <IBackupInstance>]: BackupInstanceResource properties
+    DataSourceInfo <IDatasource>: Gets or sets the data source information.
+      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
+      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
+      [ResourceLocation <String>]: Location of datasource.
+      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
+      [ResourceType <String>]: Resource Type of Datasource.
+      [ResourceUri <String>]: Uri of the resource.
+      [Type <String>]: DatasourceType of the resource.
+    FriendlyName <String>: Gets or sets the Backup Instance friendly name.
+    ObjectType <String>: 
+    PolicyInfo <IPolicyInfo>: Gets or sets the policy information.
+      PolicyId <String>: 
+      [PolicyParameter <IPolicyParameters>]: Policy parameters for the backup instance
+        [DataStoreParametersList <IDataStoreParameters[]>]: Gets or sets the DataStore Parameters
+          DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+          ObjectType <String>: Type of the specific object - used for deserializing
+    [DataSourceSetInfo <IDatasourceSet>]: Gets or sets the data source set information.
+      ResourceId <String>: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
+      [DatasourceType <String>]: DatasourceType of the resource.
+      [ObjectType <String>]: Type of Datasource object, used to initialize the right inherited type
+      [ResourceLocation <String>]: Location of datasource.
+      [ResourceName <String>]: Unique identifier of the resource in the context of parent.
+      [ResourceType <String>]: Resource Type of Datasource.
+      [ResourceUri <String>]: Uri of the resource.
+.Link
+https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/new-azdataprotectionbackupinstance
+#>
+function New-AzDataProtectionBackupInstance {
+[CmdletBinding(PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
+param(
+    [Parameter(Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [System.String]
+    # Id of the backup vault
+    ${VaultId},
+
+    [Parameter(Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupInstanceResource]
+    # Backup instance request object which will be used to configure backup
+    # To construct, see NOTES section for BACKUPINSTANCE properties and create a hash table.
+    ${BackupInstance}
+)
+
+begin {
+    try {
+        $outBuffer = $null
+        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
+            $PSBoundParameters['OutBuffer'] = 1
+        }
+        $parameterSet = $PSCmdlet.ParameterSetName
+        $mapping = @{
+            __AllParameterSets = 'Az.DataProtection.custom\New-AzDataProtectionBackupInstance';
+        }
+        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
+        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
+        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
+        $steppablePipeline.Begin($PSCmdlet)
+    } catch {
+        throw
+    }
+}
+
+process {
+    try {
+        $steppablePipeline.Process($_)
+    } catch {
+        throw
+    }
+}
+
+end {
+    try {
+        $steppablePipeline.End()
+    } catch {
+        throw
+    }
+}
+}
+
+# ----------------------------------------------------------------------------------
+#
+# Copyright Microsoft Corporation
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ----------------------------------------------------------------------------------
+
+<#
+.Synopsis
+
+.Description
+
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+.Example
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+
+.Outputs
+System.Object
+.Notes
+COMPLEX PARAMETER PROPERTIES
+
+To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
+
+POLICY <IBackupPolicy>: Policy Request Object
+  DatasourceType <String[]>: Type of datasource for the backup management
+  ObjectType <String>: 
+  PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
+    Name <String>: 
+    ObjectType <String>: 
+    DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
+    DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    TriggerObjectType <String>: Type of the specific object - used for deserializing
+    Lifecycle <ISourceLifeCycle[]>: 
+      DeleteAfterDuration <String>: Duration of deletion after given timespan
+      DeleteAfterObjectType <String>: Type of the specific object - used for deserializing
+      SourceDataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
+      SourceDataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+      [TargetDataStoreCopySetting <ITargetCopySetting[]>]: 
+        CopyAfterObjectType <String>: Type of the specific object - used for deserializing
+        DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
+        DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    [BackupParameterObjectType <String>]: Type of the specific object - used for deserializing
+    [IsDefault <Boolean?>]: 
+.Link
+https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/new-azdataprotectionbackuppolicy
+#>
+function New-AzDataProtectionBackupPolicy {
+[CmdletBinding(PositionalBinding=$false)]
+param(
+    [Parameter(Position=1, Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [System.String]
+    # Resource Group Name
+    ${ResourceGroupName},
+
+    [Parameter(Position=2, Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [System.String]
+    # Vault Name
+    ${VaultName},
+
+    [Parameter(Position=3, Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [System.String]
+    # Policy Name
+    ${Name},
+
+    [Parameter(Position=4, Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupPolicy]
+    # Policy Request Object
+    # To construct, see NOTES section for POLICY properties and create a hash table.
+    ${Policy},
+
+    [Parameter(Position=0)]
+    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
+    [System.String]
+    # Subscription Id
+    ${SubscriptionId}
+)
+
+begin {
+    try {
+        $outBuffer = $null
+        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
+            $PSBoundParameters['OutBuffer'] = 1
+        }
+        $parameterSet = $PSCmdlet.ParameterSetName
+        $mapping = @{
+            __AllParameterSets = 'Az.DataProtection.custom\New-AzDataProtectionBackupPolicy';
+        }
+        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
+        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
+        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
+        $steppablePipeline.Begin($PSCmdlet)
+    } catch {
+        throw
+    }
+}
+
+process {
+    try {
+        $steppablePipeline.Process($_)
+    } catch {
+        throw
+    }
+}
+
+end {
+    try {
+        $steppablePipeline.End()
+    } catch {
+        throw
+    }
+}
+}
+
+# ----------------------------------------------------------------------------------
+#
+# Copyright Microsoft Corporation
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ----------------------------------------------------------------------------------
+
+<#
+.Synopsis
 Get Backup Vault storage setting object
 .Description
 Get Backup Vault storage setting object
@@ -6877,129 +6590,6 @@ begin {
         $parameterSet = $PSCmdlet.ParameterSetName
         $mapping = @{
             __AllParameterSets = 'Az.DataProtection.custom\Search-AzDataProtectionJobInAzGraph';
-        }
-        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
-        $scriptCmd = {& $wrappedCmd @PSBoundParameters}
-        $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
-        $steppablePipeline.Begin($PSCmdlet)
-    } catch {
-        throw
-    }
-}
-
-process {
-    try {
-        $steppablePipeline.Process($_)
-    } catch {
-        throw
-    }
-}
-
-end {
-    try {
-        $steppablePipeline.End()
-    } catch {
-        throw
-    }
-}
-}
-
-# ----------------------------------------------------------------------------------
-#
-# Copyright Microsoft Corporation
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------------
-
-<#
-.Synopsis
-
-.Description
-
-.Example
-
-
-.Outputs
-System.Object
-.Notes
-COMPLEX PARAMETER PROPERTIES
-
-To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
-
-POLICY <IBackupPolicy>: Policy Request Object
-  DatasourceType <String[]>: Type of datasource for the backup management
-  ObjectType <String>: 
-  PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
-    Name <String>: 
-    ObjectType <String>: 
-    BackupParameterObjectType <String>: Type of the specific object - used for deserializing
-    DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
-    DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-    TriggerObjectType <String>: Type of the specific object - used for deserializing
-    Lifecycle <ISourceLifeCycle[]>: 
-      DeleteAfterDuration <String>: Duration of deletion after given timespan
-      DeleteAfterObjectType <String>: Type of the specific object - used for deserializing
-      SourceDataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
-      SourceDataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-      [TargetDataStoreCopySetting <ITargetCopySetting[]>]: 
-        CopyAfterObjectType <String>: Type of the specific object - used for deserializing
-        DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
-        DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
-    [IsDefault <Boolean?>]: 
-.Link
-https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/set-azdataprotectionbackuppolicy
-#>
-function Set-AzDataProtectionBackupPolicy {
-[CmdletBinding(PositionalBinding=$false)]
-param(
-    [Parameter(Position=1, Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Resource Group Name
-    ${ResourceGroupName},
-
-    [Parameter(Position=2, Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Vault Name
-    ${VaultName},
-
-    [Parameter(Position=3, Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Policy Name
-    ${Name},
-
-    [Parameter(Position=4, Mandatory)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IBackupPolicy]
-    # Policy Request Object
-    # To construct, see NOTES section for POLICY properties and create a hash table.
-    ${Policy},
-
-    [Parameter(Position=0)]
-    [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Category('Body')]
-    [System.String]
-    # Subscription Id
-    ${SubscriptionId}
-)
-
-begin {
-    try {
-        $outBuffer = $null
-        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
-            $PSBoundParameters['OutBuffer'] = 1
-        }
-        $parameterSet = $PSCmdlet.ParameterSetName
-        $mapping = @{
-            __AllParameterSets = 'Az.DataProtection.custom\Set-AzDataProtectionBackupPolicy';
         }
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
         $scriptCmd = {& $wrappedCmd @PSBoundParameters}

@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for FeatureType.</summary>
+    /// <summary>backup support feature type.</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.FeatureTypeTypeConverter))]
     public partial struct FeatureType :
         System.Management.Automation.IArgumentCompleter

@@ -6,7 +6,10 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for RestoreTargetLocationType.</summary>
+    /// <summary>
+    /// Denotes the target location where the data will be restored,
+    /// string value for the enum {Microsoft.Internal.AzureBackup.DataProtection.Common.Interface.RestoreTargetLocationType}
+    /// </summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.RestoreTargetLocationTypeTypeConverter))]
     public partial struct RestoreTargetLocationType :
         System.Management.Automation.IArgumentCompleter

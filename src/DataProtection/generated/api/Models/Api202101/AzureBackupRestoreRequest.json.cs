@@ -87,6 +87,10 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 {
                     return new AzureBackupRecoveryPointBasedRestoreRequest(json);
                 }
+                case "AzureBackupRestoreWithRehydrationRequest":
+                {
+                    return new AzureBackupRestoreWithRehydrationRequest(json);
+                }
             }
             return new AzureBackupRestoreRequest(json);
         }

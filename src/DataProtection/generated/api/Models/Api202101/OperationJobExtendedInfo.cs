@@ -25,7 +25,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types.
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IOperationExtendedInfoInternal)__operationExtendedInfo).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IOperationExtendedInfoInternal)__operationExtendedInfo).ObjectType = value; }
+        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IOperationExtendedInfoInternal)__operationExtendedInfo).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IOperationExtendedInfoInternal)__operationExtendedInfo).ObjectType = value ?? null; }
 
         /// <summary>Creates an new <see cref="OperationJobExtendedInfo" /> instance.</summary>
         public OperationJobExtendedInfo()

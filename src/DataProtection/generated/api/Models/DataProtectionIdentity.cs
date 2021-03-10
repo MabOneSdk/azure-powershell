@@ -44,6 +44,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
         /// <summary>Backing field for <see cref="Location" /> property.</summary>
         private string _location;
 
+        /// <summary>The location in which uniqueness will be verified.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Owned)]
         public string Location { get => this._location; set => this._location = value; }
 
@@ -123,11 +124,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
         SerializedName = @"jobId",
         PossibleTypes = new [] { typeof(string) })]
         string JobId { get; set; }
-
+        /// <summary>The location in which uniqueness will be verified.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
         Required = false,
         ReadOnly = false,
-        Description = @"",
+        Description = @"The location in which uniqueness will be verified.",
         SerializedName = @"location",
         PossibleTypes = new [] { typeof(string) })]
         string Location { get; set; }
@@ -186,7 +187,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
         /// The Job ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
         /// </summary>
         string JobId { get; set; }
-
+        /// <summary>The location in which uniqueness will be verified.</summary>
         string Location { get; set; }
 
         string OperationId { get; set; }

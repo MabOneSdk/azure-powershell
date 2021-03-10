@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for Status.</summary>
+    /// <summary>Specifies the protection status of the resource</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.StatusTypeConverter))]
     public partial struct Status :
         System.Management.Automation.IArgumentCompleter

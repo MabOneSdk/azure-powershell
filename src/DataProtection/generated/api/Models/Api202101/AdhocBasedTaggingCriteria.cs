@@ -34,7 +34,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Retention Tag Name to relate it to retention rule.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TagInfoTagName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRetentionTagInternal)TagInfo).TagName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRetentionTagInternal)TagInfo).TagName = value; }
+        public string TagInfoTagName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRetentionTagInternal)TagInfo).TagName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRetentionTagInternal)TagInfo).TagName = value ?? null; }
 
         /// <summary>Creates an new <see cref="AdhocBasedTaggingCriteria" /> instance.</summary>
         public AdhocBasedTaggingCriteria()
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string TagInfoId { get;  }
         /// <summary>Retention Tag Name to relate it to retention rule.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Retention Tag Name to relate it to retention rule.",
         SerializedName = @"tagName",

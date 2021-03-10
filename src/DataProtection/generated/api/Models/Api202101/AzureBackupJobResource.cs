@@ -16,11 +16,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Job Activity Id</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string ActivityId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ActivityId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ActivityId = value; }
+        public string ActivityId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ActivityId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ActivityId = value ?? null; }
 
         /// <summary>Name of the Backup Instance</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string BackupInstanceFriendlyName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceFriendlyName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceFriendlyName = value; }
+        public string BackupInstanceFriendlyName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceFriendlyName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceFriendlyName = value ?? null; }
 
         /// <summary>ARM ID of the Backup Instance</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -28,30 +28,30 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>ARM ID of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DataSourceId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceId = value; }
+        public string DataSourceId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceId = value ?? null; }
 
         /// <summary>Location of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DataSourceLocation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceLocation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceLocation = value; }
+        public string DataSourceLocation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceLocation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceLocation = value ?? null; }
 
         /// <summary>User Friendly Name of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DataSourceName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceName = value; }
+        public string DataSourceName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceName = value ?? null; }
 
         /// <summary>Data Source Set Name of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DataSourceSetName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceSetName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceSetName = value; }
+        public string DataSourceSetName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceSetName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceSetName = value ?? null; }
 
         /// <summary>Type of DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DataSourceType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceType = value; }
+        public string DataSourceType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DataSourceType = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string DestinationDataStoreName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DestinationDataStoreName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DestinationDataStoreName = value; }
+        public string DestinationDataStoreName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DestinationDataStoreName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).DestinationDataStoreName = value ?? null; }
 
         /// <summary>Total run time of the job. ISO 8601 format.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string Duration { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Duration; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Duration = value; }
+        public string Duration { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Duration; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Duration = value ?? null; }
 
         /// <summary>EndTime of the job(in UTC)</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -62,11 +62,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IUserFacingError[] ErrorDetail { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ErrorDetail; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string Etag { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Etag; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Etag = value; }
+        public string Etag { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Etag; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Etag = value ?? null; }
 
         /// <summary>Job's Additional Details</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IJobExtendedInfoAdditionalDetails ExtendedInfoAdditionalDetail { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ExtendedInfoAdditionalDetail; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ExtendedInfoAdditionalDetail = value; }
+        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IJobExtendedInfoAdditionalDetails ExtendedInfoAdditionalDetail { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ExtendedInfoAdditionalDetail; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ExtendedInfoAdditionalDetail = value ?? null /* model class */; }
 
         /// <summary>State of the Backup Instance</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -90,7 +90,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Indicated that whether the job is adhoc(true) or scheduled(false)</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public bool IsUserTriggered { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).IsUserTriggered; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).IsUserTriggered = value; }
+        public bool? IsUserTriggered { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).IsUserTriggered; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).IsUserTriggered = value ?? default(bool); }
 
         /// <summary>Internal Acessors for BackupInstanceId</summary>
         string Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobResourceInternal.BackupInstanceId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).BackupInstanceId = value; }
@@ -157,11 +157,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// It indicates the type of Job i.e. Backup:full/log/diff ;Restore:ALR/OLR; Tiering:Backup/Archive ; Management:ConfigureProtection/UnConfigure
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string Operation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Operation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Operation = value; }
+        public string Operation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Operation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Operation = value ?? null; }
 
         /// <summary>It indicates the type of Job i.e. Backup/Restore/Tiering/Management</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string OperationCategory { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).OperationCategory; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).OperationCategory = value; }
+        public string OperationCategory { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).OperationCategory; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).OperationCategory = value ?? null; }
 
         /// <summary>ARM ID of the policy</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -173,7 +173,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Indicated whether progress is enabled for the job</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public bool ProgressEnabled { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ProgressEnabled; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ProgressEnabled = value; }
+        public bool? ProgressEnabled { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ProgressEnabled; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).ProgressEnabled = value ?? default(bool); }
 
         /// <summary>Url which contains job's progress</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -193,47 +193,47 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         public string RestoreType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).RestoreType; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SourceDataStoreName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceDataStoreName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceDataStoreName = value; }
+        public string SourceDataStoreName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceDataStoreName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceDataStoreName = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SourceRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointId = value; }
+        public string SourceRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointId = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public global::System.DateTime? SourceRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointTime = value; }
+        public global::System.DateTime? SourceRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceRecoverPointRecoveryPointTime = value ?? default(global::System.DateTime); }
 
         /// <summary>Resource Group Name of the Datasource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SourceResourceGroup { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceResourceGroup; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceResourceGroup = value; }
+        public string SourceResourceGroup { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceResourceGroup; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceResourceGroup = value ?? null; }
 
         /// <summary>SubscriptionId corresponding to the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SourceSubscriptionId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceSubscriptionId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceSubscriptionId = value; }
+        public string SourceSubscriptionId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceSubscriptionId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SourceSubscriptionId = value ?? null; }
 
         /// <summary>StartTime of the job(in UTC)</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public global::System.DateTime StartTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).StartTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).StartTime = value; }
+        public global::System.DateTime? StartTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).StartTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).StartTime = value ?? default(global::System.DateTime); }
 
         /// <summary>Status of the job like InProgress/Success/Failed/Cancelled/SuccessWithWarning</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string Status { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Status; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Status = value; }
+        public string Status { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Status; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).Status = value ?? null; }
 
         /// <summary>Subscription Id of the corresponding backup vault</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SubscriptionId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SubscriptionId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SubscriptionId = value; }
+        public string SubscriptionId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SubscriptionId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SubscriptionId = value ?? null; }
 
         /// <summary>List of supported actions</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string[] SupportedAction { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SupportedAction; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SupportedAction = value; }
+        public string[] SupportedAction { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SupportedAction; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).SupportedAction = value ?? null /* arrayOf */; }
 
         /// <summary>Metadata pertaining to creation and last modification of the resource.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
         public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ISystemData SystemData { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDppResourceInternal)__dppResource).SystemData; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TargetRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointId = value; }
+        public string TargetRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointId = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public global::System.DateTime? TargetRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointTime = value; }
+        public global::System.DateTime? TargetRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).TargetRecoverPointRecoveryPointTime = value ?? default(global::System.DateTime); }
 
         /// <summary>
         /// Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...
@@ -243,7 +243,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Name of the vault</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string VaultName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).VaultName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).VaultName = value; }
+        public string VaultName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).VaultName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupJobInternal)Property).VaultName = value ?? null; }
 
         /// <summary>Creates an new <see cref="AzureBackupJobResource" /> instance.</summary>
         public AzureBackupJobResource()
@@ -270,7 +270,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
     {
         /// <summary>Job Activity Id</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Job Activity Id",
         SerializedName = @"activityID",
@@ -278,7 +278,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string ActivityId { get; set; }
         /// <summary>Name of the Backup Instance</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Name of the Backup Instance",
         SerializedName = @"backupInstanceFriendlyName",
@@ -294,7 +294,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string BackupInstanceId { get;  }
         /// <summary>ARM ID of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"ARM ID of the DataSource",
         SerializedName = @"dataSourceId",
@@ -302,7 +302,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string DataSourceId { get; set; }
         /// <summary>Location of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Location of the DataSource",
         SerializedName = @"dataSourceLocation",
@@ -310,7 +310,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string DataSourceLocation { get; set; }
         /// <summary>User Friendly Name of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"User Friendly Name of the DataSource",
         SerializedName = @"dataSourceName",
@@ -318,7 +318,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string DataSourceName { get; set; }
         /// <summary>Data Source Set Name of the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Data Source Set Name of the DataSource",
         SerializedName = @"dataSourceSetName",
@@ -326,7 +326,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string DataSourceSetName { get; set; }
         /// <summary>Type of DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Type of DataSource",
         SerializedName = @"dataSourceType",
@@ -414,17 +414,17 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IJobSubTask[] ExtendedInfoSubTask { get;  }
         /// <summary>Indicated that whether the job is adhoc(true) or scheduled(false)</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Indicated that whether the job is adhoc(true) or scheduled(false)",
         SerializedName = @"isUserTriggered",
         PossibleTypes = new [] { typeof(bool) })]
-        bool IsUserTriggered { get; set; }
+        bool? IsUserTriggered { get; set; }
         /// <summary>
         /// It indicates the type of Job i.e. Backup:full/log/diff ;Restore:ALR/OLR; Tiering:Backup/Archive ; Management:ConfigureProtection/UnConfigure
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"It indicates the type of Job i.e. Backup:full/log/diff ;Restore:ALR/OLR; Tiering:Backup/Archive ; Management:ConfigureProtection/UnConfigure",
         SerializedName = @"operation",
@@ -432,7 +432,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string Operation { get; set; }
         /// <summary>It indicates the type of Job i.e. Backup/Restore/Tiering/Management</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"It indicates the type of Job i.e. Backup/Restore/Tiering/Management",
         SerializedName = @"operationCategory",
@@ -456,12 +456,12 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string PolicyName { get;  }
         /// <summary>Indicated whether progress is enabled for the job</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Indicated whether progress is enabled for the job",
         SerializedName = @"progressEnabled",
         PossibleTypes = new [] { typeof(bool) })]
-        bool ProgressEnabled { get; set; }
+        bool? ProgressEnabled { get; set; }
         /// <summary>Url which contains job's progress</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
         Required = false,
@@ -506,7 +506,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         global::System.DateTime? SourceRecoverPointRecoveryPointTime { get; set; }
         /// <summary>Resource Group Name of the Datasource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Resource Group Name of the Datasource",
         SerializedName = @"sourceResourceGroup",
@@ -514,7 +514,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string SourceResourceGroup { get; set; }
         /// <summary>SubscriptionId corresponding to the DataSource</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"SubscriptionId corresponding to the DataSource",
         SerializedName = @"sourceSubscriptionID",
@@ -522,15 +522,15 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string SourceSubscriptionId { get; set; }
         /// <summary>StartTime of the job(in UTC)</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"StartTime of the job(in UTC)",
         SerializedName = @"startTime",
         PossibleTypes = new [] { typeof(global::System.DateTime) })]
-        global::System.DateTime StartTime { get; set; }
+        global::System.DateTime? StartTime { get; set; }
         /// <summary>Status of the job like InProgress/Success/Failed/Cancelled/SuccessWithWarning</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Status of the job like InProgress/Success/Failed/Cancelled/SuccessWithWarning",
         SerializedName = @"status",
@@ -538,7 +538,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string Status { get; set; }
         /// <summary>Subscription Id of the corresponding backup vault</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Subscription Id of the corresponding backup vault",
         SerializedName = @"subscriptionId",
@@ -546,7 +546,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string SubscriptionId { get; set; }
         /// <summary>List of supported actions</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"List of supported actions",
         SerializedName = @"supportedActions",
@@ -570,7 +570,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         global::System.DateTime? TargetRecoverPointRecoveryPointTime { get; set; }
         /// <summary>Name of the vault</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Name of the vault",
         SerializedName = @"vaultName",
@@ -625,7 +625,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// <summary>Details of the Target Recovery Point</summary>
         Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetails ExtendedInfoTargetRecoverPoint { get; set; }
         /// <summary>Indicated that whether the job is adhoc(true) or scheduled(false)</summary>
-        bool IsUserTriggered { get; set; }
+        bool? IsUserTriggered { get; set; }
         /// <summary>
         /// It indicates the type of Job i.e. Backup:full/log/diff ;Restore:ALR/OLR; Tiering:Backup/Archive ; Management:ConfigureProtection/UnConfigure
         /// </summary>
@@ -637,7 +637,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// <summary>Name of the policy</summary>
         string PolicyName { get; set; }
         /// <summary>Indicated whether progress is enabled for the job</summary>
-        bool ProgressEnabled { get; set; }
+        bool? ProgressEnabled { get; set; }
         /// <summary>Url which contains job's progress</summary>
         string ProgressUrl { get; set; }
         /// <summary>AzureBackupJobResource properties</summary>
@@ -657,7 +657,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// <summary>SubscriptionId corresponding to the DataSource</summary>
         string SourceSubscriptionId { get; set; }
         /// <summary>StartTime of the job(in UTC)</summary>
-        global::System.DateTime StartTime { get; set; }
+        global::System.DateTime? StartTime { get; set; }
         /// <summary>Status of the job like InProgress/Success/Failed/Cancelled/SuccessWithWarning</summary>
         string Status { get; set; }
         /// <summary>Subscription Id of the corresponding backup vault</summary>

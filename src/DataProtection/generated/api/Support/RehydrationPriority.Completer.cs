@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for RehydrationPriority.</summary>
+    /// <summary>Priority to be used for rehydration. Values High or Standard</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.RehydrationPriorityTypeConverter))]
     public partial struct RehydrationPriority :
         System.Management.Automation.IArgumentCompleter

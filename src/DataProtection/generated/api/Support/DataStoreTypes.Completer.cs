@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for DataStoreTypes.</summary>
+    /// <summary>type of datastore; Operational/Vault/Archive</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.DataStoreTypesTypeConverter))]
     public partial struct DataStoreTypes :
         System.Management.Automation.IArgumentCompleter

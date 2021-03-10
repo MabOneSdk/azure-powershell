@@ -69,12 +69,12 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return;
             }
+            {_restorePointDataStoreId = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("restorePointDataStoreId"), out var __jsonRestorePointDataStoreId) ? (string)__jsonRestorePointDataStoreId : (string)RestorePointDataStoreId;}
+            {_isVisible = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean>("isVisible"), out var __jsonIsVisible) ? (bool?)__jsonIsVisible : IsVisible;}
+            {_startDate = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("startDate"), out var __jsonStartDate) ? (string)__jsonStartDate : (string)StartDate;}
             {_endDate = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("endDate"), out var __jsonEndDate) ? (string)__jsonEndDate : (string)EndDate;}
             {_extendedInfo = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean>("extendedInfo"), out var __jsonExtendedInfo) ? (bool?)__jsonExtendedInfo : ExtendedInfo;}
-            {_isVisible = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean>("isVisible"), out var __jsonIsVisible) ? (bool?)__jsonIsVisible : IsVisible;}
-            {_restorePointDataStoreId = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("restorePointDataStoreId"), out var __jsonRestorePointDataStoreId) ? (string)__jsonRestorePointDataStoreId : (string)RestorePointDataStoreId;}
             {_restorePointState = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("restorePointState"), out var __jsonRestorePointState) ? (string)__jsonRestorePointState : (string)RestorePointState;}
-            {_startDate = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("startDate"), out var __jsonStartDate) ? (string)__jsonStartDate : (string)StartDate;}
             AfterFromJson(json);
         }
 
@@ -97,12 +97,12 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return container;
             }
+            AddIf( null != (((object)this._restorePointDataStoreId)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._restorePointDataStoreId.ToString()) : null, "restorePointDataStoreId" ,container.Add );
+            AddIf( null != this._isVisible ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode)new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean((bool)this._isVisible) : null, "isVisible" ,container.Add );
+            AddIf( null != (((object)this._startDate)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._startDate.ToString()) : null, "startDate" ,container.Add );
             AddIf( null != (((object)this._endDate)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._endDate.ToString()) : null, "endDate" ,container.Add );
             AddIf( null != this._extendedInfo ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode)new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean((bool)this._extendedInfo) : null, "extendedInfo" ,container.Add );
-            AddIf( null != this._isVisible ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode)new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonBoolean((bool)this._isVisible) : null, "isVisible" ,container.Add );
-            AddIf( null != (((object)this._restorePointDataStoreId)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._restorePointDataStoreId.ToString()) : null, "restorePointDataStoreId" ,container.Add );
             AddIf( null != (((object)this._restorePointState)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._restorePointState.ToString()) : null, "restorePointState" ,container.Add );
-            AddIf( null != (((object)this._startDate)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._startDate.ToString()) : null, "startDate" ,container.Add );
             AfterToJson(ref container);
             return container;
         }

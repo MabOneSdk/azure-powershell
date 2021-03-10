@@ -58,10 +58,10 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return;
             }
-            {_blobSasKey = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("blobSasKey"), out var __jsonBlobSasKey) ? (string)__jsonBlobSasKey : (string)BlobSasKey;}
             {_blobUrl = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("blobUrl"), out var __jsonBlobUrl) ? (string)__jsonBlobUrl : (string)BlobUrl;}
-            {_excelFileBlobSasKey = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("excelFileBlobSasKey"), out var __jsonExcelFileBlobSasKey) ? (string)__jsonExcelFileBlobSasKey : (string)ExcelFileBlobSasKey;}
+            {_blobSasKey = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("blobSasKey"), out var __jsonBlobSasKey) ? (string)__jsonBlobSasKey : (string)BlobSasKey;}
             {_excelFileBlobUrl = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("excelFileBlobUrl"), out var __jsonExcelFileBlobUrl) ? (string)__jsonExcelFileBlobUrl : (string)ExcelFileBlobUrl;}
+            {_excelFileBlobSasKey = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("excelFileBlobSasKey"), out var __jsonExcelFileBlobSasKey) ? (string)__jsonExcelFileBlobSasKey : (string)ExcelFileBlobSasKey;}
             AfterFromJson(json);
         }
 
@@ -98,19 +98,19 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             }
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
-                AddIf( null != (((object)this._blobSasKey)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._blobSasKey.ToString()) : null, "blobSasKey" ,container.Add );
-            }
-            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
-            {
                 AddIf( null != (((object)this._blobUrl)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._blobUrl.ToString()) : null, "blobUrl" ,container.Add );
             }
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
-                AddIf( null != (((object)this._excelFileBlobSasKey)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._excelFileBlobSasKey.ToString()) : null, "excelFileBlobSasKey" ,container.Add );
+                AddIf( null != (((object)this._blobSasKey)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._blobSasKey.ToString()) : null, "blobSasKey" ,container.Add );
             }
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
                 AddIf( null != (((object)this._excelFileBlobUrl)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._excelFileBlobUrl.ToString()) : null, "excelFileBlobUrl" ,container.Add );
+            }
+            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
+            {
+                AddIf( null != (((object)this._excelFileBlobSasKey)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._excelFileBlobSasKey.ToString()) : null, "excelFileBlobSasKey" ,container.Add );
             }
             AfterToJson(ref container);
             return container;

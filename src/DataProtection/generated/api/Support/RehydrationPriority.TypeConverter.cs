@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for RehydrationPriority.</summary>
+    /// <summary>Priority to be used for rehydration. Values High or Standard</summary>
     public partial class RehydrationPriorityTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

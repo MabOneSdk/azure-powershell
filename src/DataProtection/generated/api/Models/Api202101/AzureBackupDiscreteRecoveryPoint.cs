@@ -21,7 +21,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         public string FriendlyName { get => this._friendlyName; set => this._friendlyName = value; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointInternal)__azureBackupRecoveryPoint).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointInternal)__azureBackupRecoveryPoint).ObjectType = value; }
+        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointInternal)__azureBackupRecoveryPoint).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointInternal)__azureBackupRecoveryPoint).ObjectType = value ; }
 
         /// <summary>Backing field for <see cref="PolicyName" /> property.</summary>
         private string _policyName;

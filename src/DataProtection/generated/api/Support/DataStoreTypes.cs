@@ -6,6 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>type of datastore; Operational/Vault/Archive</summary>
     public partial struct DataStoreTypes :
         System.IEquatable<DataStoreTypes>
     {
@@ -22,7 +23,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="DataStoreTypes" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new DataStoreTypes(System.Convert.ToString(value));
+            return new DataStoreTypes(global::System.Convert.ToString(value));
         }
 
         /// <summary>Creates an instance of the <see cref="DataStoreTypes" Enum class./></summary>

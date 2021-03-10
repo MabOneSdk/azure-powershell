@@ -65,13 +65,13 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
             switch ( json.StringProperty("objectType") )
             {
-                case "ScheduleBasedTriggerContext":
-                {
-                    return new ScheduleBasedTriggerContext(json);
-                }
                 case "AdhocBasedTriggerContext":
                 {
                     return new AdhocBasedTriggerContext(json);
+                }
+                case "ScheduleBasedTriggerContext":
+                {
+                    return new ScheduleBasedTriggerContext(json);
                 }
             }
             return new TriggerContext(json);

@@ -58,15 +58,15 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return;
             }
-            {_currentProtectionState = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("currentProtectionState"), out var __jsonCurrentProtectionState) ? (string)__jsonCurrentProtectionState : (string)CurrentProtectionState;}
+            {_friendlyName = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("friendlyName"), out var __jsonFriendlyName) ? (string)__jsonFriendlyName : (string)FriendlyName;}
             {_dataSourceInfo = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("dataSourceInfo"), out var __jsonDataSourceInfo) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.Datasource.FromJson(__jsonDataSourceInfo) : DataSourceInfo;}
             {_dataSourceSetInfo = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("dataSourceSetInfo"), out var __jsonDataSourceSetInfo) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.DatasourceSet.FromJson(__jsonDataSourceSetInfo) : DataSourceSetInfo;}
-            {_friendlyName = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("friendlyName"), out var __jsonFriendlyName) ? (string)__jsonFriendlyName : (string)FriendlyName;}
-            {_objectType = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("objectType"), out var __jsonObjectType) ? (string)__jsonObjectType : (string)ObjectType;}
             {_policyInfo = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("policyInfo"), out var __jsonPolicyInfo) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.PolicyInfo.FromJson(__jsonPolicyInfo) : PolicyInfo;}
-            {_protectionErrorDetail = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("protectionErrorDetails"), out var __jsonProtectionErrorDetails) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.UserFacingError.FromJson(__jsonProtectionErrorDetails) : ProtectionErrorDetail;}
             {_protectionStatus = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("protectionStatus"), out var __jsonProtectionStatus) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ProtectionStatusDetails.FromJson(__jsonProtectionStatus) : ProtectionStatus;}
+            {_currentProtectionState = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("currentProtectionState"), out var __jsonCurrentProtectionState) ? (string)__jsonCurrentProtectionState : (string)CurrentProtectionState;}
+            {_protectionErrorDetail = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("protectionErrorDetails"), out var __jsonProtectionErrorDetails) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.UserFacingError.FromJson(__jsonProtectionErrorDetails) : ProtectionErrorDetail;}
             {_provisioningState = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("provisioningState"), out var __jsonProvisioningState) ? (string)__jsonProvisioningState : (string)ProvisioningState;}
+            {_objectType = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("objectType"), out var __jsonObjectType) ? (string)__jsonObjectType : (string)ObjectType;}
             AfterFromJson(json);
         }
 
@@ -101,27 +101,27 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
             {
                 return container;
             }
-            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
-            {
-                AddIf( null != (((object)this._currentProtectionState)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._currentProtectionState.ToString()) : null, "currentProtectionState" ,container.Add );
-            }
+            AddIf( null != (((object)this._friendlyName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._friendlyName.ToString()) : null, "friendlyName" ,container.Add );
             AddIf( null != this._dataSourceInfo ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._dataSourceInfo.ToJson(null,serializationMode) : null, "dataSourceInfo" ,container.Add );
             AddIf( null != this._dataSourceSetInfo ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._dataSourceSetInfo.ToJson(null,serializationMode) : null, "dataSourceSetInfo" ,container.Add );
-            AddIf( null != (((object)this._friendlyName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._friendlyName.ToString()) : null, "friendlyName" ,container.Add );
-            AddIf( null != (((object)this._objectType)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._objectType.ToString()) : null, "objectType" ,container.Add );
             AddIf( null != this._policyInfo ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._policyInfo.ToJson(null,serializationMode) : null, "policyInfo" ,container.Add );
-            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
-            {
-                AddIf( null != this._protectionErrorDetail ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._protectionErrorDetail.ToJson(null,serializationMode) : null, "protectionErrorDetails" ,container.Add );
-            }
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
                 AddIf( null != this._protectionStatus ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._protectionStatus.ToJson(null,serializationMode) : null, "protectionStatus" ,container.Add );
             }
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
+                AddIf( null != (((object)this._currentProtectionState)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._currentProtectionState.ToString()) : null, "currentProtectionState" ,container.Add );
+            }
+            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
+            {
+                AddIf( null != this._protectionErrorDetail ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._protectionErrorDetail.ToJson(null,serializationMode) : null, "protectionErrorDetails" ,container.Add );
+            }
+            if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
+            {
                 AddIf( null != (((object)this._provisioningState)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._provisioningState.ToString()) : null, "provisioningState" ,container.Add );
             }
+            AddIf( null != (((object)this._objectType)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._objectType.ToString()) : null, "objectType" ,container.Add );
             AfterToJson(ref container);
             return container;
         }

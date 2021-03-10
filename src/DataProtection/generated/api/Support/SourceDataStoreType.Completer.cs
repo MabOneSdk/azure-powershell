@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for SourceDataStoreType.</summary>
+    /// <summary>Gets or sets the type of the source data store.</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.SourceDataStoreTypeTypeConverter))]
     public partial struct SourceDataStoreType :
         System.Management.Automation.IArgumentCompleter

@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for Status.</summary>
+    /// <summary>Specifies the protection status of the resource</summary>
     public partial class StatusTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

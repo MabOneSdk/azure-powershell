@@ -6,6 +6,10 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>
+    /// Denotes the target location where the data will be restored,
+    /// string value for the enum {Microsoft.Internal.AzureBackup.DataProtection.Common.Interface.RestoreTargetLocationType}
+    /// </summary>
     public partial struct RestoreTargetLocationType :
         System.IEquatable<RestoreTargetLocationType>
     {
@@ -22,7 +26,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="RestoreTargetLocationType" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new RestoreTargetLocationType(System.Convert.ToString(value));
+            return new RestoreTargetLocationType(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type RestoreTargetLocationType</summary>

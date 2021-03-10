@@ -22,7 +22,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Type of Datasource object, used to initialize the right inherited type</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).ObjectType = value; }
+        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).ObjectType = value ; }
 
         /// <summary>Recovery Option</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
@@ -30,7 +30,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Target Restore region</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string RestoreLocation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).RestoreLocation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).RestoreLocation = value; }
+        public string RestoreLocation { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).RestoreLocation; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreTargetInfoBaseInternal)__restoreTargetInfoBase).RestoreLocation = value ?? null; }
 
         /// <summary>Backing field for <see cref="TargetDetail" /> property.</summary>
         private Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetails _targetDetail;
@@ -44,20 +44,20 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// Below will be the common prefix for all of them
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TargetDetailFilePrefix { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).FilePrefix; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).FilePrefix = value; }
+        public string TargetDetailFilePrefix { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).FilePrefix; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).FilePrefix = value ; }
 
         /// <summary>
         /// Denotes the target location where the data will be restored,
         /// string value for the enum {Microsoft.Internal.AzureBackup.DataProtection.Common.Interface.RestoreTargetLocationType}
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.RestoreTargetLocationType TargetDetailRestoreTargetLocationType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).RestoreTargetLocationType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).RestoreTargetLocationType = value; }
+        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.RestoreTargetLocationType TargetDetailRestoreTargetLocationType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).RestoreTargetLocationType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).RestoreTargetLocationType = value ; }
 
         /// <summary>
         /// Url denoting the restore destination. It can point to container / file share etc
         /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TargetDetailUrl { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).Url; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).Url = value; }
+        public string TargetDetailUrl { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).Url; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITargetDetailsInternal)TargetDetail).Url = value ; }
 
         /// <summary>Creates an new <see cref="RestoreFilesTargetInfo" /> instance.</summary>
         public RestoreFilesTargetInfo()

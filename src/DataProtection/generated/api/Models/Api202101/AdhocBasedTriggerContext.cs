@@ -28,7 +28,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Type of the specific object - used for deserializing</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inherited)]
-        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITriggerContextInternal)__triggerContext).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITriggerContextInternal)__triggerContext).ObjectType = value; }
+        public string ObjectType { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITriggerContextInternal)__triggerContext).ObjectType; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.ITriggerContextInternal)__triggerContext).ObjectType = value ; }
 
         /// <summary>Retention Tag version.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>Retention Tag Name to relate it to retention rule.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TagInfoTagName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBasedTaggingCriteriaInternal)TaggingCriterion).TagInfoTagName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBasedTaggingCriteriaInternal)TaggingCriterion).TagInfoTagName = value; }
+        public string TagInfoTagName { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBasedTaggingCriteriaInternal)TaggingCriterion).TagInfoTagName; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBasedTaggingCriteriaInternal)TaggingCriterion).TagInfoTagName = value ?? null; }
 
         /// <summary>Backing field for <see cref="TaggingCriterion" /> property.</summary>
         private Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBasedTaggingCriteria _taggingCriterion;
@@ -90,7 +90,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         string TagInfoId { get;  }
         /// <summary>Retention Tag Name to relate it to retention rule.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
-        Required = true,
+        Required = false,
         ReadOnly = false,
         Description = @"Retention Tag Name to relate it to retention rule.",
         SerializedName = @"tagName",

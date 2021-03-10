@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for StorageSettingStoreTypes.</summary>
+    /// <summary>Gets or sets the type of the datastore.</summary>
     public partial class StorageSettingStoreTypesTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

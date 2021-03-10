@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for FeatureSupportStatus.</summary>
+    /// <summary>feature support status</summary>
     public partial class FeatureSupportStatusTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

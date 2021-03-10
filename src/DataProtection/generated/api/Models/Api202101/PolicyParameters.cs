@@ -31,7 +31,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         ReadOnly = false,
         Description = @"Gets or sets the DataStore Parameters",
         SerializedName = @"dataStoreParametersList",
-        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDataStoreParameters),typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureOperationalStoreParameters) })]
+        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDataStoreParameters) })]
         Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IDataStoreParameters[] DataStoreParametersList { get; set; }
 
     }

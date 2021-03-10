@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for FeatureSupportStatus.</summary>
+    /// <summary>feature support status</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.FeatureSupportStatusTypeConverter))]
     public partial struct FeatureSupportStatus :
         System.Management.Automation.IArgumentCompleter

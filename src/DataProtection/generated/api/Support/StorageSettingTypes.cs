@@ -6,6 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>Gets or sets the type.</summary>
     public partial struct StorageSettingTypes :
         System.IEquatable<StorageSettingTypes>
     {
@@ -20,7 +21,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="StorageSettingTypes" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new StorageSettingTypes(System.Convert.ToString(value));
+            return new StorageSettingTypes(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type StorageSettingTypes</summary>

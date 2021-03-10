@@ -65,6 +65,9 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
         /// <summary>
         /// Deserializes a <see cref="Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode"/> into an instance of Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointBasedRestoreRequest.
+        /// Note: the Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointBasedRestoreRequest
+        /// interface is polymorphic, and the precise model class that will get deserialized is determined at runtime based on the
+        /// payload.
         /// </summary>
         /// <param name="node">a <see cref="Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode" /> to deserialize from.</param>
         /// <returns>
@@ -72,7 +75,20 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         /// </returns>
         public static Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAzureBackupRecoveryPointBasedRestoreRequest FromJson(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode node)
         {
-            return node is Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject json ? new AzureBackupRecoveryPointBasedRestoreRequest(json) : null;
+            if (!(node is Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject json))
+            {
+                return null;
+            }
+            // Polymorphic type -- select the appropriate constructor using the discriminator
+
+            switch ( json.StringProperty("objectType") )
+            {
+                case "AzureBackupRestoreWithRehydrationRequest":
+                {
+                    return new AzureBackupRestoreWithRehydrationRequest(json);
+                }
+            }
+            return new AzureBackupRecoveryPointBasedRestoreRequest(json);
         }
 
         /// <summary>

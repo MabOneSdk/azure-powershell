@@ -56,7 +56,6 @@ POLICY <IBackupPolicy>: Backup Policy Object.
   PolicyRule <IBasePolicyRule[]>: Policy rule dictionary that contains rules for each backuptype i.e Full/Incremental/Logs etc
     Name <String>: 
     ObjectType <String>: 
-    BackupParameterObjectType <String>: Type of the specific object - used for deserializing
     DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
     DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
     TriggerObjectType <String>: Type of the specific object - used for deserializing
@@ -69,6 +68,7 @@ POLICY <IBackupPolicy>: Backup Policy Object.
         CopyAfterObjectType <String>: Type of the specific object - used for deserializing
         DataStoreObjectType <String>: Type of Datasource object, used to initialize the right inherited type
         DataStoreType <DataStoreTypes>: type of datastore; Operational/Vault/Archive
+    [BackupParameterObjectType <String>]: Type of the specific object - used for deserializing
     [IsDefault <Boolean?>]: 
 .Link
 https://docs.microsoft.com/en-us/powershell/module/az.dataprotection/edit-azdataprotectionpolicytagclientobject

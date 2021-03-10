@@ -26,7 +26,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="RehydrationStatus" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new RehydrationStatus(System.Convert.ToString(value));
+            return new RehydrationStatus(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type RehydrationStatus</summary>

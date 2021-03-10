@@ -65,8 +65,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
                 return;
             }
             // actually deserialize
-            ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation = (string) content.GetValueForProperty("AzureAsyncOperation",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation, global::System.Convert.ToString);
             ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).Location = (string) content.GetValueForProperty("Location",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).Location, global::System.Convert.ToString);
+            ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation = (string) content.GetValueForProperty("AzureAsyncOperation",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation, global::System.Convert.ToString);
             ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).RetryAfter = (int?) content.GetValueForProperty("RetryAfter",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).RetryAfter, (__y)=> (int) global::System.Convert.ChangeType(__y, typeof(int)));
             AfterDeserializeDictionary(content);
         }
@@ -85,8 +85,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
                 return;
             }
             // actually deserialize
-            ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation = (string) content.GetValueForProperty("AzureAsyncOperation",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation, global::System.Convert.ToString);
             ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).Location = (string) content.GetValueForProperty("Location",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).Location, global::System.Convert.ToString);
+            ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation = (string) content.GetValueForProperty("AzureAsyncOperation",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).AzureAsyncOperation, global::System.Convert.ToString);
             ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).RetryAfter = (int?) content.GetValueForProperty("RetryAfter",((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IBackupInstancesTriggerRestoreAcceptedResponseHeadersInternal)this).RetryAfter, (__y)=> (int) global::System.Convert.ChangeType(__y, typeof(int)));
             AfterDeserializePSObject(content);
         }

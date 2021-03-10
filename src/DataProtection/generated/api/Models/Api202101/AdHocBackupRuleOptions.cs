@@ -25,7 +25,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         internal Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBackupTriggerOption TriggerOption { get => (this._triggerOption = this._triggerOption ?? new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.AdhocBackupTriggerOption()); set => this._triggerOption = value; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TriggerOptionRetentionTagOverride { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBackupTriggerOptionInternal)TriggerOption).RetentionTagOverride; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBackupTriggerOptionInternal)TriggerOption).RetentionTagOverride = value; }
+        public string TriggerOptionRetentionTagOverride { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBackupTriggerOptionInternal)TriggerOption).RetentionTagOverride; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IAdhocBackupTriggerOptionInternal)TriggerOption).RetentionTagOverride = value ?? null; }
 
         /// <summary>Creates an new <see cref="AdHocBackupRuleOptions" /> instance.</summary>
         public AdHocBackupRuleOptions()

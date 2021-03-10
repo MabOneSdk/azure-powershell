@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for FeatureType.</summary>
+    /// <summary>backup support feature type.</summary>
     public partial class FeatureTypeTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

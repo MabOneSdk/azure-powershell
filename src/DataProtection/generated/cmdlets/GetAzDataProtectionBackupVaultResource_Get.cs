@@ -9,7 +9,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Cmdlets
 
     /// <summary>Returns resource collection belonging to a subscription.</summary>
     /// <remarks>
-    /// [OpenAPI] BackupVaults_GetResourcesInSubscription=>GET:"/subscriptions/{subscriptionId}/providers/Microsoft.DataProtection/backupVaults"
+    /// [OpenAPI] GetResourcesInSubscription=>GET:"/subscriptions/{subscriptionId}/providers/Microsoft.DataProtection/backupVaults"
     /// </remarks>
     [global::Microsoft.Azure.PowerShell.Cmdlets.DataProtection.InternalExport]
     [global::System.Management.Automation.Cmdlet(global::System.Management.Automation.VerbsCommon.Get, @"AzDataProtectionBackupVaultResource_Get")]

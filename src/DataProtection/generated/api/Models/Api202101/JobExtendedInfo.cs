@@ -62,10 +62,10 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         internal Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetails SourceRecoverPoint { get => (this._sourceRecoverPoint = this._sourceRecoverPoint ?? new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.RestoreJobRecoveryPointDetails()); }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string SourceRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointId = value; }
+        public string SourceRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointId = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public global::System.DateTime? SourceRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointTime = value; }
+        public global::System.DateTime? SourceRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)SourceRecoverPoint).RecoveryPointTime = value ?? default(global::System.DateTime); }
 
         /// <summary>Backing field for <see cref="SubTask" /> property.</summary>
         private Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IJobSubTask[] _subTask;
@@ -82,10 +82,10 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         internal Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetails TargetRecoverPoint { get => (this._targetRecoverPoint = this._targetRecoverPoint ?? new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.RestoreJobRecoveryPointDetails()); }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public string TargetRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointId = value; }
+        public string TargetRecoverPointRecoveryPointId { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointId; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointId = value ?? null; }
 
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Inlined)]
-        public global::System.DateTime? TargetRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointTime = value; }
+        public global::System.DateTime? TargetRecoverPointRecoveryPointTime { get => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointTime; set => ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IRestoreJobRecoveryPointDetailsInternal)TargetRecoverPoint).RecoveryPointTime = value ?? default(global::System.DateTime); }
 
         /// <summary>Creates an new <see cref="JobExtendedInfo" /> instance.</summary>
         public JobExtendedInfo()

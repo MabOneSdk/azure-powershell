@@ -12,7 +12,7 @@
 # limitations under the License.
 # ----------------------------------------------------------------------------------
 param([switch]$Isolated)
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'SilentlyContinue'
 
 $pwsh = [System.Diagnostics.Process]::GetCurrentProcess().Path
 if(-not $Isolated) {

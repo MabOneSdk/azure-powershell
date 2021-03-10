@@ -9,11 +9,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
     {
 
         /// <summary>Backing field for <see cref="AdditionalInfo" /> property.</summary>
-        private Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1[] _additionalInfo;
+        private Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo[] _additionalInfo;
 
         /// <summary>The error additional info.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Owned)]
-        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1[] AdditionalInfo { get => this._additionalInfo; }
+        public Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo[] AdditionalInfo { get => this._additionalInfo; }
 
         /// <summary>Backing field for <see cref="Code" /> property.</summary>
         private string _code;
@@ -37,7 +37,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         public string Message { get => this._message; }
 
         /// <summary>Internal Acessors for AdditionalInfo</summary>
-        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1[] Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorInternal.AdditionalInfo { get => this._additionalInfo; set { {_additionalInfo = value;} } }
+        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo[] Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorInternal.AdditionalInfo { get => this._additionalInfo; set { {_additionalInfo = value;} } }
 
         /// <summary>Internal Acessors for Code</summary>
         string Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorInternal.Code { get => this._code; set { {_code = value;} } }
@@ -74,8 +74,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
         ReadOnly = true,
         Description = @"The error additional info.",
         SerializedName = @"additionalInfo",
-        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1) })]
-        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1[] AdditionalInfo { get;  }
+        PossibleTypes = new [] { typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo) })]
+        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo[] AdditionalInfo { get;  }
         /// <summary>The error code.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
         Required = false,
@@ -115,7 +115,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
 
     {
         /// <summary>The error additional info.</summary>
-        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo1[] AdditionalInfo { get; set; }
+        Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.IErrorAdditionalInfo[] AdditionalInfo { get; set; }
         /// <summary>The error code.</summary>
         string Code { get; set; }
         /// <summary>The error details.</summary>

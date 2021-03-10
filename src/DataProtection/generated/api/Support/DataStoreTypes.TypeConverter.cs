@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>TypeConverter implementation for DataStoreTypes.</summary>
+    /// <summary>type of datastore; Operational/Vault/Archive</summary>
     public partial class DataStoreTypesTypeConverter :
         global::System.Management.Automation.PSTypeConverter
     {

@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
-    /// <summary>Argument completer implementation for StorageSettingStoreTypes.</summary>
+    /// <summary>Gets or sets the type of the datastore.</summary>
     [System.ComponentModel.TypeConverter(typeof(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.StorageSettingStoreTypesTypeConverter))]
     public partial struct StorageSettingStoreTypes :
         System.Management.Automation.IArgumentCompleter

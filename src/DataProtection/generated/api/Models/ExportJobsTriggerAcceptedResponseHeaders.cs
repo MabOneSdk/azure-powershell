@@ -16,16 +16,12 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
         /// <summary>Backing field for <see cref="Location" /> property.</summary>
         private string _location;
 
-        /// <summary>The URL of the resource used to check the status of the asynchronous operation.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Owned)]
         public string Location { get => this._location; set => this._location = value; }
 
         /// <summary>Backing field for <see cref="RetryAfter" /> property.</summary>
         private int? _retryAfter;
 
-        /// <summary>
-        /// Suggested delay to check the status of the asynchronous operation. The value is an integer that represents the seconds.
-        /// </summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Origin(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.PropertyOrigin.Owned)]
         public int? RetryAfter { get => this._retryAfter; set => this._retryAfter = value; }
 
@@ -40,34 +36,31 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
         /// <param name="headers"></param>
         void Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.IHeaderSerializable.ReadHeaders(global::System.Net.Http.Headers.HttpResponseHeaders headers)
         {
-            if (headers.TryGetValues("Location", out var __locationHeader))
+            if (headers.TryGetValues("Location", out var __locationHeader0))
             {
-                ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IExportJobsTriggerAcceptedResponseHeadersInternal)this).Location = System.Linq.Enumerable.FirstOrDefault(__locationHeader) is string __headerLocationHeader ? __headerLocationHeader : (string)null;
+                ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IExportJobsTriggerAcceptedResponseHeadersInternal)this).Location = System.Linq.Enumerable.FirstOrDefault(__locationHeader0) is string __headerLocationHeader0 ? __headerLocationHeader0 : (string)null;
             }
-            if (headers.TryGetValues("Retry-After", out var __retryAfterHeader))
+            if (headers.TryGetValues("Retry-After", out var __retryAfterHeader1))
             {
-                ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IExportJobsTriggerAcceptedResponseHeadersInternal)this).RetryAfter = System.Linq.Enumerable.FirstOrDefault(__retryAfterHeader) is string __headerRetryAfterHeader ? int.TryParse( __headerRetryAfterHeader, out int __headerRetryAfterHeaderValue ) ? __headerRetryAfterHeaderValue : default(int?) : default(int?);
+                ((Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.IExportJobsTriggerAcceptedResponseHeadersInternal)this).RetryAfter = System.Linq.Enumerable.FirstOrDefault(__retryAfterHeader1) is string __headerRetryAfterHeader1 ? int.TryParse( __headerRetryAfterHeader1, out int __headerRetryAfterHeader1Value ) ? __headerRetryAfterHeader1Value : default(int?) : default(int?);
             }
         }
     }
     public partial interface IExportJobsTriggerAcceptedResponseHeaders
 
     {
-        /// <summary>The URL of the resource used to check the status of the asynchronous operation.</summary>
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
         Required = false,
         ReadOnly = false,
-        Description = @"The URL of the resource used to check the status of the asynchronous operation.",
+        Description = @"",
         SerializedName = @"Location",
         PossibleTypes = new [] { typeof(string) })]
         string Location { get; set; }
-        /// <summary>
-        /// Suggested delay to check the status of the asynchronous operation. The value is an integer that represents the seconds.
-        /// </summary>
+
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Info(
         Required = false,
         ReadOnly = false,
-        Description = @"Suggested delay to check the status of the asynchronous operation. The value is an integer that represents the seconds.",
+        Description = @"",
         SerializedName = @"Retry-After",
         PossibleTypes = new [] { typeof(int) })]
         int? RetryAfter { get; set; }
@@ -76,11 +69,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models
     internal partial interface IExportJobsTriggerAcceptedResponseHeadersInternal
 
     {
-        /// <summary>The URL of the resource used to check the status of the asynchronous operation.</summary>
         string Location { get; set; }
-        /// <summary>
-        /// Suggested delay to check the status of the asynchronous operation. The value is an integer that represents the seconds.
-        /// </summary>
+
         int? RetryAfter { get; set; }
 
     }

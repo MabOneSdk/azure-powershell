@@ -6,6 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>Specifies the current protection state of the resource</summary>
     public partial struct CurrentProtectionState :
         System.IEquatable<CurrentProtectionState>
     {
@@ -40,7 +41,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="CurrentProtectionState" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new CurrentProtectionState(System.Convert.ToString(value));
+            return new CurrentProtectionState(global::System.Convert.ToString(value));
         }
 
         /// <summary>Creates an instance of the <see cref="CurrentProtectionState" Enum class./></summary>

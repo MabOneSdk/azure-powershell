@@ -6,6 +6,7 @@
 namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
 {
 
+    /// <summary>Gets or sets the type of the source data store.</summary>
     public partial struct SourceDataStoreType :
         System.IEquatable<SourceDataStoreType>
     {
@@ -22,7 +23,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support
         /// <param name="value">the value to convert to an instance of <see cref="SourceDataStoreType" />.</param>
         internal static object CreateFrom(object value)
         {
-            return new SourceDataStoreType(System.Convert.ToString(value));
+            return new SourceDataStoreType(global::System.Convert.ToString(value));
         }
 
         /// <summary>Compares values of enum type SourceDataStoreType</summary>

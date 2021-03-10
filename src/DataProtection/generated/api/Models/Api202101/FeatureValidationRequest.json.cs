@@ -59,8 +59,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 return;
             }
             __featureValidationRequestBase = new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.FeatureValidationRequestBase(json);
-            {_featureName = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("featureName"), out var __jsonFeatureName) ? (string)__jsonFeatureName : (string)FeatureName;}
             {_featureType = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("featureType"), out var __jsonFeatureType) ? (string)__jsonFeatureType : (string)FeatureType;}
+            {_featureName = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("featureName"), out var __jsonFeatureName) ? (string)__jsonFeatureName : (string)FeatureName;}
             AfterFromJson(json);
         }
 
@@ -96,8 +96,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 return container;
             }
             __featureValidationRequestBase?.ToJson(container, serializationMode);
-            AddIf( null != (((object)this._featureName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._featureName.ToString()) : null, "featureName" ,container.Add );
             AddIf( null != (((object)this._featureType)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._featureType.ToString()) : null, "featureType" ,container.Add );
+            AddIf( null != (((object)this._featureName)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._featureName.ToString()) : null, "featureName" ,container.Add );
             AfterToJson(ref container);
             return container;
         }

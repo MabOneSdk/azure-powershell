@@ -71,8 +71,8 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 return;
             }
             {_policyId = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("policyId"), out var __jsonPolicyId) ? (string)__jsonPolicyId : (string)PolicyId;}
-            {_policyParameter = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("policyParameters"), out var __jsonPolicyParameters) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.PolicyParameters.FromJson(__jsonPolicyParameters) : PolicyParameter;}
             {_policyVersion = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString>("policyVersion"), out var __jsonPolicyVersion) ? (string)__jsonPolicyVersion : (string)PolicyVersion;}
+            {_policyParameter = If( json?.PropertyT<Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonObject>("policyParameters"), out var __jsonPolicyParameters) ? Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101.PolicyParameters.FromJson(__jsonPolicyParameters) : PolicyParameter;}
             AfterFromJson(json);
         }
 
@@ -96,11 +96,11 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api202101
                 return container;
             }
             AddIf( null != (((object)this._policyId)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._policyId.ToString()) : null, "policyId" ,container.Add );
-            AddIf( null != this._policyParameter ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._policyParameter.ToJson(null,serializationMode) : null, "policyParameters" ,container.Add );
             if (serializationMode.HasFlag(Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.SerializationMode.IncludeReadOnly))
             {
                 AddIf( null != (((object)this._policyVersion)?.ToString()) ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) new Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonString(this._policyVersion.ToString()) : null, "policyVersion" ,container.Add );
             }
+            AddIf( null != this._policyParameter ? (Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Runtime.Json.JsonNode) this._policyParameter.ToJson(null,serializationMode) : null, "policyParameters" ,container.Add );
             AfterToJson(ref container);
             return container;
         }
