@@ -64,6 +64,9 @@ Configures Backup for supported azure resources
 ### [New-AzDataProtectionBackupPolicy](New-AzDataProtectionBackupPolicy.md)
 
 
+### [New-AzDataProtectionBackupVault](New-AzDataProtectionBackupVault.md)
+Creates or updates a BackupVault resource belonging to a resource group.
+
 ### [New-AzDataProtectionBackupVaultStorageSettingObject](New-AzDataProtectionBackupVaultStorageSettingObject.md)
 Get Backup Vault storage setting object
 
