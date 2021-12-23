@@ -18,7 +18,10 @@
         - Additional information about change #1
 -->
 ## Current Release
+
+## Version 4.1.3
 * Set minimum dependency of module to PowerShell 5.0
+* Refactored RecoveryServices module to better facilitate the merging of RecoveryServices.Backup and RecoveryServices.SiteRecovery modules into the RecoveryServices module.
 
 ## Version 4.1.2
 * Updated to the latest version of the Azure ClientRuntime
