@@ -68,12 +68,14 @@ MyPolicy       Microsoft.DataProtection/backupVaults/backupPolicies
 ```
 
 The first command gets the default policy template for AzureDatabaseForPostgreSQL.
-The second, third commands create two diffrent backup lifecycles for vault and archive store respectively. The backup stays in vaultstore for 3 Months, and then copies on expiry to the Archive store and stays there till 6 months.
+The second, third commands create two diffrent backup lifecycles for vault and archive store respectively.
+The backup stays in vaultstore for 3 Months, and then copies on expiry to the Archive store and stays there till 6 months.
 The fourth command updates the policy object with lifecycles created.
 The fifth, sixth commands create the custom schedule object for the backup policy, twice weekly starting from $schDates.
 The seventh command updates the policy object with custom schedule.
 The eighth, ninth, tenth commands update the Monthly retention rule with custom lifecycles.
-The eleventh, twelth commands create a tag criteria for Monthly policy. Tag criteria needs to be added for each custom retention rule (automatically added for default retention rule).
+The eleventh, twelth commands create a tag criteria for Monthly policy.
+Tag criteria needs to be added for each custom retention rule (automatically added for default retention rule).
 The last command creates the policy.
 
 ## PARAMETERS

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-AzDataProtectionRestorableTimeRange
 
 ## SYNOPSIS
-Finds the valid recovery point in time ranges for the restore.
+
 
 ## SYNTAX
 
@@ -20,7 +20,7 @@ Find-AzDataProtectionRestorableTimeRange -BackupInstanceName <String> -ResourceG
 ```
 
 ## DESCRIPTION
-This cmdlet finds the valid restorable pointInTime ranges within which one can trigger restore for a given backup instance.
+
 
 ## EXAMPLES
 
@@ -47,7 +47,7 @@ Dispaly RestorableTimeRange, note that this can be multiple dicrete ranges.
 ## PARAMETERS
 
 ### -BackupInstanceName
-The name of the backup instance for which to fetch the restorable time range.
+The name of the backup instance
 
 ```yaml
 Type: System.String

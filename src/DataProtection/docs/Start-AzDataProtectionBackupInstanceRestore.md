@@ -41,7 +41,7 @@ Start-AzDataProtectionBackupInstanceRestore -BackupInstanceName $instance.Backup
 
 ```
 
-this command triggers restore for a protected azure disk backup instance.
+
 
 ### Example 2: Trigger restore as DB for protected AzureDatabaseForPostgreSQL using secret store.
 ```powershell

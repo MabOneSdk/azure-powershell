@@ -61,7 +61,8 @@ xyz-postgresql-wus-empdb10-xxxxxxxx-xxxx-xxxx-a3ba-be75108d8b21 Microsoft.DataPr
 
 ```
 
-The third command initializes the secretURI for secret store authentication. 
+The third command initializes the secretURI for secret store authentication.
+
 The fifth command gets the policy with which database will be protected.
 The sixth command initializes the backup instance request object.
 The last command configures backup of the given $dataSourceId in the backup vault.
