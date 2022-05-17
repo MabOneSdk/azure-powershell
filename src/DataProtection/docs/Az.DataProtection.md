@@ -24,7 +24,7 @@ Adds or removes schedule tag in an existing backup policy.
 Updates Backup schedule of an existing backup policy.
 
 ### [Find-AzDataProtectionRestorableTimeRange](Find-AzDataProtectionRestorableTimeRange.md)
-Finds the valid recovery point in time ranges for the restore.
+
 
 ### [Get-AzDataProtectionBackupInstance](Get-AzDataProtectionBackupInstance.md)
 Gets a backup instance with name in a backup vault
@@ -33,10 +33,13 @@ Gets a backup instance with name in a backup vault
 Gets a backup policy belonging to a backup vault
 
 ### [Get-AzDataProtectionBackupVault](Get-AzDataProtectionBackupVault.md)
-Returns a resource belonging to a resource group.
+Returns resource collection belonging to a resource group.
 
 ### [Get-AzDataProtectionJob](Get-AzDataProtectionJob.md)
 Gets a job with id in a backup vault
+
+### [Get-AzDataProtectionOperation](Get-AzDataProtectionOperation.md)
+Returns the list of available operations.
 
 ### [Get-AzDataProtectionPolicyTemplate](Get-AzDataProtectionPolicyTemplate.md)
 Gets default policy template for a selected datasource type.
@@ -86,8 +89,23 @@ Searches for Backup instances in Azure Resource Graph and retrieves the expected
 ### [Search-AzDataProtectionJobInAzGraph](Search-AzDataProtectionJobInAzGraph.md)
 Searches for Backup Jobs in Azure Resource Graph and retrieves the expected entries
 
+### [Set-AzDataProtectionMSIPermission](Set-AzDataProtectionMSIPermission.md)
+Initializes Backup instance Request object for configuring backup
+
 ### [Start-AzDataProtectionBackupInstanceRestore](Start-AzDataProtectionBackupInstanceRestore.md)
 Triggers restore for a BackupInstance
+
+### [Test-AzDataProtectionBackupInstanceReadiness](Test-AzDataProtectionBackupInstanceReadiness.md)
+Validate whether adhoc backup will be successful or not
+
+### [Test-AzDataProtectionBackupInstanceRestore](Test-AzDataProtectionBackupInstanceRestore.md)
+Validates if Restore can be triggered for a DataSource
+
+### [Test-AzDataProtectionBackupVaultNameAvailability](Test-AzDataProtectionBackupVaultNameAvailability.md)
+API to check for resource name availability
+
+### [Test-AzDataProtectionFeatureSupport](Test-AzDataProtectionFeatureSupport.md)
+Validates if a feature is supported
 
 ### [Update-AzDataProtectionBackupInstanceAssociatedPolicy](Update-AzDataProtectionBackupInstanceAssociatedPolicy.md)
 Updates associated policy for a given backup instance

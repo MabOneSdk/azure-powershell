@@ -63,10 +63,10 @@ $restoreRequest
 ```
 
 ```output
-ObjectType                                  RestoreTargetInfoObjectType RestoreTargetInfoRecoveryOption RestoreTargetInfoRestoreLocation SourceDataStoreType RecoveryPointId
+ObjectType                                  RestoreTargetInfoObjectType RestoreTargetInfoRecoveryOption RestoreTargetInfoRestoreLocation SourceDataStoreType RecoveryPointI
+                                                                                                                                                             d
 ----------                                  --------------------------- ------------------------------- -------------------------------- ------------------- --------------
 AzureBackupRecoveryPointBasedRestoreRequest RestoreTargetInfo           FailIfExists                    westus                           OperationalStore    892e5c5014dc4a96807d22924f5745c9
-
 ```
 
 This command initialized a restore request object which can be used to trigger restore.
@@ -135,8 +135,9 @@ FromPrefix           ToPrefix
 "container1/ccc"    "container1/ddd"
 "container2/aab"    "container2/abc" 
 "container3"        "container3-0"   (restores whole container3)
-
-Note: The ranges shouldn't overlap with each other. Reference: https://docs.microsoft.com/en-us/rest/api/storageservices/naming-and-referencing-containers--blobs--and-metadata
+                    
+Note: The ranges shouldn't overlap with each other.
+Reference: https://docs.microsoft.com/en-us/rest/api/storageservices/naming-and-referencing-containers--blobs--and-metadata
 
 ## PARAMETERS
 

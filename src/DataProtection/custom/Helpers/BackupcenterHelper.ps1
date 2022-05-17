@@ -46,6 +46,38 @@ function CheckResourceGraphModuleDependency
 	}
 }
 
+function CheckResourcesModuleDependency
+{
+	[Microsoft.Azure.PowerShell.Cmdlets.DataProtection.DoNotExportAttribute()]
+	param() 
+
+	process
+	{
+		$module = Get-InstalledModule | Where-Object {$_.Name -eq "Az.Resources"}
+		if($module -eq $null)
+		{
+			$message = "Az.Resources Module must be installed to run this command. Please run 'Install-Module -Name Az.Resources' to install and continue."
+			throw $message
+		}
+	}
+}
+
+function CheckPostgreSqlModuleDependency
+{
+	[Microsoft.Azure.PowerShell.Cmdlets.DataProtection.DoNotExportAttribute()]
+	param() 
+
+	process
+	{
+		$module = Get-InstalledModule | Where-Object {$_.Name -eq "Az.PostgreSql"}
+		if($module -eq $null)
+		{
+			$message = "Az.PostgreSql Module must be installed to run this command. Please run 'Install-Module -Name Az.PostgreSql' to install and continue."
+			throw $message
+		}
+	}
+}
+
 function GetBackupInstanceARGQuery
 {
 	[Microsoft.Azure.PowerShell.Cmdlets.DataProtection.DoNotExportAttribute()]
