@@ -1,4 +1,5 @@
 ﻿{
+  "BackupPermissions": ["Storage Account Backup Contributor"],
   "isProxyResource": false,
   "resourceType": "Microsoft.Storage/storageAccounts",
   "parentResourceType": "Microsoft.Storage/storageAccounts",

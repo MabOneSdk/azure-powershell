@@ -89,6 +89,9 @@ Searches for Backup instances in Azure Resource Graph and retrieves the expected
 ### [Search-AzDataProtectionJobInAzGraph](Search-AzDataProtectionJobInAzGraph.md)
 Searches for Backup Jobs in Azure Resource Graph and retrieves the expected entries
 
+### [Set-AzDataProtectionMSIPermission](Set-AzDataProtectionMSIPermission.md)
+Initializes Backup instance Request object for configuring backup
+
 ### [Start-AzDataProtectionBackupInstanceRestore](Start-AzDataProtectionBackupInstanceRestore.md)
 Triggers restore for a BackupInstance
 

@@ -1,4 +1,5 @@
 ﻿{
+  "BackupPermissions": ["Reader","Key Vault Secrets Officer" ],
   "isProxyResource": true,
   "resourceType": "Microsoft.DBforPostgreSQL/servers/databases",
   "parentResourceType": "Microsoft.DBforPostgreSQL/servers",

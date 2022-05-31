@@ -1,4 +1,5 @@
 ﻿{
+  "BackupPermissions": [ "Disk Backup Reader","Disk Snapshot Contributor" ],
   "isProxyResource": false,
   "resourceType": "Microsoft.Compute/disks",
   "parentResourceType": "Microsoft.Compute/disks",
