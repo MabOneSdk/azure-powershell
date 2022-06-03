@@ -1,5 +1,7 @@
 ﻿{
-  "BackupPermissions": ["Storage Account Backup Contributor"],
+  "datasourcePermissions": [ "Storage Account Backup Contributor" ],
+  "snapshotRGPermissions": [],
+  "keyVaultPermissions": [],
   "isProxyResource": false,
   "resourceType": "Microsoft.Storage/storageAccounts",
   "parentResourceType": "Microsoft.Storage/storageAccounts",

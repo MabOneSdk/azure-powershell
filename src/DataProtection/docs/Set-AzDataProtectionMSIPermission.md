@@ -13,9 +13,8 @@ Initializes Backup instance Request object for configuring backup
 ## SYNTAX
 
 ```
-Set-AzDataProtectionMSIPermission -DatasourceId <String> -DatasourceType <DatasourceTypes> -VaultName <String>
- -VaultResourceGroup <String> [-Operation <String>] [-PermissionsScope <String>]
- [-SnapshotResourceGroupId <String>] [-TargetResourceGroupForRestore <String>] [<CommonParameters>]
+Set-AzDataProtectionMSIPermission -BackupInstance <IBackupInstanceResource> -PermissionsScope <String>
+ -VaultName <String> -VaultResourceGroup <String> [-KeyvaultId <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,11 +46,12 @@ Initializes Backup instance Request object for configuring backup
 
 ## PARAMETERS
 
-### -DatasourceId
-ID of the datasource to be protected
+### -BackupInstance
+Backup instance request object which will be used to configure backup
+To construct, see NOTES section for BACKUPINSTANCE properties and create a hash table.
 
 ```yaml
-Type: System.String
+Type: Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api20210701.IBackupInstanceResource
 Parameter Sets: (All)
 Aliases:
 
@@ -62,23 +62,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DatasourceType
-Datasource Type
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.DatasourceTypes
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Operation
-Operation for which the required permissions should be granted
+### -KeyvaultId
+Resource group of the backup vault
 
 ```yaml
 Type: System.String
@@ -100,37 +85,7 @@ Type: System.String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SnapshotResourceGroupId
-Resource group which will contain the disk snapshots
-
-```yaml
-Type: System.String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TargetResourceGroupForRestore
-Resource group in which the disk should be restored
-
-```yaml
-Type: System.String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -179,6 +134,40 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ALIASES
+
+COMPLEX PARAMETER PROPERTIES
+
+To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
+
+
+BACKUPINSTANCE <IBackupInstanceResource>: Backup instance request object which will be used to configure backup
+  - `[Property <IBackupInstance>]`: BackupInstanceResource properties
+    - `DataSourceInfo <IDatasource>`: Gets or sets the data source information.
+      - `ResourceId <String>`: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
+      - `[ObjectType <String>]`: Type of Datasource object, used to initialize the right inherited type
+      - `[ResourceLocation <String>]`: Location of datasource.
+      - `[ResourceName <String>]`: Unique identifier of the resource in the context of parent.
+      - `[ResourceType <String>]`: Resource Type of Datasource.
+      - `[ResourceUri <String>]`: Uri of the resource.
+      - `[Type <String>]`: DatasourceType of the resource.
+    - `ObjectType <String>`: 
+    - `PolicyInfo <IPolicyInfo>`: Gets or sets the policy information.
+      - `PolicyId <String>`: 
+      - `[PolicyParameter <IPolicyParameters>]`: Policy parameters for the backup instance
+        - `[DataStoreParametersList <IDataStoreParameters[]>]`: Gets or sets the DataStore Parameters
+          - `DataStoreType <DataStoreTypes>`: type of datastore; Operational/Vault/Archive
+          - `ObjectType <String>`: Type of the specific object - used for deserializing
+    - `[DataSourceSetInfo <IDatasourceSet>]`: Gets or sets the data source set information.
+      - `ResourceId <String>`: Full ARM ID of the resource. For azure resources, this is ARM ID. For non azure resources, this will be the ID created by backup service via Fabric/Vault.
+      - `[DatasourceType <String>]`: DatasourceType of the resource.
+      - `[ObjectType <String>]`: Type of Datasource object, used to initialize the right inherited type
+      - `[ResourceLocation <String>]`: Location of datasource.
+      - `[ResourceName <String>]`: Unique identifier of the resource in the context of parent.
+      - `[ResourceType <String>]`: Resource Type of Datasource.
+      - `[ResourceUri <String>]`: Uri of the resource.
+    - `[DatasourceAuthCredentials <IAuthCredentials>]`: Credentials to use to authenticate with data source provider.
+      - `ObjectType <String>`: Type of the specific object - used for deserializing
+    - `[FriendlyName <String>]`: Gets or sets the Backup Instance friendly name.
 
 ## RELATED LINKS
 
