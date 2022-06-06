@@ -1,7 +1,4 @@
-﻿
-
-
-function Set-AzDataProtectionMSIPermission {
+﻿function Set-AzDataProtectionMSIPermission {
     [OutputType('Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api20210701.IBackupInstanceResource')]
     [CmdletBinding(PositionalBinding=$false)]
     [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Description('Initializes Backup instance Request object for configuring backup')]
@@ -10,31 +7,9 @@ function Set-AzDataProtectionMSIPermission {
         [Parameter(Mandatory, HelpMessage='Backup instance request object which will be used to configure backup')]
         [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api20210701.IBackupInstanceResource]
         ${BackupInstance},
-
-        <#[Parameter(Mandatory, HelpMessage='ID of the datasource to be protected')]
-        [System.String]
+        
+        [Parameter(Mandatory=$false, HelpMessage='ID of the keyvault')]
         [ValidatePattern("/subscriptions/([A-z0-9\-]+)/resourceGroups/(?<rg>.+)/(?<id>.+)")]
-        ${DatasourceId},
-
-        [Parameter(Mandatory, HelpMessage='Datasource Type')]
-        [Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Support.DatasourceTypes]
-        ${DatasourceType},
-              
-
-        [Parameter(Mandatory=$false, HelpMessage=' Operation for which the required permissions should be granted')]
-        [System.String]
-        ${Operation},
-  
-        [Parameter(Mandatory=$false, HelpMessage='Resource group which will contain the disk snapshots')]
-        [System.String]
-        [ValidatePattern("/subscriptions/([A-z0-9\-]+)/resourcegroups/(?<rg>.+)")]
-        ${SnapshotResourceGroupId},
-       
-        [Parameter(Mandatory=$false, HelpMessage='Resource group in which the disk should be restored')]
-        [System.String]
-        ${TargetResourceGroupForRestore},
-        #>
-        [Parameter(Mandatory=$false, HelpMessage='Resource group of the backup vault')]
         [System.String]
         ${KeyvaultId},
 
@@ -55,10 +30,9 @@ function Set-AzDataProtectionMSIPermission {
 
     process {
           CheckResourcesModuleDependency
-          CheckPostgreSqlModuleDependency
-                  
-          #Write-Host "instance = $($BackupInstance | ConvertTo-Json -Depth 10)"
-
+          CheckPostgreSqlModuleDependency         
+          #CheckKeyVaultModuleDependency                  
+          
           $DatasourceId = $BackupInstance.Property.DataSourceInfo.ResourceId
           $DatasourceType = $BackupInstance.Property.DataSourceInfo.ResourceType
 
@@ -66,9 +40,14 @@ function Set-AzDataProtectionMSIPermission {
           elseif($DatasourceType -eq "Microsoft.Compute/disks"){$DatasourceType = "AzureDisk"}
           elseif($DatasourceType -eq "Microsoft.DBforPostgreSQL/servers/databases"){$DatasourceType = "AzureDatabaseForPostgreSQL"}
 
+          #Validation
+          if($DatasourceType -eq "AzureDatabaseForPostgreSQL" -and $KeyvaultId -eq "")
+          {
+              $message = "Please Provide KeyVaultId"
+              throw $message
+          }
 
           $manifest = LoadManifest -DatasourceType $DatasourceType.ToString()
-
 
           $vault = Get-AzDataProtectionBackupVault -VaultName $VaultName -ResourceGroupName $VaultResourceGroup
           $ResourceArray = $DataSourceId.Split("/")
@@ -82,8 +61,6 @@ function Set-AzDataProtectionMSIPermission {
               $CheckPermission = $AllRoles
               | Where-Object { ($_.Scope -eq $DataSourceId -or $_.Scope -eq $ResourceRG -or  $_.Scope -eq $SubscriptionName) -and $_.RoleDefinitionName -eq $Permission}
               
-              #Write-Host "CheckPermission = $($CheckPermission | ConvertTo-Json -Depth 10)"
-
               if($CheckPermission -ne $null)
               {
                   Write-Host "Required Permissions Already Assigned."
@@ -111,13 +88,11 @@ function Set-AzDataProtectionMSIPermission {
                   Write-Host "Assigned Required Permissions"
               }
           }
-          
-          
+              
 
           foreach($Permission in $manifest.snapshotRGPermissions)
           {
               $SnapshotResourceGroupId = $BackupInstance.Property.PolicyInfo.PolicyParameter.DataStoreParametersList[0].ResourceGroupId
-              Write-Host "($SnapshotResourceGroupId | ConvertTo-Json -Depth 10)"
 
               $CheckPermission = $AllRoles
               | Where-Object { ($_.Scope -eq $SnapshotResourceGroupId -or $_.Scope -eq $SubscriptionName)  -and $_.RoleDefinitionName -eq $Permission}
@@ -131,7 +106,7 @@ function Set-AzDataProtectionMSIPermission {
 
               else
               {
-                  Write-Debug "Assigning Required Permissions"
+                  Write-Host "Assigning Required Permissions"
 
                   if($PermissionsScope -eq "Subscription")
                   {
@@ -151,134 +126,59 @@ function Set-AzDataProtectionMSIPermission {
               $KeyvaultArray = $KeyvaultId.Split("/")
               $KeyvaultRG = "/subscriptions/" + $KeyvaultArray[2] + "/resourceGroups/" + $KeyvaultArray[4]
               $KeyvaultSubscriptionName = "/subscriptions/" + $KeyvaultArray[2]
+              $KeyvaultName = $KeyvaultArray[8]
               
               $ServerRG = $ResourceArray[4]
               $ServerName = $ResourceArray[8] 
-
-              Write-Host "ServerRG = $($ServerRG)"
-              Write-Host "ServerName = $($ServerName)"
-
-
-              $CheckPermission = $AllRoles
-              | Where-Object { ($_.Scope -eq $KeyvaultId -or $_.Scope -eq $KeyvaultRG -or  $_.Scope -eq $KeyvaultSubscription) -and $_.RoleDefinitionName -eq $Permission}
+              $KeyVault = Get-AzKeyVault -VaultName $KeyvaultName
               
-              Write-Host "CheckPermission = $($CheckPermission | ConvertTo-Json -Depth 10)"
-
-              if($CheckPermission -ne $null)
+              Update-AzKeyVaultNetworkRuleSet -VaultName $KeyvaultName -Bypass AzureServices 
+              Update-AzPostgreSqlServer -ResourceGroupName $ServerRG -ServerName $ServerName -PublicNetworkAccess Enabled | Out-Null
+              New-AzPostgreSqlFirewallRule -Name AllowAllAzureIps -ResourceGroupName $ServerRG -ServerName $ServerName -EndIPAddress 0.0.0.0 -StartIPAddress 0.0.0.0 | Out-Null
+              
+              if($KeyVault.EnableRbacAuthorization -eq $false)
               {
-                  Write-Host "Required Permissions Already Assigned."
+                  Write-Host "Assigning Vault Access Policies"
+                  Set-AzKeyVaultAccessPolicy -VaultName $KeyvaultName -ObjectId $vault.IdentityPrincipalId -PermissionsToSecrets Get,List
               }
 
               else
               {
-                  Write-Debug "Assigning Required Permissions"
+                  Write-Host "Assigning RBAC Policies"
 
-                  Update-AzPostgreSqlServer -ResourceGroupName $ServerRG -ServerName $ServerName -PublicNetworkAccess Enabled
-                  New-AzPostgreSqlFirewallRule -Name AllowAllAzureIps -ResourceGroupName $ServerRG -ServerName $ServerName -EndIPAddress 0.0.0.0 -StartIPAddress 0.0.0.0
-
-                  if($PermissionsScope -eq "Resource")
+                  $CheckPermission = $AllRoles
+                  | Where-Object { ($_.Scope -eq $KeyvaultId -or $_.Scope -eq $KeyvaultRG -or  $_.Scope -eq $KeyvaultSubscription) -and $_.RoleDefinitionName -eq $Permission}
+              
+                  Write-Host "CheckPermission = $($CheckPermission | ConvertTo-Json -Depth 10)"
+              
+                  if($CheckPermission -ne $null)
                   {
-                      New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultId  | Out-Null
+                      Write-Host "Required Permissions Already Assigned."
                   }
-              
-                  elseif($PermissionsScope -eq "ResourceGroup")
+
+                  else
                   {
-                      New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultRG  | Out-Null
+                      Write-Host "Assigning Required Permissions"
+
+                      if($PermissionsScope -eq "Resource")
+                      {
+                          New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultId  | Out-Null
+                      }
+              
+                      elseif($PermissionsScope -eq "ResourceGroup")
+                      {
+                          New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultRG  | Out-Null
+                      }
+
+                      elseif($PermissionsScope -eq "Subscription")
+                      {                   
+                          New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultSubscriptionName  | Out-Null
+                      }
+
+                      Write-Host "Assigned Required Permissions"
                   }
-
-                  elseif($PermissionsScope -eq "Subscription")
-                  {                   
-                      New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName $Permission -Scope $KeyvaultSubscription  | Out-Null
-                  }
-
-                  Write-Host "Assigned Required Permissions"
               }
-          }
-          
-
-          
-          
-          
-
-          <#
-          $DiskBackupReader=  $AllRoles
-          | Where-Object { ($_.Scope -eq $DataSourceId -or $_.Scope -eq $ResourceRG -or  $_.Scope -eq $SubscriptionName) -and $_.RoleDefinitionName -eq "Disk Backup Reader"}
- 
-          Write-Host "DiskBackupreader = $($DiskBackupReader | ConvertTo-Json -Depth 10)"
-
-          if($DiskBackupReader -ne $null)
-          {
-              Write-Host "Disk Backup Reader role already assigned on Disk"
-          }
-
-          elseif ($DiskBackupReader -eq $null)
-          {
-              Write-Host "Assigning Disk Backup Reader role on Disk"
-
-              if($PermissionsScope -eq "Resource")
-              {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Disk Backup Reader" -Scope $DatasourceId  | Out-Null}
-              
-              elseif($PermissionsScope -eq "ResourceGroup")
-              {
-                  New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Disk Backup Reader" -Scope $ResourceRG  | Out-Null
-              }
-
-              elseif($PermissionsScope -eq "Subscription")
-              {                   
-                  New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Disk Backup Reader" -Scope $SubscriptionName  | Out-Null
-              }
-
-              Write-Host "Assigned Disk Backup Reader role on Disk"
-          }
-          $DiskSnapshotContributor =  $AllRoles
-          | Where-Object { ($_.Scope -eq $SnapshotResourceGroupId -or $_.Scope -eq $SubscriptionName)  -and $_.RoleDefinitionName -eq "Disk Snapshot Contributor"}
-          
-          Write-Host "DiskSnapShotContributor = $($DiskSnapshotContributor | ConvertTo-Json -Depth 10)"
-          if($DiskSnapshotContributor -ne $null)
-          {
-              Write-Host "Disk Snapshot Contributor already assigned on SnapshotRG" 
-          }
-
-          elseif ($DiskSnapshotContributor -eq $null)
-          {
-              Write-Host "Assigning Disk Snapshot Contributor on SnapshotRG"
-              
-              if($PermissionsScope -eq "Subscription")
-              {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Disk Snapshot Contributor" -Scope $SubscriptionName | Out-Null}             
-              else
-              {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Disk Snapshot Contributor" -Scope $SnapshotResourceGroupId  | Out-Null}             
-             
-              Write-Host "Assigned Disk Snapshot Contributor on SnapshotRG"
-          }
-          #>
-          
-
-
-          #if($DatasourceType -eq "Blobs")
-          #{
-              <#$StorageAccountBackupContributor =  $AllRoles
-              | Where-Object { ($_.Scope -eq $DataSourceId -or $_.Scope -eq $ResourceRG -or  $_.Scope -eq $SubscriptionName) -and $_.RoleDefinitionName -eq "Storage Account Backup Contributor"}
-  
-              if($StorageAccountBackupContributor -ne $null)
-              { 
-                  Write-Host "StorageAccountBackupContributor already assigned on Storage Account"
-              }
-                            
-              else
-              {
-                  if($PermissionsScope -eq "Resource")
-                  {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Storage Account Backup Contributor" -Scope $DatasourceId | Out-Null}
-              
-                  elseif($PermissionsScope -eq "ResourceGroup")
-                  {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Storage Account Backup Contributor" -Scope $ResourceRG | Out-Null}
-
-                  elseif($PermissionsScope -eq "Subscription")
-                  {New-AzRoleAssignment -ObjectId $vault.IdentityPrincipalId -RoleDefinitionName "Storage Account Backup Contributor" -Scope $SubscriptionName | Out-Null}
-              }
-              #>
-              
-           #}
-          
+          }      
           
     }
 }

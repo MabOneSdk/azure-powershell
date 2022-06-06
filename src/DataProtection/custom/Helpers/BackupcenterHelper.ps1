@@ -78,6 +78,22 @@ function CheckPostgreSqlModuleDependency
 	}
 }
 
+function CheckKeyVaultModuleDependency
+{
+	[Microsoft.Azure.PowerShell.Cmdlets.DataProtection.DoNotExportAttribute()]
+	param() 
+
+	process
+	{
+		$module = Get-InstalledModule | Where-Object {$_.Name -eq "Az.KeyVault"}
+		if($module -eq $null)
+		{
+			$message = "Az.KeyVault Module must be installed to run this command. Please run 'Install-Module -Name Az.KeyVault' to install and continue."
+			throw $message
+		}
+	}
+}
+
 function GetBackupInstanceARGQuery
 {
 	[Microsoft.Azure.PowerShell.Cmdlets.DataProtection.DoNotExportAttribute()]

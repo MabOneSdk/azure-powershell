@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -KeyvaultId
-Resource group of the backup vault
+ID of the keyvault
 
 ```yaml
 Type: System.String
