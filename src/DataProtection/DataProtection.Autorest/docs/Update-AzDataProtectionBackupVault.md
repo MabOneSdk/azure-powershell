@@ -366,6 +366,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ResourceGuardOperationRequest
+ResourceGuardOperationRequests on which LAC check will be performed
+
+```yaml
+Type: System.String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -SoftDeleteRetentionDurationInDay
 Soft delete retention duration in days.
 
@@ -418,6 +433,22 @@ Resource tags.
 
 ```yaml
 Type: System.Collections.Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Token
+Parameter to authorize operations protected by cross tenant resource guard.
+Use command (Get-AzAccessToken -TenantId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").Token to fetch authorization token for different tenant.
+
+```yaml
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -483,7 +514,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api20240301.IBackupVaultResource
+### Microsoft.Azure.PowerShell.Cmdlets.DataProtection.Models.Api20240401.IBackupVaultResource
 
 ## NOTES
 
